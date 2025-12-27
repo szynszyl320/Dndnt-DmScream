@@ -1,0 +1,45 @@
+import { Weapon } from "./weapon";
+
+export class ScuffCharacter {
+
+    public name :string = "Placeholder";
+    public playerName :string = "";
+    public level :number = 0;
+    public race :string = "";
+    public gender :string = "";
+    
+    public campaign :string = "None";
+
+    public maxHp :number = 0;
+    public currentHp :number = 0;
+
+    public weapons :Array<Weapon> = [];
+
+    public origin :string = "";
+
+    public str :number = 0;
+    public dex :number = 0;
+    public con :number = 0;
+    public int :number = 0;
+    public wis :number = 0;
+    public cha :number = 0;
+
+    public ac :number = 0;
+
+    public height :string = "";
+
+    public traits :string = "";
+
+    public languages :Array<string> = [];
+    
+    public proficiencies :Array<string> = [];
+
+    public clothes :Array<string> = [];
+
+    public implants :Array<string> = [];
+
+    public inventory :Array<string> = [];
+
+    public components :Array<string> = [];
+
+}

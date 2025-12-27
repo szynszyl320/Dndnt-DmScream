@@ -1,0 +1,9 @@
+@for (Character of CharactersArray; track $index) {
+    <button (click)="chooseCharacter(Character)">
+        {{Character.name}} || {{Character.campaign}}
+    </button>
+}
+<button (click)="createNewCharacter()">
+    New Character
+</button>
+
