@@ -72,14 +72,14 @@ export class CharacterHandlerService {
     }
   }
 
-  findCharacterIndex(character : ScuffCharacter | any) :number | null {
+  findCharacterIndex(character : ScuffCharacter | any) :number {
     const characters :Array<any> = this.$CharacterList.getValue();
     for(let i = 0; i < characters.length; i++) {
       if(characters[i].name == character.name && characters[i].campaign == character.campaign) {
         return i;
       }
     }
-    return null;
+    return -2;
   }
 
   createNewCharacter(newCharacter :ScuffCharacter | any) :void {

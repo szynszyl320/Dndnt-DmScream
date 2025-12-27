@@ -11,3 +11,20 @@
 #left_section {
     width: 90%;
 }
+
+app-character {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+app-toolbox {
+    position: absolute;
+    top: 5px;
+    right: 2px;
+    background-color: rgba(14, 13, 13, 0.829);
+    padding: 5px;
+    color: white;
+    text-shadow: 1px 0 10px black;
+}

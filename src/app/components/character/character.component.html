@@ -58,13 +58,19 @@
                 Ac 
                 <input type="number" name="ac" id="ac" [(ngModel)]="currentCharacter.ac">
             </label>
+            <label>
+                Change hp
+                <input type="number" name="hpChange" id="hpChange" [(ngModel)]="hpChange">
+                <button (click)="changeCurrentHp()">Confirm</button>
+            </label>
         </article>
-        <table>
+        <table id="weapons">
             <tr>
                 <th>Name</th>
                 <th>Damage</th>
                 <th>Damage type</th>
                 <th>Bonus to hit</th>
+                <th></th>
             </tr>
             @for (weapon of currentCharacter.weapons; track $index) {
                 <tr>
@@ -72,50 +78,52 @@
                     <td><input type="text" [(ngModel)]="weapon.damage"></td>
                     <td><input type="text" [(ngModel)]="weapon.damageType"></td>
                     <td><input type="text" [(ngModel)]="weapon.bonusToHit"></td>
+                    <td><button (click)="removeWeapon($index)">Remove weapon</button></td>
                 </tr>
             }
         </table>
+        <button (click)="addWeapon()">Add New Weapon</button>
     </section>
     <section id="right_section">
         <label>
-            Proficiencies
-            <input type="text" name="proficiencies" id="proficiencies" [(ngModel)]="proficienciesString">
+            <p>Proficiencies</p>
+            <textarea name="proficiencies" id="proficiencies" [(ngModel)]="proficienciesString" rows="4" cols="50"></textarea>
         </label>
         <label>
-            Height
-            <input type="text" name="height" id="height" [(ngModel)]="currentCharacter.height">
+            <p>Height</p>
+            <textarea name="height" id="height" [(ngModel)]="currentCharacter.height" rows="4" cols="50"></textarea>
         </label>
         <label>
-            Traits
-            <input type="text" name="traits" id="traits" [(ngModel)]="traitsString">
+            <p>Traits</p>
+            <textarea name="traits" id="traits" [(ngModel)]="traitsString" rows="4" cols="50"></textarea>
         </label>
         <label>
-            Langauges 
-            <input type="text" name="languages" id="languages" [(ngModel)]="langaugesString">
+            <p>Langauges</p> 
+            <textarea name="languages" id="languages" [(ngModel)]="langaugesString" rows="4" cols="50"></textarea>
         </label>
         <label>
-            Clothes
-            <input type="text" name="clothes" id="clothes" [(ngModel)]="clothesString">
+            <p>Clothes</p>
+            <textarea name="clothes" id="clothes" [(ngModel)]="clothesString" rows="4" cols="50"></textarea>
         </label>
         <label>
-            Implants
-            <input type="text" name="implants" id="implants" [(ngModel)]="implantsString">
+            <p>Implants</p>
+            <textarea name="implants" id="implants" [(ngModel)]="implantsString" rows="4" cols="50"></textarea>
         </label>
     </section>
 </main>
-<section id="inventory_section">
+<section id="inventory_section" class="lowerSection">
     <label>
-        Inventory:
-        <textarea name="inventory" id="inventory" [(ngModel)]="inventoryString"></textarea>
+        <p>Inventory:</p>
+        <textarea name="inventory" id="inventory" [(ngModel)]="inventoryString" cols="225" rows="20"></textarea>
     </label>
 </section>
-<section id="components_section">
+<section id="components_section" class="lowerSection">
     <label>
-        Components
-        <textarea name="components" id="components" [(ngModel)]="componentsString"></textarea>
+        <p>Components:</p>
+        <textarea name="components" id="components" [(ngModel)]="componentsString" cols="225" rows="20"></textarea>
     </label>
 </section>
-<section id="origin_section">
-    Origin:
-    <textarea name="origin" id="origin" [(ngModel)]="currentCharacter.origin"></textarea>
+<section id="origin_section" class="lowerSection">
+    <p>Origin:</p>
+    <textarea name="origin" id="origin" [(ngModel)]="currentCharacter.origin" cols="225" rows="20"></textarea>
 </section>

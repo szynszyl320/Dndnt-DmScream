@@ -1,0 +1,33 @@
+<button (click)="isToolboxVisible = !isToolboxVisible">{{!isToolboxVisible? "Show" : "Hide"}} ToolBox</button>
+@if (isToolboxVisible) {
+    <main>
+        <section>
+            <h3>Utility</h3>
+            <button (click)="exportCurrentCharacter()">Export Current Character</button>
+
+            <label>
+                Import Character: <input type="file" name="import_character" id="import_character" (change)="importCharacter($event)">
+            </label>
+
+            <button (click)="deleteCurrentCharacter()">Delete Current Character</button>
+        </section>  
+        <section>
+            <h3>DiceRoller</h3>
+            Hold down shift to add multiple and roll them together with the "Roll!" button
+            <article>
+                @for (die of dice; track $index) {
+                    <button (click)="pushDice(die, $event)">d{{die}}</button>
+                }
+            </article>
+        
+            <p>Dice to roll: </p>
+            @for (die of diceToRoll; track $index) {
+                d{{die}},
+            }
+            
+            <button (click)="rollTheDice()">Roll!</button>
+            <p>{{scores}}</p>
+            <button (click)="clearTheDice()">Clear</button>
+        </section>
+    </main>
+}

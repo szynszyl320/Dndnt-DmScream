@@ -1,10 +1,10 @@
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Subject, Subscription } from 'rxjs';
 
 import { CharacterHandlerService } from '../../services/character-handler.service';
 
 import { ModifierCeilPipe } from '../../pipes/modifier-ceil.pipe';
+import { Weapon } from '../../class/weapon';
 
 
 @Component({
@@ -17,6 +17,8 @@ import { ModifierCeilPipe } from '../../pipes/modifier-ceil.pipe';
 
 export class CharacterComponent {
   currentCharacter :any;
+
+  hpChange :number = 0;
 
   traitsString :string = "";
   langaugesString :string = "";
@@ -58,6 +60,20 @@ export class CharacterComponent {
     this.characterHandler.changeCharacter(this.currentCharacter);
     this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter);
     this.characterHandler.saveContent();
+  }
+
+  changeCurrentHp() :void {
+    this.currentCharacter.currentHp += this.hpChange;
+    this.hpChange = 0;
+  }
+
+  addWeapon() :void {
+    this.currentCharacter.weapons.push(new Weapon)
+  }
+
+  removeWeapon(weaponIndex :number) :void {
+    this.currentCharacter.weapons.splice(weaponIndex, 1);
+    this.saveChanges();
   }
 
   @HostListener('input', ['$event'])
