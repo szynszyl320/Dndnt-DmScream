@@ -1,0 +1,121 @@
+
+<header>
+    <label>Name: <input type="text" name="characterName" id="characterName" [(ngModel)]="currentCharacter.name"></label>
+    <label>Player name: <input type="text" name="playerName" id="playerName" [(ngModel)]="currentCharacter.playerName"></label>
+    <label>Level: <input type="number" name="level" id="level" [(ngModel)]="currentCharacter.level"></label>
+    <label>Gender: <input type="text" name="Gender" id="Gender" [(ngModel)]="currentCharacter.gender"></label>
+    <label>Campaign: <input type="text" name="campaign" id="campaign" [(ngModel)]="currentCharacter.campaign"></label>
+</header>
+<main>
+    <table id="stats">
+        <tr>
+            <th>Stat</th>
+            <th>Number</th>
+            <th>Modifier</th>
+        </tr>
+        <tr>
+            <td>Strength</td>
+            <td><input type="number" name="str" id="str" [(ngModel)]="currentCharacter.str"></td>
+            <td>{{currentCharacter.str | modifierCeil}}</td>
+        </tr>
+        <tr>
+            <td>Dexterity</td>
+            <td><input type="number" name="dex" id="dex" [(ngModel)]="currentCharacter.dex"></td>
+            <td>{{currentCharacter.dex | modifierCeil}}</td>
+        </tr>
+        <tr>
+            <td>Constitution</td>
+            <td><input type="number" name="con" id="con" [(ngModel)]="currentCharacter.con"></td>
+            <td>{{currentCharacter.con | modifierCeil}}</td>
+        </tr>
+        <tr>
+            <td>Inteligence</td>
+            <td><input type="number" name="int" id="int" [(ngModel)]="currentCharacter.int"></td>
+            <td>{{currentCharacter.int | modifierCeil}}</td>
+        </tr>
+        <tr>
+            <td>Wisdom</td>
+            <td><input type="number" name="wis" id="wis" [(ngModel)]="currentCharacter.wis"></td>
+            <td>{{currentCharacter.wis | modifierCeil}}</td>
+        </tr>
+        <tr>
+            <td>Charisma</td>
+            <td><input type="number" name="cha" id="cha" [(ngModel)]="currentCharacter.cha"></td>
+            <td>{{currentCharacter.cha | modifierCeil}}</td>
+        </tr>
+    </table>
+    <section id="middle_section">
+        <article id="hp">
+            <label>
+                Max Hp
+                <input type="number" name="maxHp" id="maxHp" [(ngModel)]="currentCharacter.maxHp">
+            </label>
+            <label>
+                Current Hp
+                <input type="number" name="currentHp" id="currentHp" [(ngModel)]="currentCharacter.currentHp">
+            </label>
+            <label>
+                Ac 
+                <input type="number" name="ac" id="ac" [(ngModel)]="currentCharacter.ac">
+            </label>
+        </article>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Damage</th>
+                <th>Damage type</th>
+                <th>Bonus to hit</th>
+            </tr>
+            @for (weapon of currentCharacter.weapons; track $index) {
+                <tr>
+                    <td><input type="text" [(ngModel)]="weapon.name"></td>
+                    <td><input type="text" [(ngModel)]="weapon.damage"></td>
+                    <td><input type="text" [(ngModel)]="weapon.damageType"></td>
+                    <td><input type="text" [(ngModel)]="weapon.bonusToHit"></td>
+                </tr>
+            }
+        </table>
+    </section>
+    <section id="right_section">
+        <label>
+            Proficiencies
+            <input type="text" name="proficiencies" id="proficiencies" [(ngModel)]="proficienciesString">
+        </label>
+        <label>
+            Height
+            <input type="text" name="height" id="height" [(ngModel)]="currentCharacter.height">
+        </label>
+        <label>
+            Traits
+            <input type="text" name="traits" id="traits" [(ngModel)]="traitsString">
+        </label>
+        <label>
+            Langauges 
+            <input type="text" name="languages" id="languages" [(ngModel)]="langaugesString">
+        </label>
+        <label>
+            Clothes
+            <input type="text" name="clothes" id="clothes" [(ngModel)]="clothesString">
+        </label>
+        <label>
+            Implants
+            <input type="text" name="implants" id="implants" [(ngModel)]="implantsString">
+        </label>
+    </section>
+</main>
+<section id="inventory_section">
+    <label>
+        Inventory:
+        <textarea name="inventory" id="inventory" [(ngModel)]="inventoryString"></textarea>
+    </label>
+</section>
+<section id="components_section">
+    <label>
+        Components
+        <textarea name="components" id="components" [(ngModel)]="componentsString"></textarea>
+    </label>
+</section>
+<section id="origin_section">
+    Origin:
+    <textarea name="origin" id="origin" [(ngModel)]="currentCharacter.origin"></textarea>
+</section>

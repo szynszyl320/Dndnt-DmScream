@@ -11,13 +11,15 @@ export class CharacterHandlerService {
   $CharacterList :BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor() {
+    // localStorage.setItem('dndnt_main', "{CurrentCharacter: {name: test, campaign: test} CharacterList: [{name: test, campaign: test}]}");
+
     this.loadContent();
 
   }
 
   loadContent() :any {
     try {
-      const MainSave :any = JSON.parse(localStorage.getItem('dndnt_main') || '{}');
+      const MainSave :any = JSON.parse(localStorage.getItem('dndnt_main') || '{{CurrentCharacter: {name: "test", campaign: "test"} CharacterList: [{name: "test", campaign: "test"}]}}');
       
       const initial = MainSave.CurrentCharacter ||  MainSave.CharacterList[0] || null;
       this.$CurrentCharacter = new BehaviorSubject<any>(initial);
@@ -28,6 +30,9 @@ export class CharacterHandlerService {
 
     } catch (error) {
       
+      this.$CurrentCharacter.next({name: "test", campaign: "test"})
+      this.$CharacterList.next([{name: "test", campaign: "test"}])
+
       console.error("Error loading content: ", error);
 
     }
@@ -47,8 +52,6 @@ export class CharacterHandlerService {
       
     }
 
-
-
   }
 
   changeCharacter(newChosenCharacter :ScuffCharacter | any) :void {
@@ -57,6 +60,26 @@ export class CharacterHandlerService {
     } else {
       return;
     }
+  }
+
+  modifyArray(characterIndex :number | any, character :any ) :void {
+    try {
+      const characters :Array<any> = this.$CharacterList.getValue();
+      characters[characterIndex] = character;
+      this.$CharacterList.next(characters);
+    } catch (error) {
+      console.error('Error updating character list: ', error);
+    }
+  }
+
+  findCharacterIndex(character : ScuffCharacter | any) :number | null {
+    const characters :Array<any> = this.$CharacterList.getValue();
+    for(let i = 0; i < characters.length; i++) {
+      if(characters[i].name == character.name && characters[i].campaign == character.campaign) {
+        return i;
+      }
+    }
+    return null;
   }
 
   createNewCharacter(newCharacter :ScuffCharacter | any) :void {

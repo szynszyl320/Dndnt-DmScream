@@ -1,0 +1,13 @@
+#container {
+    display: flex;
+}
+
+#right_section {
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+#left_section {
+    width: 90%;
+}
