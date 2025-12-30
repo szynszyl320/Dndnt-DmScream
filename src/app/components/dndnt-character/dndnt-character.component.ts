@@ -11,17 +11,14 @@ import { ModifierCeilPipe } from '../../pipes/modifier-ceil.pipe';
 //class imports
 import { Weapon } from '../../class/weapon';
 
-
 @Component({
-  selector: 'app-character',
+  selector: 'app-dndnt-character',
   imports: [FormsModule, ModifierCeilPipe],
-  templateUrl: './character.component.html',
-  styleUrl: './character.component.css'
+  templateUrl: './dndnt-character.component.html',
+  styleUrl: './dndnt-character.component.css'
 })
-
-
-export class CharacterComponent {
-  currentCharacter :any = {}; //defines a variable for the current character
+export class DndntCharacterComponent {
+currentCharacter :any = {}; //defines a variable for the current character
 
   hpChange :number = 0; //defines the variable for later use in changing hp. 
 
@@ -30,9 +27,7 @@ export class CharacterComponent {
   langaugesString :string = "";
   proficienciesString :string = '';
   clothesString :string = "";
-  implantsString :string = "";
   inventoryString :string = "";
-  componentsString :string = "";
 
   constructor(private characterHandler: CharacterHandlerService) {}
 
@@ -47,9 +42,7 @@ export class CharacterComponent {
       this.traitsString = value.traits.join('\n') || "";
       this.proficienciesString = value.proficiencies.join('\n') || "";
       this.clothesString = value.clothes.join('\n') || "";
-      this.implantsString = value.implants.join('\n') || "";
       this.inventoryString = value.inventory.join('\n') || "";
-      this.componentsString = value.components.join('\n') || "";
       this.langaugesString = value.languages.join('\n') || "";
 
     }); 
@@ -62,9 +55,7 @@ export class CharacterComponent {
     this.currentCharacter.languages = this.langaugesString.split('\n');
     this.currentCharacter.proficiencies = this.proficienciesString.split('\n');
     this.currentCharacter.clothes = this.clothesString.split('\n');
-    this.currentCharacter.implants = this.implantsString.split('\n');
     this.currentCharacter.inventory = this.inventoryString.split('\n');
-    this.currentCharacter.components = this.componentsString.split('\n');
 
 
     this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 
@@ -94,5 +85,6 @@ export class CharacterComponent {
     this.saveChanges();
     this.characterHandler.getCampaings();
   }
+ 
  
 }

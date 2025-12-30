@@ -1,9 +1,19 @@
-@for (Character of CharactersArray; track $index) {
-    <button (click)="chooseCharacter(Character)">
-        {{Character.name}} || {{Character.campaign}}
-    </button>
+@for (campaign of campaigns; track $index) {
+    <h3>{{campaign}}</h3>
+    
+    @for (Character of CharactersArray; track $index) {
+        @if (Character.campaign == campaign) {
+            <button (click)="chooseCharacter(Character)">
+                {{Character.name}} || {{Character.campaign}}
+            </button>
+        }
+    }
 }
-<button (click)="createNewCharacter()">
-    New Character
-</button>
 
+<button (click)="isCreatorVisible = !isCreatorVisible">
+    {{ (isCreatorVisible)? "Close" : "Open" }} creator
+</button>
+@if (isCreatorVisible) {
+    <button (click)="createNewCharacter('generation')">Generation Ship</button>   
+    <button (click)="createNewCharacter('dndnt')">DnDn't</button>
+}   

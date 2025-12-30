@@ -1,9 +1,9 @@
-//This is a class created for my homebrew Generation Ship campaign. 
+//This is a class created for my friends DnDn't campaign 
+
 import { Weapon } from "./weapon";
 
-export class ScuffCharacter {
-
-    public name :string = "Placeholder";
+export class DndtCharacter {
+public name :string = "Placeholder";
     public playerName :string = "";
     public level :number = 0;
     public race :string = "";
@@ -25,21 +25,17 @@ export class ScuffCharacter {
 
     public height :string = "";
 
+    public magicType :string = "";
+
     public traits :Array<string> = [];
 
     public languages :Array<string> = [];
     
     public proficiencies :Array<string> = [];
 
-    public clothes :Array<string> = [];
-
     public origin :string = "";
-
-    public implants :Array<string> = [];
 
     public inventory :Array<string> = [];
 
-    public components :Array<string> = [];
-
-    public type :string = "generation ship"
+    public type :string = "dndnt"
 }

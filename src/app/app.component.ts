@@ -5,6 +5,10 @@ import { RouterOutlet } from '@angular/router';
 import { CharacterSelectionComponent } from './components/character-selection/character-selection.component';
 import { CharacterComponent } from './components/character/character.component';
 import { ToolboxComponent } from './components/toolbox/toolbox.component';
+import { DndntCharacterComponent } from './components/dndnt-character/dndnt-character.component';
+
+//Services
+import { CharacterHandlerService } from './services/character-handler.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +16,8 @@ import { ToolboxComponent } from './components/toolbox/toolbox.component';
     RouterOutlet,
     CharacterSelectionComponent,
     CharacterComponent,
-    ToolboxComponent
+    ToolboxComponent,
+    DndntCharacterComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -20,6 +25,20 @@ import { ToolboxComponent } from './components/toolbox/toolbox.component';
 
 
 export class AppComponent {
+  constructor(private characterHandler: CharacterHandlerService ) {}
+  
+  ngOnInit() {
+    //Code executed upon componen initialization 
+    this.characterHandler.$CurrentCharacter.subscribe((content) => {
+      this.currentCharacter = content;
+      this.typeToBeDisplayed = this.currentCharacter.type;
+    }); //subscribing to the current character
+  }
+  
+  currentCharacter :any = {}; 
+
+  typeToBeDisplayed :string = "";
+
   isSideBarVisible :boolean = true; //defines a variable for checking if the sidebar is visible 
   leftSectionWidth :string = "90%" //defines a variable with the default width of the right section
 

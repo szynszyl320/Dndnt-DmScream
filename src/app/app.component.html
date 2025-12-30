@@ -8,7 +8,16 @@
 
 
   <section id="left_section" [style.width]="leftSectionWidth">
-    <app-character></app-character>
+    @if (typeToBeDisplayed == "") {
+      <h1>An unsupported character chosen!</h1>
+    } @else if (typeToBeDisplayed == "generation ship") {
+      <app-character></app-character>
+    } @else if (typeToBeDisplayed) { 
+      <app-dndnt-character></app-dndnt-character>
+    } @else {
+      <h1>Error!</h1>
+    }
+    
   </section>
 
 </section>

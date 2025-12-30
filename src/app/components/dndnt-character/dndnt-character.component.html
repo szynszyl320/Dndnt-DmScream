@@ -1,0 +1,126 @@
+
+<header>
+    <label>Name: <input type="text" name="characterName" id="characterName" [(ngModel)]="currentCharacter.name"></label>
+    <label>Player name: <input type="text" name="playerName" id="playerName" [(ngModel)]="currentCharacter.playerName"></label>
+    <label>Level: <input type="number" name="level" id="level" [(ngModel)]="currentCharacter.level"></label>
+    <label>Gender: <input type="text" name="Gender" id="Gender" [(ngModel)]="currentCharacter.gender"></label>
+    <label>Campaign: <input type="text" name="campaign" id="campaign" [(ngModel)]="currentCharacter.campaign"></label>
+    <label>Race: <input type="text" name="race" id="race" [(ngModel)]="currentCharacter.race"></label>
+</header>
+<main>
+    <table id="stats">
+        <tr>
+            <th>Stat</th>
+            <th>Number</th>
+            <th>Modifier</th>
+        </tr>
+        <tr>
+            <td>Strength</td>
+            <td><input type="number" name="str" id="str" [(ngModel)]="currentCharacter.str"></td>
+            <td>{{currentCharacter.str | modifierCeil}}</td>
+        </tr>
+        <tr>
+            <td>Dexterity</td>
+            <td><input type="number" name="dex" id="dex" [(ngModel)]="currentCharacter.dex"></td>
+            <td>{{currentCharacter.dex | modifierCeil}}</td>
+        </tr>
+        <tr>
+            <td>Constitution</td>
+            <td><input type="number" name="con" id="con" [(ngModel)]="currentCharacter.con"></td>
+            <td>{{currentCharacter.con | modifierCeil}}</td>
+        </tr>
+        <tr>
+            <td>Inteligence</td>
+            <td><input type="number" name="int" id="int" [(ngModel)]="currentCharacter.int"></td>
+            <td>{{currentCharacter.int | modifierCeil}}</td>
+        </tr>
+        <tr>
+            <td>Wisdom</td>
+            <td><input type="number" name="wis" id="wis" [(ngModel)]="currentCharacter.wis"></td>
+            <td>{{currentCharacter.wis | modifierCeil}}</td>
+        </tr>
+        <tr>
+            <td>Charisma</td>
+            <td><input type="number" name="cha" id="cha" [(ngModel)]="currentCharacter.cha"></td>
+            <td>{{currentCharacter.cha | modifierCeil}}</td>
+        </tr>
+    </table>
+    <section id="middle_section">
+        <article id="hp">
+            <label>
+                Max Hp
+                <input type="number" name="maxHp" id="maxHp" [(ngModel)]="currentCharacter.maxHp">
+            </label>
+            <label>
+                Current Hp
+                <input type="number" name="currentHp" id="currentHp" [(ngModel)]="currentCharacter.currentHp">
+            </label>
+            <label>
+                Ac 
+                <input type="number" name="ac" id="ac" [(ngModel)]="currentCharacter.ac">
+            </label>
+            <label>
+                Change hp
+                <input type="number" name="hpChange" id="hpChange" [(ngModel)]="hpChange">
+                <button (click)="changeCurrentHp()">Confirm</button>
+            </label>
+        </article>
+        <table id="weapons">
+            <tr>
+                <th>Name</th>
+                <th>Damage</th>
+                <th>Damage type</th>
+                <th>Bonus to hit</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+            @for (weapon of currentCharacter.weapons; track $index) {
+                <tr>
+                    <td><input type="text" [(ngModel)]="weapon.name"></td>
+                    <td><input type="text" [(ngModel)]="weapon.damage"></td>
+                    <td><input type="text" [(ngModel)]="weapon.damageType"></td>
+                    <td><input type="text" [(ngModel)]="weapon.bonusToHit"></td>
+                    <td><textarea [(ngModel)]="weapon.description"></textarea></td>
+                    <td><button (click)="removeWeapon($index)">Remove weapon</button></td>
+                </tr>
+            }
+        </table>
+        <button (click)="addWeapon()">Add New Weapon</button>
+    </section>
+    <section id="right_section">
+        <label>
+            <p>Proficiencies</p>
+            <textarea name="proficiencies" id="proficiencies" [(ngModel)]="proficienciesString" rows="4" cols="50"></textarea>
+        </label>
+        <label>
+            <p>Height</p>
+            <textarea name="height" id="height" [(ngModel)]="currentCharacter.height" rows="4" cols="50"></textarea>
+        </label>
+        <label>
+            <p>Traits</p>
+            <textarea name="traits" id="traits" [(ngModel)]="traitsString" rows="4" cols="50"></textarea>
+        </label>
+        <label>
+            <p>Langauges</p> 
+            <textarea name="languages" id="languages" [(ngModel)]="langaugesString" rows="4" cols="50"></textarea>
+        </label>
+        <label>
+            <p>Clothes</p>
+            <textarea name="clothes" id="clothes" [(ngModel)]="clothesString" rows="4" cols="50"></textarea>
+        </label>
+        <label>
+            <p>Magic Type</p>
+            <textarea name="magicType" id="magicType" [(ngModel)]="currentCharacter.magicType" rows="4" cols="50"></textarea>
+        </label>
+    </section>
+</main>
+<section id="inventory_section" class="lowerSection">
+    <label>
+        <p>Inventory:</p>
+        <textarea name="inventory" id="inventory" [(ngModel)]="inventoryString" cols="225" rows="20"></textarea>
+    </label>
+</section>
+<section id="origin_section" class="lowerSection">
+    <p>Origin:</p>
+    <textarea name="origin" id="origin" [(ngModel)]="currentCharacter.origin" cols="225" rows="20"></textarea>
+</section>

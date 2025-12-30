@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { CharacterHandlerService } from '../../services/character-handler.service';
 import { ScuffCharacter } from '../../class/scuff-character';
+import { DndtCharacter } from '../../class/dndt-character';
 
 @Component({
   selector: 'app-character-selection',
@@ -10,8 +11,12 @@ import { ScuffCharacter } from '../../class/scuff-character';
 })
 
 export class CharacterSelectionComponent {
+  campaigns :Set<string> = new Set<string>;
+
   CharactersArray: any = [];
   
+  isCreatorVisible :boolean = false;
+
   constructor(private characterHandler: CharacterHandlerService) {}
 
   ngOnInit() {
@@ -19,6 +24,9 @@ export class CharacterSelectionComponent {
       this.CharactersArray = value;
     }); 
    
+    this.characterHandler.$Campaigns.subscribe((value :any) => {
+      this.campaigns = value;
+    })
   }
 
   chooseCharacter(character :ScuffCharacter | any) :void {
@@ -30,14 +38,22 @@ export class CharacterSelectionComponent {
     }
   }
 
-  createNewCharacter() :void {
+  createNewCharacter(type :string) :void {
     try {
-      this.characterHandler.createNewCharacter(new ScuffCharacter)
+      let newCharacter :any;
+      if (type == "generation") {
+        newCharacter = new ScuffCharacter;
+      } else if(type = "dndt") {
+        newCharacter = new DndtCharacter;
+      }
+      this.characterHandler.createNewCharacter(newCharacter);
       this.characterHandler.saveContent();
     } catch (error) {
       console.error("Something went wrong when creating the character", error);
     }
   }
+
+  
 
 }
 

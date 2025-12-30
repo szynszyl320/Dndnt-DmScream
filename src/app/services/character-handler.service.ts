@@ -10,12 +10,14 @@ export class CharacterHandlerService {
 
   $CurrentCharacter :BehaviorSubject<any> = new BehaviorSubject<any>(null); //Defining the Current Character Subject for Observables  
   $CharacterList :BehaviorSubject<any> = new BehaviorSubject<any>(null); //Defining the Array of characters Subject for Observables 
+  $Campaigns :BehaviorSubject<any> = new BehaviorSubject<any>(null); //Defining a set of campaings for observables
 
   constructor() {
     //Automatically loads the content saved in localStorage 
     this.loadContent();
 
   }
+
 
   loadContent() :any {
     try {
@@ -24,7 +26,9 @@ export class CharacterHandlerService {
       const initial = MainSave.CurrentCharacter ||  MainSave.CharacterList[0] || null; // creates a constant with the for the loaded Current Character, if not found, chooses the first character in the Character Array, if none are found, it just inserts a null value. 
       this.$CurrentCharacter = new BehaviorSubject<any>(initial); // Creates a new Subject with the initial value 
       this.$CharacterList = new BehaviorSubject<any>(MainSave.CharacterList || null); //Creates a new Subject with the CharacterList or a null value; 
-    
+
+      this.getCampaings();
+
       console.log("Content succesfully loaded");
 
     } catch (error) {
@@ -112,4 +116,15 @@ export class CharacterHandlerService {
     }
   }
 
+  getCampaings() :void {
+    try {
+      const campaings = new Set<string>
+      this.$CharacterList.getValue().forEach((character :any ) => {
+        campaings.add(character.campaign)
+      });
+      this.$Campaigns.next(campaings);
+    } catch (error) {
+      console.error("Error trying to isolate campaigns: ", error);
+    }
+  }
 }
