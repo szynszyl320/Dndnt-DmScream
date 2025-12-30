@@ -20,6 +20,17 @@ import { ToolboxComponent } from './components/toolbox/toolbox.component';
 
 
 export class AppComponent {
-  title = 'dndnt';
+  isSideBarVisible :boolean = true; //defines a variable for checking if the sidebar is visible 
+  leftSectionWidth :string = "90%" //defines a variable with the default width of the right section
+
+  switchSideBar() :void {
+    this.isSideBarVisible = !this.isSideBarVisible; //switches the value of the variable to the negation of it's former self 
+    if(this.isSideBarVisible) {
+      this.leftSectionWidth = "90%";
+    } else {
+      this.leftSectionWidth = "100%";
+    }
+    //sets the section width to make it look better
+  }
 }
 

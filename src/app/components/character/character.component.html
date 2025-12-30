@@ -5,6 +5,7 @@
     <label>Level: <input type="number" name="level" id="level" [(ngModel)]="currentCharacter.level"></label>
     <label>Gender: <input type="text" name="Gender" id="Gender" [(ngModel)]="currentCharacter.gender"></label>
     <label>Campaign: <input type="text" name="campaign" id="campaign" [(ngModel)]="currentCharacter.campaign"></label>
+    <label>Race: <input type="text" name="race" id="race" [(ngModel)]="currentCharacter.race"></label>
 </header>
 <main>
     <table id="stats">
@@ -70,6 +71,7 @@
                 <th>Damage</th>
                 <th>Damage type</th>
                 <th>Bonus to hit</th>
+                <th>Description</th>
                 <th></th>
             </tr>
             @for (weapon of currentCharacter.weapons; track $index) {
@@ -78,6 +80,7 @@
                     <td><input type="text" [(ngModel)]="weapon.damage"></td>
                     <td><input type="text" [(ngModel)]="weapon.damageType"></td>
                     <td><input type="text" [(ngModel)]="weapon.bonusToHit"></td>
+                    <td><textarea [(ngModel)]="weapon.description"></textarea></td>
                     <td><button (click)="removeWeapon($index)">Remove weapon</button></td>
                 </tr>
             }

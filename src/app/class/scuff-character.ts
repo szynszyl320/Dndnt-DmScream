@@ -1,3 +1,4 @@
+//This is a class created for my homebrew Generation Ship campaign. 
 import { Weapon } from "./weapon";
 
 export class ScuffCharacter {

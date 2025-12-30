@@ -28,3 +28,9 @@ app-toolbox {
     color: white;
     text-shadow: 1px 0 10px black;
 }
+
+#sideBar_toggle {
+    position: absolute;
+    top: 5px;
+    left: 2px;
+}

@@ -5,33 +5,33 @@ import { ScuffCharacter } from '../class/scuff-character';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CharacterHandlerService {
 
-  $CurrentCharacter :BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  $CharacterList :BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  $CurrentCharacter :BehaviorSubject<any> = new BehaviorSubject<any>(null); //Defining the Current Character Subject for Observables  
+  $CharacterList :BehaviorSubject<any> = new BehaviorSubject<any>(null); //Defining the Array of characters Subject for Observables 
 
   constructor() {
-    // localStorage.setItem('dndnt_main', "{CurrentCharacter: {name: test, campaign: test} CharacterList: [{name: test, campaign: test}]}");
-
+    //Automatically loads the content saved in localStorage 
     this.loadContent();
 
   }
 
   loadContent() :any {
     try {
-      const MainSave :any = JSON.parse(localStorage.getItem('dndnt_main') || '{{CurrentCharacter: {name: "test", campaign: "test"} CharacterList: [{name: "test", campaign: "test"}]}}');
+      const MainSave :any = JSON.parse(localStorage.getItem('dndnt_main') || '{{CurrentCharacter: {name: "test", campaign: "test"} CharacterList: [{name: "test", campaign: "test"}]}}'); //Loads and Parses the content from localStorage. If not found replaces it with arbitrary content so the program doesn't shit itself 
       
-      const initial = MainSave.CurrentCharacter ||  MainSave.CharacterList[0] || null;
-      this.$CurrentCharacter = new BehaviorSubject<any>(initial);
-
-      this.$CharacterList = new BehaviorSubject<any>(MainSave.CharacterList);
+      const initial = MainSave.CurrentCharacter ||  MainSave.CharacterList[0] || null; // creates a constant with the for the loaded Current Character, if not found, chooses the first character in the Character Array, if none are found, it just inserts a null value. 
+      this.$CurrentCharacter = new BehaviorSubject<any>(initial); // Creates a new Subject with the initial value 
+      this.$CharacterList = new BehaviorSubject<any>(MainSave.CharacterList || null); //Creates a new Subject with the CharacterList or a null value; 
     
       console.log("Content succesfully loaded");
 
     } catch (error) {
       
-      this.$CurrentCharacter.next({name: "test", campaign: "test"})
-      this.$CharacterList.next([{name: "test", campaign: "test"}])
+      //Inserting arbitrary values so the program doesn't shit itself 
+      this.$CurrentCharacter.next({name: "test", campaign: "test"});
+      this.$CharacterList.next([{name: "test", campaign: "test"}]);
 
       console.error("Error loading content: ", error);
 
@@ -43,65 +43,70 @@ export class CharacterHandlerService {
       const MainSave :any = {
         CurrentCharacter: this.$CurrentCharacter.getValue(),
         CharacterList: this.$CharacterList.getValue(),
-      };
-      localStorage.setItem('dndnt_main', JSON.stringify(MainSave));
+      }; //creates a new MainSave wit the value of Current Character and CharacterList 
+      localStorage.setItem('dndnt_main', JSON.stringify(MainSave)); //saves the MainSave to localstorage, after stringifying it 
     
     } catch (error) {
-      
       console.error("Error saving content: ", error);
-      
     }
 
   }
 
   changeCharacter(newChosenCharacter :ScuffCharacter | any) :void {
-    if(newChosenCharacter != null) {
-      this.$CurrentCharacter.next(newChosenCharacter);
+    try {
+      if(newChosenCharacter != null) {
+      this.$CurrentCharacter.next(newChosenCharacter); //changes the current character by inserting a new value into the $CurrentCharacter Subject
     } else {
       return;
+    }
+    } catch (error) {
+      console.error('Error changing character: ', error);
     }
   }
 
   modifyArray(characterIndex :number | any, character :any ) :void {
     try {
-      const characters :Array<any> = this.$CharacterList.getValue();
-      characters[characterIndex] = character;
-      this.$CharacterList.next(characters);
+      const characters :Array<any> = this.$CharacterList.getValue(); //Creates a temporary array based on the $CharacterList Subject's value 
+      characters[characterIndex] = character; //Modifies the desired character in the temporary array 
+      this.$CharacterList.next(characters); //Replaces the current CharacterList with the modified data
     } catch (error) {
       console.error('Error updating character list: ', error);
     }
   }
 
   findCharacterIndex(character : ScuffCharacter | any) :number {
-    const characters :Array<any> = this.$CharacterList.getValue();
+    try {
+      const characters :Array<any> = this.$CharacterList.getValue(); //gets the value of the $CharacterList arraty
     for(let i = 0; i < characters.length; i++) {
-      if(characters[i].name == character.name && characters[i].campaign == character.campaign) {
-        return i;
+        if(characters[i].name == character.name && characters[i].campaign == character.campaign) {
+          //Checks if a character with the provided name and campaign exists. I'm aware this is not fool proof, I simply decided not to introduce an Id system. If it comes back to bite me in the ass later on, I'll come back to modify this comment 
+          return i; //returns the index in the $CharacterList Subject 
+        }
       }
+      return NaN; //if the given character isn't found, returns a Not a Number, essentially bricking whatever it is later in the code 
+    } catch (error) {
+      console.error('Error finding character: ', error);
+      return NaN;
     }
-    return -2;
   }
 
   createNewCharacter(newCharacter :ScuffCharacter | any) :void {
     if(newCharacter != null) {
-      const characters :Array<any> = this.$CharacterList.getValue(); 
-      characters.push(newCharacter);
-      console.log(characters);
-      this.$CharacterList.next(characters);
+      const characters :Array<any> = this.$CharacterList.getValue(); //Creates a temporary array based on the $CharacterList Subject's value 
+      characters.push(newCharacter); //Pushes the new character into the temporary array
+      this.$CharacterList.next(characters); //Replaces the current CharacterList with the modified data
     } else {
+      console.error('Failed to provide a correct character');
       return;
     }
   }
 
   deleteCharacter(characterIndex :number) :void {
     if(characterIndex > -1 && characterIndex < this.$CharacterList.getValue().length) {
-      const characters :Array<any> = this.$CharacterList.getValue();
-      console.log(characters);
-      
-      characters.splice(characterIndex, 1);
-      console.log(characters);
-      
-      this.$CharacterList.next(characters)
+      //checks if the index isn't small than -1 and bigger than the current array size
+      const characters :Array<any> = this.$CharacterList.getValue(); //Creates a temporary array based on the $CharacterList Subject's value
+      characters.splice(characterIndex, 1); //Deletes the character with the provided index from the Array
+      this.$CharacterList.next(characters); //Replaces the current CharacterList with the modified data
     } else {
       return;
     }

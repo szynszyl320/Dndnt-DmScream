@@ -30,7 +30,11 @@ main {
 #stats th {
     border: 1px dotted black;
     border-collapse: collapse;
-    padding: 5px;
+    padding: 3px;
+}
+
+td textarea {
+    resize: none;
 }
 
 #center_section {
