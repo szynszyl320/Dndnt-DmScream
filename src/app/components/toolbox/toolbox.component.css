@@ -1,10 +1,34 @@
 main {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
 }
 
 section {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+article {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(52px, 1fr));
+  gap: 0.4rem;
+}
+
+@media (max-width: 600px) {
+  main {
+    width: 95vw;
+    max-width: 420px;
+  }
+
+  button {
+    min-height: 44px;
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+
+  article button {
+    margin: 0.25rem 0;
+  }
 }

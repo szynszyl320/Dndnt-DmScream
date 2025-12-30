@@ -1,3 +1,17 @@
 button {
     margin: 1px;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem;
+    box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  :host {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.3rem 0;
+  }
+  button { flex: 0 0 auto; min-width: 140px; width: auto; }
 }

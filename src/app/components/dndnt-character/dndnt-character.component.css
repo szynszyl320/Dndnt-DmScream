@@ -103,3 +103,77 @@ td textarea {
     width: 100%;
     display: block;
 }
+
+/* same flexible rules as the main character view */
+#stats input,
+#stats textarea,
+#weapons input,
+#weapons textarea,
+#right_section textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#weapons {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 800px) {
+  header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  header label {
+    width: 100%;
+    margin: 0.25rem 0;
+    padding: 0.6rem;
+  }
+
+  main {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  #stats {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  #weapons {
+    max-height: 250px;
+    font-size: 0.95rem;
+  }
+
+  #right_section {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  #right_section label {
+    width: 100%;
+  }
+
+  .lower_section textarea,
+  #right_section textarea,
+  #weapons textarea {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 900px) {
+  main {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  #right_section { width: 100%; }
+}

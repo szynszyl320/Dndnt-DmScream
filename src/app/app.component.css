@@ -34,3 +34,76 @@ app-toolbox {
     top: 5px;
     left: 2px;
 }
+
+@media (max-width: 800px) {
+  /* stack sidebar under/above content on mobile */
+  #container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  #right_section {
+    width: 100%;
+    order: 2;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  #left_section {
+    width: 100%;
+    order: 1;
+  }
+
+  app-toolbox {
+    top: auto;
+    right: 0.5rem;
+    left: 0.5rem;
+    bottom: 0.5rem;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 6px;
+    z-index: 40;
+  }
+
+  #sideBar_toggle {
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  /* allow app main container to wrap and keep existing widths as defaults on desktop */
+  #container {
+    flex-direction: column;
+    gap: var(--ui-gap, 0.75rem);
+  }
+
+  /* sidebar becomes full width below breakpoint */
+  #right_section {
+    width: 100%;
+    order: 2;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  #left_section {
+    width: 100%;
+    order: 1;
+  }
+
+  /* keep toolbox accessible but not intrusive */
+  app-toolbox {
+    position: fixed;
+    right: 0.6rem;
+    top: 0.6rem;
+  }
+
+  #sideBar_toggle {
+    left: 0.6rem;
+    top: 0.6rem;
+  }
+}
