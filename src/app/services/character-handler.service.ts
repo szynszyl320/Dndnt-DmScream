@@ -21,8 +21,20 @@ export class CharacterHandlerService {
 
   loadContent() :any {
     try {
-      const MainSave :any = JSON.parse(localStorage.getItem('dndnt_main') || '{{CurrentCharacter: {name: "test", campaign: "test"} CharacterList: [{name: "test", campaign: "test"}]}}'); //Loads and Parses the content from localStorage. If not found replaces it with arbitrary content so the program doesn't shit itself 
       
+      let localMainsave = localStorage.getItem('dndnt_main'); 
+      let MainSave :any; 
+
+      if(localMainsave != null) {
+        MainSave = JSON.parse(localMainsave); //Loads and Parses the content from localStorage. If not found replaces it with arbitrary content so the program doesn't shit itself 
+      } else {
+        MainSave = {
+          CurrenCharacter: new ScuffCharacter,
+          CharacterList: [new ScuffCharacter]
+        }
+      }
+
+
       const initial = MainSave.CurrentCharacter ||  MainSave.CharacterList[0] || null; // creates a constant with the for the loaded Current Character, if not found, chooses the first character in the Character Array, if none are found, it just inserts a null value. 
       this.$CurrentCharacter = new BehaviorSubject<any>(initial); // Creates a new Subject with the initial value 
       this.$CharacterList = new BehaviorSubject<any>(MainSave.CharacterList || null); //Creates a new Subject with the CharacterList or a null value; 
