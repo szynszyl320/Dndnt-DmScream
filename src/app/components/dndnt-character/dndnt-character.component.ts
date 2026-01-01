@@ -10,6 +10,7 @@ import { ModifierCeilPipe } from '../../pipes/modifier-ceil.pipe';
 
 //class imports
 import { Weapon } from '../../class/weapon';
+import { DndntSpell } from '../../class/dndnt-spell';
 
 @Component({
   selector: 'app-dndnt-character',
@@ -76,6 +77,16 @@ currentCharacter :any = {}; //defines a variable for the current character
 
   removeWeapon(weaponIndex :number) :void {
     this.currentCharacter.weapons.splice(weaponIndex, 1); //deletes the desired weapon from the array
+    this.saveChanges();
+  }
+
+  addSpell() :void {
+    this.currentCharacter.spells.push(new DndntSpell)
+    this.saveChanges();
+  }
+
+  removeSpell(spellIndex :number) :void {
+    this.currentCharacter.spells.splice(spellIndex, 1);
     this.saveChanges();
   }
 

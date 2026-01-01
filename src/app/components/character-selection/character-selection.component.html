@@ -10,7 +10,7 @@
     }
 }
 
-<button (click)="isCreatorVisible = !isCreatorVisible">
+<button (click)="isCreatorVisible = !isCreatorVisible" id="creatorButton">
     {{ (isCreatorVisible)? "Close" : "Open" }} creator
 </button>
 @if (isCreatorVisible) {

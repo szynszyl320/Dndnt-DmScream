@@ -1,5 +1,6 @@
 //This is a class created for my friends DnDn't campaign 
 
+import { DndntSpell } from "./dndnt-spell";
 import { Weapon } from "./weapon";
 
 export class DndtCharacter {
@@ -10,12 +11,15 @@ public name :string = "Placeholder";
     public gender :string = "";
     public campaign :string = "None";
 
+    public maxMaxHP :number = 0;
     public maxHp :number = 0;
     public currentHp :number = 0;
     public ac :number = 0;
 
     public weapons :Array<Weapon> = [];
     
+    public spells :Array<DndntSpell> = [];
+
     public str :number = 0;
     public dex :number = 0;
     public con :number = 0;

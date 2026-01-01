@@ -19,7 +19,7 @@ main {
     min-height: 400px;
     border: 1px solid rgba(185, 173, 173, 0.218);
     gap: 2%;
-    max-height: 720px;
+    max-height: 800px;
 }
 
 #stats  {
@@ -104,7 +104,7 @@ td textarea {
     display: block;
 }
 
-/* make inputs and textareas scale inside their cells and make weapon table scrollable */
+/* same flexible rules as the main character view */
 #stats input,
 #stats textarea,
 #weapons input,
@@ -115,32 +115,9 @@ td textarea {
   box-sizing: border-box;
 }
 
-/* allow weapons table to scroll horizontally on narrow screens */
 #weapons {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-}
-
-/* stack layout on narrow screens but preserve desktop layout */
-@media (max-width: 900px) {
-  main {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  #right_section {
-    width: 100%;
-  }
-
-  .lower_section {
-    width: 100%;
-  }
 }
 
 @media (max-width: 800px) {
@@ -158,6 +135,8 @@ td textarea {
   main {
     flex-direction: column;
     gap: 1rem;
+    max-height: max-content;
+    margin-bottom: 120vh;
   }
 
   #stats {
@@ -184,4 +163,21 @@ td textarea {
   #weapons textarea {
     font-size: 0.95rem;
   }
+  
 }
+
+@media (max-width: 900px) {
+  main {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  #right_section { width: 100%; }
+}
+

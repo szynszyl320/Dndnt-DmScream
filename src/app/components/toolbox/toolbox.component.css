@@ -1,9 +1,3 @@
-main {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
 section {
     display: flex;
     flex-direction: column;
@@ -17,18 +11,50 @@ article {
 }
 
 @media (max-width: 600px) {
+   #toggle {
+    top: 8px;
+    right: 8px;
+  }
+
   main {
+    margin-top: 10px; /* space for the fixed toggle */
     width: 95vw;
     max-width: 420px;
   }
 
-  button {
-    min-height: 44px;
+  main button {
+    min-height: 22px;
     min-width: 100%;
     box-sizing: border-box;
   }
 
   article button {
-    margin: 0.25rem 0;
+    margin: 0.20rem 0;
   }
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    /* dark panel moved here so only the toolbox panel is shaded */
+    background-color: rgba(14, 13, 13, 0.829);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 6px;
+}
+
+#toggle {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  z-index: 9999;
+  display: inline-block;
+  width: auto;
+  min-width: 44px;
+  height: auto;
+  min-height: 36px;
+  padding: 0.35rem 0.6rem;
+  box-sizing: border-box;
 }

@@ -22,18 +22,19 @@ export class CharacterHandlerService {
   loadContent() :any {
     try {
       
+      
+      //Loads and Parses the content from localStorage. If it doesn't find anything, inserts arbitrary values so the program doesn't shit itself 
       let localMainsave = localStorage.getItem('dndnt_main'); 
       let MainSave :any; 
 
       if(localMainsave != null) {
-        MainSave = JSON.parse(localMainsave); //Loads and Parses the content from localStorage. If not found replaces it with arbitrary content so the program doesn't shit itself 
+        MainSave = JSON.parse(localMainsave); 
       } else {
         MainSave = {
           CurrenCharacter: new ScuffCharacter,
           CharacterList: [new ScuffCharacter]
         }
       }
-
 
       const initial = MainSave.CurrentCharacter ||  MainSave.CharacterList[0] || null; // creates a constant with the for the loaded Current Character, if not found, chooses the first character in the Character Array, if none are found, it just inserts a null value. 
       this.$CurrentCharacter = new BehaviorSubject<any>(initial); // Creates a new Subject with the initial value 
@@ -46,8 +47,8 @@ export class CharacterHandlerService {
     } catch (error) {
       
       //Inserting arbitrary values so the program doesn't shit itself 
-      this.$CurrentCharacter.next({name: "test", campaign: "test"});
-      this.$CharacterList.next([{name: "test", campaign: "test"}]);
+      this.$CurrentCharacter.next(new ScuffCharacter);
+      this.$CharacterList.next([new ScuffCharacter]);
 
       console.error("Error loading content: ", error);
 

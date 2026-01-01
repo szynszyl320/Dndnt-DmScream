@@ -6,6 +6,17 @@ button {
     box-sizing: border-box;
 }
 
+#creatorButton {
+  margin-top: 5px;
+  font-weight: bold;
+  background-color: lavender;
+}
+
+#creatorButton:hover {
+  background-color: lavenderblush;
+}
+
+
 @media (max-width: 900px) {
   :host {
     display: flex;
@@ -13,5 +24,10 @@ button {
     overflow-x: auto;
     padding: 0.3rem 0;
   }
-  button { flex: 0 0 auto; min-width: 140px; width: auto; }
+  button { 
+    flex: 0 0 auto; 
+    min-width: 140px; 
+    width: auto; 
+    display: block;
+  }
 }

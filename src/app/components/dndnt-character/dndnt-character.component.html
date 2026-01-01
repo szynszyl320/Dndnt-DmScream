@@ -49,7 +49,11 @@
         <article id="hp">
             <label>
                 Max Hp
-                <input type="number" name="maxHp" id="maxHp" [(ngModel)]="currentCharacter.maxHp">
+                <input type="number" name="maxHp" id="maxHp" [(ngModel)]="currentCharacter.maxMaxHP">
+            </label>
+            <label>
+                Current Max Hp
+                <input type="number" name="currentMaxHp" id="currentMaxHp" [(ngModel)]="currentCharacter.maxHp">
             </label>
             <label>
                 Current Hp
@@ -86,6 +90,27 @@
             }
         </table>
         <button (click)="addWeapon()">Add New Weapon</button>
+        <table id="spells">
+            <tr>
+                <th>Name</th>
+                <th>Damage</th>
+                <th>Cost</th>
+                <th>Range</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+            @for (spell of currentCharacter.spells; track $index) {
+                <tr>
+                    <td><input type="text" [(ngModel)]="spell.name"></td>
+                    <td><input type="text" [(ngModel)]="spell.damage"></td>
+                    <td><input type="text" [(ngModel)]="spell.cost"></td>
+                    <td><input type="text" [(ngModel)]="spell.range"></td>
+                    <td><textarea [(ngModel)]="spell.description"></textarea></td>
+                    <td><button (click)="removeSpell($index)">Remove spell</button></td>
+                </tr>
+            }
+        </table>
+        <button (click)="addSpell()">Add new Spell</button>
     </section>
     <section id="right_section">
         <label>
