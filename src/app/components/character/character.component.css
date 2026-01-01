@@ -136,7 +136,6 @@ td textarea {
     flex-direction: column;
     gap: 1rem;
     max-height: max-content;
-    margin-bottom: 120vh;
   }
 
   #stats {

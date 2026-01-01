@@ -1,4 +1,7 @@
-<app-toolbox></app-toolbox>
+<button (click)="isToolBoxVisible = !isToolBoxVisible" id="toolbox_toggle">Toggle toolbox</button>
+@if (isToolBoxVisible) {
+  <app-toolbox></app-toolbox>
+}
 <button id="sideBar_Toggle" (click)="switchSideBar()">Toggle sidebar</button>
 <section id="container">
 

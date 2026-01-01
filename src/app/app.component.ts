@@ -51,5 +51,10 @@ export class AppComponent {
     }
     //sets the section width to make it look better
   }
+
+  isToolBoxVisible :boolean = false;
+
+  
+
 }
 
