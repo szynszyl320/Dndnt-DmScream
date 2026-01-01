@@ -11,14 +11,24 @@
 
 
   <section id="left_section" [style.width]="leftSectionWidth">
-    @if (typeToBeDisplayed == "") {
-      <h1>An unsupported character chosen!</h1>
-    } @else if (typeToBeDisplayed == "generation ship") {
-      <app-character></app-character>
+    <section id="views">
+    
+      <button (click)="typeOfView = `standard`">Standard view</button>
+      <button (click)="typeOfView = `battle`">Battle view</button>
+    
+    </section>
+    @if (typeToBeDisplayed == "generation ship") {
+      
+      @if (typeOfView == 'standard') {
+        <app-character></app-character>
+      } @else if (typeOfView == 'battle') {
+        <app-scuff-character-battle-view></app-scuff-character-battle-view>
+      }
+
     } @else if (typeToBeDisplayed == "dndnt") { 
       <app-dndnt-character></app-dndnt-character>
     } @else {
-      <h1>Error!</h1>
+      <h1>An unsupported character chosen!</h1>
     }
     
   </section>

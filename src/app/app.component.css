@@ -35,6 +35,14 @@ app-toolbox {
     left: 2px;
 }
 
+#views {
+  align-items: center;
+  gap: 1vw;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
 #toolbox_toggle {
   position: fixed;
   top: 8px;

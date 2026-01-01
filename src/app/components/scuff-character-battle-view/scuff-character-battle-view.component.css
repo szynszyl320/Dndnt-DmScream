@@ -1,0 +1,136 @@
+header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3%;
+}
+
+main {
+    display: flex;
+    gap: 2%;
+    max-height: 800px;
+    border: 1px solid rgba(185, 173, 173, 0.218);
+}
+
+#stats {
+    width: 20%;
+}
+
+#stats td,
+#stats th {
+    border: 1px dotted black;
+    border-collapse: collapse;
+    padding: 3px;
+    text-align: center;
+}
+
+#stats button {
+    width: 100%;
+}
+
+#weapons {
+    width: 35%;
+    border: 1px solid black;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#weapons tr {
+    background-color: #ddd;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#weapons tr:hover {
+    background-color: #615d5d;
+    cursor: pointer;
+}
+
+#right_section {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+}
+
+#right_section label {
+    border: 1px double black;
+    border-collapse: collapse;
+    margin: 2px;
+}
+
+label article {
+    background-color: rgb(179, 181, 181);
+}
+
+.progress-track {
+    width: 200px;
+    height: 12px;
+    background: #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #3b82f6;
+    width: 0%;
+    transition: width 50ms linear;
+}
+
+#function_output {
+    position: fixed;
+    background-color: beige;
+    top: 5px;
+    left: 40%;
+    z-index: 12;
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+
+@media (max-width: 800px) {
+    main {
+        flex-direction: column;
+        gap: 1rem;
+        max-height: max-content;
+    }
+
+    #stats {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    #weapons {
+        width: 100%;
+        max-height: 250px;
+        font-size: 0.95rem;
+    }
+
+    #right_section {
+        width: 100%;
+    }
+
+    #function_output {
+        position: fixed;
+        left: 0.5rem;
+        right: 0.5rem;
+        width: auto;
+        top: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    main {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    header label {
+        width: 100%;
+    }
+}

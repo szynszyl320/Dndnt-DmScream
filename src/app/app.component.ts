@@ -6,6 +6,7 @@ import { CharacterSelectionComponent } from './components/character-selection/ch
 import { CharacterComponent } from './components/character/character.component';
 import { ToolboxComponent } from './components/toolbox/toolbox.component';
 import { DndntCharacterComponent } from './components/dndnt-character/dndnt-character.component';
+import { ScuffCharacterBattleViewComponent } from './components/scuff-character-battle-view/scuff-character-battle-view.component';
 
 //Services
 import { CharacterHandlerService } from './services/character-handler.service';
@@ -17,7 +18,8 @@ import { CharacterHandlerService } from './services/character-handler.service';
     CharacterSelectionComponent,
     CharacterComponent,
     ToolboxComponent,
-    DndntCharacterComponent
+    DndntCharacterComponent,
+    ScuffCharacterBattleViewComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -54,7 +56,7 @@ export class AppComponent {
 
   isToolBoxVisible :boolean = false;
 
-  
+  typeOfView :string = "standard";
 
 }
 
