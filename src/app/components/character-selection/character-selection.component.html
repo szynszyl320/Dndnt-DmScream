@@ -1,12 +1,14 @@
 @for (campaign of campaigns; track $index) {
-    <h3>{{campaign}}</h3>
+    <h3 (click)="toggleCampaign(campaign)">{{campaign}}</h3>
     
-    @for (Character of CharactersArray; track $index) {
+    @if (!collapsed[campaign]) {
+        @for (Character of CharactersArray; track $index) {
         @if (Character.campaign == campaign) {
             <button (click)="chooseCharacter(Character)">
                 {{Character.name}} || {{Character.campaign}}
             </button>
         }
+    }
     }
 }
 

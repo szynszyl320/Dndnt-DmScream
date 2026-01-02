@@ -79,15 +79,19 @@
     <section id="right_section">
         <label>
             <p>Proficiencies:</p>
-            <article>{{ proficienciesString }}</article>
+            <textarea name="proficiencies" id="proficiencies" [(ngModel)]="proficienciesString" rows="4" cols="50"></textarea>
         </label>
         <label>
             <p>Traits:</p>
-            <article>{{ traitsString }}</article>
+            <textarea name="traits" id="traits" [(ngModel)]="traitsString" rows="4" cols="50"></textarea>
         </label>
         <label>
             <p>Implants:</p>
-            <article>{{ implantsString }}</article>
+            <textarea name="implants" id="implants" [(ngModel)]="implantsString" rows="4" cols="50"></textarea>
+        </label>
+        <label>
+            <p>Effecting statuses: </p>
+            <textarea name="statuses" id="statuses" [(ngModel)]="statusesString" rows="4" cols="50"></textarea>
         </label>
     </section>
 </main>

@@ -11,6 +11,7 @@ import { ModifierCeilPipe } from '../../pipes/modifier-ceil.pipe';
 //class imports
 import { Weapon } from '../../class/weapon';
 import { DndntSpell } from '../../class/dndnt-spell';
+import { DndtCharacter } from '../../class/dndt-character';
 
 @Component({
   selector: 'app-dndnt-character',
@@ -19,7 +20,7 @@ import { DndntSpell } from '../../class/dndnt-spell';
   styleUrl: './dndnt-character.component.css'
 })
 export class DndntCharacterComponent {
-currentCharacter :any = {}; //defines a variable for the current character
+currentCharacter :DndtCharacter = new DndtCharacter; //defines a variable for the current character
 
   hpChange :number = 0; //defines the variable for later use in changing hp. 
 
@@ -29,13 +30,14 @@ currentCharacter :any = {}; //defines a variable for the current character
   proficienciesString :string = '';
   clothesString :string = "";
   inventoryString :string = "";
+  woundsString :string = "";
 
   constructor(private characterHandler: CharacterHandlerService) {}
 
   ngOnInit() {
     //Script running upon initiation of the component 
     
-    this.characterHandler.$CurrentCharacter.subscribe((value: any) => {  
+    this.characterHandler.$CurrentCharacter.subscribe((value: DndtCharacter) => {  
     
       this.currentCharacter = value; //subscribes to the current character
     
@@ -45,6 +47,7 @@ currentCharacter :any = {}; //defines a variable for the current character
       this.clothesString = value.clothes.join('\n') || "";
       this.inventoryString = value.inventory.join('\n') || "";
       this.langaugesString = value.languages.join('\n') || "";
+      this.woundsString = value.wounds.join('\n') || "";
 
     }); 
   }
@@ -57,6 +60,7 @@ currentCharacter :any = {}; //defines a variable for the current character
     this.currentCharacter.proficiencies = this.proficienciesString.split('\n');
     this.currentCharacter.clothes = this.clothesString.split('\n');
     this.currentCharacter.inventory = this.inventoryString.split('\n');
+    this.currentCharacter.wounds = this.woundsString.split('\n');
 
 
     this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 

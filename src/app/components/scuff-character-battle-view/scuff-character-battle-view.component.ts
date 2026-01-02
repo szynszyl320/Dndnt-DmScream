@@ -1,5 +1,5 @@
 //Angular imports
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 //service imports
@@ -35,6 +35,7 @@ export class ScuffCharacterBattleViewComponent {
   traitsString :string = "";
   proficienciesString :string = '';
   implantsString :string = "";
+  statusesString :string = "";
 
   ngOnInit() {
 
@@ -44,6 +45,7 @@ export class ScuffCharacterBattleViewComponent {
       this.traitsString = value.traits.join('\n');
       this.proficienciesString = value.proficiencies.join('\n');
       this.implantsString = value.implants.join('\n');
+      this.statusesString = value.statuses.join('\n');
 
     })
 
@@ -99,8 +101,7 @@ export class ScuffCharacterBattleViewComponent {
           scoreArray.push(parseInt(damageDeal))
         
         }
-    });
-
+    })   
 
     let returnScore :string = "";
     let offset :number = 0;
@@ -124,6 +125,20 @@ export class ScuffCharacterBattleViewComponent {
     this.isOutputVisible = true;
     this.startProgress();
   }
+
+   saveChanges() :void {
+
+    //all the strings get split back up to arrays 
+    this.currentCharacter.traits = this.traitsString.split('\n');
+    this.currentCharacter.proficiencies = this.proficienciesString.split('\n');
+    this.currentCharacter.implants = this.implantsString.split('\n');
+    this.currentCharacter.statuses = this.statusesString.split('\n')
+
+    this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 
+    
+    this.characterHandler.saveContent(); //all the changes get saved to localstorage
+  }
+
 
   progress: number = 0;             
   isProgressRunning: boolean = false;
@@ -164,6 +179,13 @@ export class ScuffCharacterBattleViewComponent {
     } else {
       this.isOutputVisible = false;
     }
+  }
+
+  //Listener that triggers the function saveChanges anytime an input gets modified in any way. 
+  @HostListener('input', ['$event'])
+  onAnyInput(_: Event) {
+    this.saveChanges();
+    this.characterHandler.getCampaings();
   }
 
 }

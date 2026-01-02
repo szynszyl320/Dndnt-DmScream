@@ -37,6 +37,10 @@ public name :string = "Placeholder";
     
     public proficiencies :Array<string> = [];
 
+    public clothes :Array<string> = [];
+
+    public wounds :Array<string> = [];
+
     public origin :string = "";
 
     public inventory :Array<string> = [];

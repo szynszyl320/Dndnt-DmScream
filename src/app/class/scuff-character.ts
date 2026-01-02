@@ -33,6 +33,8 @@ export class ScuffCharacter {
 
     public clothes :Array<string> = [];
 
+    public statuses :Array<string> = [];
+
     public origin :string = "";
 
     public implants :Array<string> = [];

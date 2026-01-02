@@ -10,6 +10,7 @@ import { ModifierCeilPipe } from '../../pipes/modifier-ceil.pipe';
 
 //class imports
 import { Weapon } from '../../class/weapon';
+import { ScuffCharacter } from '../../class/scuff-character';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { Weapon } from '../../class/weapon';
 
 
 export class CharacterComponent {
-  currentCharacter :any = {}; //defines a variable for the current character
+  currentCharacter :ScuffCharacter = new ScuffCharacter; //defines a variable for the current character
 
   hpChange :number = 0; //defines the variable for later use in changing hp. 
 
@@ -39,7 +40,7 @@ export class CharacterComponent {
   ngOnInit() {
     //Script running upon initiation of the component 
     
-    this.characterHandler.$CurrentCharacter.subscribe((value: any) => {  
+    this.characterHandler.$CurrentCharacter.subscribe((value: ScuffCharacter) => {  
     
       this.currentCharacter = value; //subscribes to the current character
     

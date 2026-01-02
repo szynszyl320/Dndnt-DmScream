@@ -17,6 +17,8 @@ export class CharacterSelectionComponent {
   
   isCreatorVisible :boolean = false;
 
+  collapsed: { [campaign: string]: boolean } = {};
+
   constructor(private characterHandler: CharacterHandlerService) {}
 
   ngOnInit() {
@@ -26,7 +28,9 @@ export class CharacterSelectionComponent {
    
     this.characterHandler.$Campaigns.subscribe((value :any) => {
       this.campaigns = value;
+      (this.campaigns || []).forEach(c => this.collapsed[c] = false);
     })
+    
   }
 
   chooseCharacter(character :ScuffCharacter | any) :void {
@@ -53,6 +57,9 @@ export class CharacterSelectionComponent {
     }
   }
 
+  toggleCampaign(campaign: string) {
+    this.collapsed[campaign] = !this.collapsed[campaign];
+  }
   
 
 }
