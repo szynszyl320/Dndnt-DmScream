@@ -75,6 +75,8 @@ export class ToolboxComponent {
       
       alert("Character sucessfully imported!"); //gives an indication to the user that the character has been imported.
 
+      this.characterHandler.getCampaings();
+
       this.characterHandler.saveContent(); //saves content to confirm changes
 
       event.target.value = null; //clears the file input
@@ -91,6 +93,7 @@ export class ToolboxComponent {
    
       this.characterHandler.deleteCharacter(this.characterHandler.findCharacterIndex(this.currentCharacter)); //Deletes the character   
       this.characterHandler.changeCharacter(this.characterArray[0]); //changes the character to the first on in the characterArray
+      this.characterHandler.getCampaings();
       this.characterHandler.saveContent(); //saves content to confirm changes;
     }
 

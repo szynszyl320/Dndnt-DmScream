@@ -13,6 +13,8 @@ export class ScuffCharacter {
     public maxHp :number = 0;
     public currentHp :number = 0;
     public ac :number = 0;
+    public shieldAc :number = 0;
+    public shieldHp :number = 0;
 
     public weapons :Array<Weapon> = [];
     

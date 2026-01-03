@@ -25,6 +25,17 @@
         <input type="number" name="hp_change" id="hp_change" [(ngModel)]="hpChange">
         <button (click)="changeCurrentHp()">Confirm</button>
     </label>
+    <label>
+        Shields: <input type="number" name="shields" id="shields" [(ngModel)]="currentCharacter.shieldHp">
+    </label>
+    <label>
+        Shields Ac: <input type="number" name="shields_ac" id="shields_ac" [(ngModel)]="currentCharacter.shieldAc">
+    </label>
+    <label>
+        Change shields: 
+        <input type="number" name="change_shields" id="change_shields" [(ngModel)]="shieldsChange">
+        <button (click)="changeCurrentShields()">Confirm</button>
+    </label>
 </header>
 <main>
     <table id="stats">

@@ -51,12 +51,13 @@ export class CharacterSelectionComponent {
         newCharacter = new DndtCharacter;
       }
       this.characterHandler.createNewCharacter(newCharacter);
+      this.characterHandler.getCampaings();   
       this.characterHandler.saveContent();
     } catch (error) {
       console.error("Something went wrong when creating the character", error);
     }
   }
-
+  
   toggleCampaign(campaign: string) {
     this.collapsed[campaign] = !this.collapsed[campaign];
   }

@@ -25,6 +25,7 @@ export class CharacterComponent {
   currentCharacter :ScuffCharacter = new ScuffCharacter; //defines a variable for the current character
 
   hpChange :number = 0; //defines the variable for later use in changing hp. 
+  shieldChange :number = 0; //defines the variable for later use in changing shields
 
   //strings defined for use in cases where the data is saved as arrays.
   traitsString :string = "";
@@ -77,6 +78,11 @@ export class CharacterComponent {
     //A function that adds the passed numbers to the current hp of the character, saves some time on calculations 
     this.currentCharacter.currentHp += this.hpChange;
     this.hpChange = 0;
+  }
+
+  changeCurrentShield() :void {
+    this.currentCharacter.shieldHp += this.shieldChange;
+    this.shieldChange = 0;
   }
 
   addWeapon() :void {

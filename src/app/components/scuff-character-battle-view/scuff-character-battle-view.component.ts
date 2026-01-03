@@ -25,6 +25,7 @@ export class ScuffCharacterBattleViewComponent {
   constructor(private characterHandler: CharacterHandlerService, private ngZone: NgZone) {}
 
   hpChange : number = 0;
+  shieldsChange :number = 0;
 
   currentCharacter :ScuffCharacter = new ScuffCharacter;
 
@@ -53,6 +54,12 @@ export class ScuffCharacterBattleViewComponent {
 
   changeCurrentHp() :void {
     this.currentCharacter.currentHp += this.hpChange;
+    this.hpChange = 0;
+  }
+
+  changeCurrentShields() :void {
+    this.currentCharacter.shieldHp = this.shieldsChange;
+    this.shieldsChange = 0;
   }
 
   rollModifier(modifier :number, type :string) :void {
@@ -126,7 +133,7 @@ export class ScuffCharacterBattleViewComponent {
     this.startProgress();
   }
 
-   saveChanges() :void {
+  saveChanges() :void {
 
     //all the strings get split back up to arrays 
     this.currentCharacter.traits = this.traitsString.split('\n');
