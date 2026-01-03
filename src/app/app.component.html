@@ -26,7 +26,13 @@
       }
 
     } @else if (typeToBeDisplayed == "dndnt") { 
-      <app-dndnt-character></app-dndnt-character>
+      
+      @if (typeOfView == 'standard') {
+        <app-dndnt-character></app-dndnt-character>
+      } @else if (typeOfView == 'battle') {
+        <app-dndnt-character-battle-view></app-dndnt-character-battle-view>
+      }
+
     } @else {
       <h1>An unsupported character chosen!</h1>
     }

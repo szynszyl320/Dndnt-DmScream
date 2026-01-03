@@ -1,0 +1,109 @@
+@if (isOutputVisible) {
+    <section id="function_output" (click)="hideOutput()" title="click to stop">
+        <p>{{ finalScore }}</p>
+        <div class="progress-track">
+            <div class="progress-fill" [style.width.%]="progress * 100"></div>
+        </div>
+    </section>
+}
+
+<header>
+    <label>
+        Name: <input type="text" name="character_name" id="character_name" [(ngModel)]="currentCharacter.name">
+    </label>
+    <label>
+        Max hp: <input type="number" name="max_hp" id="max_hp" [(ngModel)]="currentCharacter.maxHp">
+    </label>
+    <label>
+        Current hp: <input type="number" name="current_hp" id="current_hp" [(ngModel)]="currentCharacter.currentHp">
+    </label>
+    <label>
+        Ac: <input type="number" name="character_ac" id="character_ac" [(ngModel)]="currentCharacter.ac">
+    </label>
+    <label>
+        Change hp: 
+        <input type="number" name="hp_change" id="hp_change" [(ngModel)]="hpChange">
+        <button (click)="changeCurrentHp()">Confirm</button>
+    </label>
+    <label>
+        Change Current Max hp:
+        <input type="number" name="max_hp_change" id="max_hp_change" [(ngModel)]="maxHpChange">
+        <button (click)="changeCurrentMaxHp()">Confirm</button>
+    </label>
+</header>
+<main>
+    <table id="stats">
+        <tr>
+            <th>Stat</th>
+            <th>Modifier</th>
+        </tr>
+        <tr>
+            <td>Strength</td>
+            <td><button (click)="rollModifier(currentCharacter.str, 'str')">{{currentCharacter.str | modifierCeil}}</button></td>
+        </tr>
+        <tr>
+            <td>Dexterity</td>
+            <td><button (click)="rollModifier(currentCharacter.dex, 'dex')">{{currentCharacter.dex | modifierCeil}}</button></td>
+        </tr>
+        <tr>
+            <td>Constitution</td>
+            <td><button (click)="rollModifier(currentCharacter.con, 'con')">{{currentCharacter.con | modifierCeil}}</button></td>
+        </tr>
+        <tr>
+            <td>Inteligence</td>
+            <td><button (click)="rollModifier(currentCharacter.int, 'int')">{{currentCharacter.int| modifierCeil}}</button></td>
+        </tr>
+        <tr>
+            <td>Wisdom</td>
+            <td><button (click)="rollModifier(currentCharacter.wis, 'wis')">{{currentCharacter.wis| modifierCeil}}</button></td>
+        </tr>
+        <tr>
+            <td>Charisma</td>
+            <td><button (click)="rollModifier(currentCharacter.cha, 'cha')">{{currentCharacter.cha| modifierCeil}}</button></td>
+        </tr>
+    </table>
+    <section id="mid_section">
+        <table id="weapons">
+        <tr>
+            <th>Name</th>
+            <th>Damage</th>
+            <th>Damage type</th>
+            <th>Bonus to hit</th>
+            <th>Description</th>
+        </tr>       
+        @for (weapon of currentCharacter.weapons; track $index) {
+            <tr (click)="rollWeaponDamage($index)">
+                <td>{{weapon.name}}</td>
+                <td>{{weapon.damage}}</td>
+                <td>{{weapon.damageType}}</td>
+                <td>{{weapon.bonusToHit}}</td>
+                <td>{{weapon.description}}</td>
+            </tr>
+        }
+        </table>
+        <table id="spells">
+            <tr>
+                <th>Name</th>
+                <th>Damage</th>
+                <th>Cost</th>
+                <th>Range</th>
+                <th>Description</th>
+            </tr>
+            @for (spell of currentCharacter.spells; track $index) {
+                <tr>
+                    <th>{{spell.name}}</th>
+                    <th>{{spell.damage}}</th>
+                    <th>{{spell.cost}}</th>
+                    <th>{{spell.range}}</th>
+                    <th>{{spell.description}}</th>
+                </tr>
+            }
+        </table>
+    </section>
+    <section id="right_section">
+        <label>
+            <p>Wounds: </p>
+            <textarea name="proficiencies" id="proficiencies" [(ngModel)]="woundsString" rows="4" cols="50"></textarea>
+        </label>
+    </section>
+</main>
