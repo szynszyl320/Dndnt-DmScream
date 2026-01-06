@@ -1,14 +1,25 @@
-@for (campaign of campaigns; track $index) {
-    <h3 (click)="toggleCampaign(campaign)">{{campaign}}</h3>
-    
-    @if (!collapsed[campaign]) {
-        @for (Character of CharactersArray; track $index) {
-        @if (Character.campaign == campaign) {
+<input type="text" name="character_search" id="character_search" [(ngModel)]="searchTerm">
+@if (searchTerm.trim()) {
+    @for (Character of CharactersArray; track $index) {
+        @if (Character.name.toLowerCase().includes(searchTerm.toLowerCase())) {
             <button (click)="chooseCharacter(Character)">
                 {{Character.name}} || {{Character.campaign}}
             </button>
         }
     }
+} @else {
+    @for (campaign of campaigns; track $index) {
+        <h3 (click)="toggleCampaign(campaign)">{{campaign}}</h3>
+        
+        @if (!collapsed[campaign]) {
+            @for (Character of CharactersArray; track $index) {
+                @if (Character.campaign == campaign) {
+                    <button (click)="chooseCharacter(Character)">
+                        {{Character.name}} || {{Character.campaign}}
+                    </button>
+                }
+            }
+        }
     }
 }
 

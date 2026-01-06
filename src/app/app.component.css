@@ -57,6 +57,15 @@ app-toolbox {
   z-index: 9999;
 }
 
+#go_up_button {
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+  background-color: gray;
+  font-size: large;
+  padding: 2px;
+}
+
 @media (max-width: 800px) {
   /* stack sidebar under/above content on mobile */
   #container {
@@ -74,6 +83,10 @@ app-toolbox {
   #left_section {
     width: 100%;
     order: 1;
+  }
+
+  #go_up_button {
+    top: 500px;
   }
 
   app-toolbox {

@@ -37,7 +37,7 @@ td textarea {
     resize: none;
 }
 
-#center_section {
+#middle_section {
     width: 40%;
     display: flex;
     flex-direction: column;
@@ -144,6 +144,10 @@ td textarea {
   #stats {
     width: 100%;
     overflow-x: auto;
+  }
+
+  #middle_section {
+    display: 100%;
   }
 
   #weapons {

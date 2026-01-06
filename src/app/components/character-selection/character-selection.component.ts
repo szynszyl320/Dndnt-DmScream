@@ -1,11 +1,13 @@
 import { Component} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CharacterHandlerService } from '../../services/character-handler.service';
 import { ScuffCharacter } from '../../class/scuff-character';
 import { DndtCharacter } from '../../class/dndt-character';
 
+
 @Component({
   selector: 'app-character-selection',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './character-selection.component.html',
   styleUrl: './character-selection.component.css'
 })
@@ -18,6 +20,8 @@ export class CharacterSelectionComponent {
   isCreatorVisible :boolean = false;
 
   collapsed: { [campaign: string]: boolean } = {};
+
+  searchTerm :string = '';
 
   constructor(private characterHandler: CharacterHandlerService) {}
 
@@ -62,6 +66,15 @@ export class CharacterSelectionComponent {
     this.collapsed[campaign] = !this.collapsed[campaign];
   }
   
+  filterCharacters(campaign: string): any[] {
+    if (!this.searchTerm.trim()) {
+      return this.CharactersArray.filter((c: any) => c.campaign === campaign);
+    }
+    return this.CharactersArray.filter((c: any) => 
+      c.campaign === campaign && 
+      c.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
 
 }
 
