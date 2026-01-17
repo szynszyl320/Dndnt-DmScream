@@ -1,31 +1,12 @@
 //This is a class created for my friends DnDn't campaign 
 
+import { CharacterBaseplate } from "./character-baseplate";
 import { DndntSpell } from "./dndnt-spell";
-import { Weapon } from "./weapon";
 
-export class DndtCharacter {
-public name :string = "Placeholder";
-    public playerName :string = "";
-    public level :number = 0;
-    public race :string = "";
-    public gender :string = "";
-    public campaign :string = "None";
-
+export class DndtCharacter extends CharacterBaseplate {
     public maxMaxHP :number = 0;
-    public maxHp :number = 0;
-    public currentHp :number = 0;
-    public ac :number = 0;
-
-    public weapons :Array<Weapon> = [];
     
-    public spells :Array<DndntSpell> = [];
-
-    public str :number = 0;
-    public dex :number = 0;
-    public con :number = 0;
-    public int :number = 0;
-    public wis :number = 0;
-    public cha :number = 0;
+    public override spells :Array<DndntSpell> = [];
 
     public height :string = "";
 
@@ -40,8 +21,6 @@ public name :string = "Placeholder";
     public clothes :Array<string> = [];
 
     public wounds :Array<string> = [];
-
-    public origin :string = "";
 
     public inventory :Array<string> = [];
 

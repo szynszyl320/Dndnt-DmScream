@@ -113,73 +113,23 @@ export class DndntCharacterBattleViewComponent {
     this.characterHandler.getCampaings();
   }
 
-  rollWeaponDamage(weaponIndex :number) {
-    this.finalScore = '';
-
-    const weapon :Weapon = this.currentCharacter.weapons[weaponIndex];
-    const damageArray :Array<string> = weapon.damage.split(' ');
-
-    const assignArray :Array<number> = [];
-    const scoreArray :Array<number> = [];
-
-    const trimmedDamageArray = damageArray.map((subString :string) => {
-      return subString.replace(/(\(.*?\)|\+)/g, '').trim();
-    })
-
-
-    trimmedDamageArray.forEach((damageDeal :string) => {
-        
-      if(damageDeal.includes('d')) {
-          let temporaryArray :Array<any> = damageDeal.split('d');
-          
-          temporaryArray = temporaryArray.map((num :string) => {
-            return parseInt(num);
-          }) 
-          
-          assignArray.push(temporaryArray[0])
-          for(let i :number = 0; i < temporaryArray[0]; i++) {
-            scoreArray.push(Math.floor(Math.random()*temporaryArray[1]) +1);
-          }
-        
-        } else if (!isNaN(parseInt(damageDeal))) {
-          assignArray.push(1)
-          scoreArray.push(parseInt(damageDeal))
-        
-        }
-    })   
-
-    let returnScore :string = "";
-    let offset :number = 0;
-
-    for (let i :number = 0; i < assignArray.length; i++) {
-      let temporaryScore = 0;  
-      for (let j :number =  0; j < assignArray[i]; j++) {
-        temporaryScore += scoreArray[offset + j];
-      }
-      offset += assignArray[i];
-      returnScore += ` +${temporaryScore} |`;
-    }
-    
-    let result :number = 0;
-    scoreArray.forEach(score => {
-      result += score;
-    });
-
-    this.finalScore = `The roll for damage was: ${result}. Specifically speaking: | ${returnScore}`
-
-    this.isOutputVisible = true;
-    this.startProgress();
-  }
-
   rollModifier(modifier :number, type :string) :void {
     let randomRoll :number = (Math.floor(Math.random()*20)+1)
     let result :any;
     if (randomRoll == 20) {
       result = 'Natural Twenty!'
+    } else if (randomRoll == 1) {
+      result='Natural One!'
     } else {
       result = randomRoll+Math.ceil((modifier-10)/2);
     }
     this.finalScore = `The roll for ${type} resulted in: ${result}`;
+    this.isOutputVisible = true;
+    this.startProgress();
+  }
+
+  rollWeapon(weapon :Weapon) {
+    this.finalScore = weapon.rollWeaponDamage();
     this.isOutputVisible = true;
     this.startProgress();
   }

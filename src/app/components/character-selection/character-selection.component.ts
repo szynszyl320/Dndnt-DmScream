@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CharacterHandlerService } from '../../services/character-handler.service';
 import { ScuffCharacter } from '../../class/scuff-character';
 import { DndtCharacter } from '../../class/dndt-character';
+import { Character5e } from '../../class/character-5e';
 
 
 @Component({
@@ -41,6 +42,7 @@ export class CharacterSelectionComponent {
     try {
       this.characterHandler.changeCharacter(character);
       this.characterHandler.saveContent();
+      console.log(character);
     } catch (error) {
       console.error("Something went wrong when changing character", error); 
     }
@@ -51,8 +53,10 @@ export class CharacterSelectionComponent {
       let newCharacter :any;
       if (type == "generation") {
         newCharacter = new ScuffCharacter;
-      } else if(type = "dndt") {
+      } else if(type == "dndnt") {
         newCharacter = new DndtCharacter;
+      } else if(type == "5e") {
+        newCharacter = new Character5e;
       }
       this.characterHandler.createNewCharacter(newCharacter);
       this.characterHandler.getCampaings();   

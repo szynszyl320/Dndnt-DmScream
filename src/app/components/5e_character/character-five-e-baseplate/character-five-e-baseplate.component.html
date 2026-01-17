@@ -1,0 +1,65 @@
+<nav>
+    <button (click)='whatIsDisplayed = "all" '>All</button>
+    <button (click)='whatIsDisplayed = "misc" '>Main</button>
+    <button (click)='whatIsDisplayed = "background" '>Background</button>
+    <button (click)='whatIsDisplayed = "spells" ' >Spells</button>
+</nav>
+<header>
+
+    <label>
+        Name: <input type="text" name="character_name" id="character_name" [(ngModel)]="currentCharacter.name">
+    </label>
+
+    <section>
+        <label>
+            Class: <input type="text" name="character_class" id="character_class" [(ngModel)]="currentCharacter.class">
+        </label>
+
+        <label>
+            Level: <input type="number" name="character_level" id="character_level" [(ngModel)]="currentCharacter.level">
+        </label>
+    
+        <label>
+            Backgrond <input type="text" name="character_background" id="character_background" [(ngModel)]="currentCharacter.background">
+        </label>
+        
+        <label>
+            Player Name: <input type="text" name="character_player_name" id="character_player_name" [(ngModel)]="currentCharacter.playerName">
+        </label>
+    
+        <label>
+            Race: <input type="text" name="character_race" id="character_race" [(ngModel)]="currentCharacter.race">
+        </label>
+
+        <label>
+            Alignment: <input type="text" name="character_alignment" id="character_alignment" [(ngModel)]="currentCharacter.alignment">
+        </label>
+
+        <label>
+            Experience points: <input type="text" name="character_experience_points" id="character_experience_points">
+        </label>
+    </section>
+
+</header>
+
+<main>
+
+    @switch (whatIsDisplayed) {
+        @case ("all") {
+            <app-character-five-e-main></app-character-five-e-main>
+        }
+        
+        @case ("misc") {
+            <app-character-five-e-main></app-character-five-e-main>
+        } 
+        
+        @case ("background") {
+
+        }
+
+        @case ("spells") {
+            
+        }
+    }
+
+</main>

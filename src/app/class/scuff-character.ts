@@ -1,29 +1,10 @@
 //This is a class created for my homebrew Generation Ship campaign. 
-import { Weapon } from "./weapon";
+import { CharacterBaseplate } from "./character-baseplate";
 
-export class ScuffCharacter {
+export class ScuffCharacter extends CharacterBaseplate {
 
-    public name :string = "Placeholder";
-    public playerName :string = "";
-    public level :number = 0;
-    public race :string = "";
-    public gender :string = "";
-    public campaign :string = "None";
-
-    public maxHp :number = 0;
-    public currentHp :number = 0;
-    public ac :number = 0;
     public shieldAc :number = 0;
     public shieldHp :number = 0;
-
-    public weapons :Array<Weapon> = [];
-    
-    public str :number = 0;
-    public dex :number = 0;
-    public con :number = 0;
-    public int :number = 0;
-    public wis :number = 0;
-    public cha :number = 0;
 
     public height :string = "";
 
@@ -36,8 +17,6 @@ export class ScuffCharacter {
     public clothes :Array<string> = [];
 
     public statuses :Array<string> = [];
-
-    public origin :string = "";
 
     public implants :Array<string> = [];
 

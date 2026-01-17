@@ -32,8 +32,12 @@
       } @else if (typeOfView == 'battle') {
         <app-dndnt-character-battle-view></app-dndnt-character-battle-view>
       }
+    
+    } @else if (typeToBeDisplayed == '5e') {
+      <app-character-five-e-baseplate></app-character-five-e-baseplate>
+    }
 
-    } @else {
+     @else {
       <h1>An unsupported character chosen!</h1>
     }
     
