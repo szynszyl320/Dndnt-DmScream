@@ -1,0 +1,301 @@
+<header>
+    <label>
+        <input type="number" name="character_prepared_spells" id="character_prepared_spells" [(ngModel)]="currentCharacter.preparedSpells">
+        <p>Prepared spells total</p>
+    </label>
+
+    <label>
+        <input type="number" name="character_spell_save_dc" id="character_spell_save_dc" [(ngModel)]="currentCharacter.spellSaveDc">
+        <p>Spell save DC</p>
+    </label>
+
+    <label>
+        <input type="number" name="character_spell_attack_bonus" id="character_spell_attack_bonus" [(ngModel)]="currentCharacter.spellAttackBonus">
+        <p>Spell Attack Bonus</p>
+    </label>
+</header>
+<main>
+    <section>
+
+        <article>
+            <div>
+                <div>0</div>
+                <div>Cantrips</div>
+            </div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Damage</th>
+                    <th>Range</th>
+                    <th>Link</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                @for (spell of currentCharacter.cantrips; track $index) {
+                    <tr (click)="openSpell($event ,spell)">
+                        <td><input type="text" [(ngModel)]="spell.name"></td>
+                        <td><input type="text" [(ngModel)]="spell.damage"></td>
+                        <td><input type="text" [(ngModel)]="spell.range"></td>
+                        <td><input type="url" [(ngModel)]="spell.link"></td>
+                        <td><textarea [(ngModel)]="spell.description"></textarea></td>
+                        <td><button (click)="removeSpell(spell.level, $index)">Remove</button></td>
+                    </tr>
+                }
+            </table>
+            <button (click)="addSpell(0)">Add Spell</button>
+        </article>
+
+        <article>
+            <div>
+                <div>1</div>
+                <div><input type="text" name="character_lvl_1_slots" id="character_lvl_1_slots" [(ngModel)]="currentCharacter.lvl1SpellSlots"></div>
+            </div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Damage</th>
+                    <th>Range</th>
+                    <th>Link</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                @for (spell of currentCharacter.cantrips; track $index) {
+                    <tr (click)="openSpell($event ,spell)">
+                        <td><input type="text" [(ngModel)]="spell.name"></td>
+                        <td><input type="text" [(ngModel)]="spell.damage"></td>
+                        <td><input type="text" [(ngModel)]="spell.range"></td>
+                        <td><input type="url" [(ngModel)]="spell.link"></td>
+                        <td><textarea [(ngModel)]="spell.description"></textarea></td>
+                        <td><button (click)="removeSpell(spell.level, $index)">Remove</button></td>
+                    </tr>
+                }
+            </table>
+            <button (click)="addSpell(1)">Add Spell</button>
+        </article>
+        
+        <article>
+            <div>
+                <div>2</div>
+                <div><input type="text" name="character_lvl_2_slots" id="character_lvl_2_slots" [(ngModel)]="currentCharacter.lvl2SpellSlots"></div>
+            </div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Damage</th>
+                    <th>Range</th>
+                    <th>Link</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                @for (spell of currentCharacter.lvl2Spells; track $index) {
+                    <tr (click)="openSpell($event ,spell)">
+                        <td><input type="text" [(ngModel)]="spell.name"></td>
+                        <td><input type="text" [(ngModel)]="spell.damage"></td>
+                        <td><input type="text" [(ngModel)]="spell.range"></td>
+                        <td><input type="url" [(ngModel)]="spell.link"></td>
+                        <td><textarea [(ngModel)]="spell.description"></textarea></td>
+                        <td><button (click)="removeSpell(spell.level, $index)">Remove</button></td>
+                    </tr>
+                }
+            </table>
+            <button (click)="addSpell(2)">Add Spell</button>
+        </article>
+
+        <article>
+            <div>
+                <div>3</div>
+                <div><input type="text" name="character_lvl_3_slots" id="character_lvl_3_slots" [(ngModel)]="currentCharacter.lvl3SpellSlots"></div>
+            </div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Damage</th>
+                    <th>Range</th>
+                    <th>Link</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                @for (spell of currentCharacter.lvl3Spells; track $index) {
+                    <tr (click)="openSpell($event ,spell)">
+                        <td><input type="text" [(ngModel)]="spell.name"></td>
+                        <td><input type="text" [(ngModel)]="spell.damage"></td>
+                        <td><input type="text" [(ngModel)]="spell.range"></td>
+                        <td><input type="url" [(ngModel)]="spell.link"></td>
+                        <td><textarea [(ngModel)]="spell.description"></textarea></td>
+                        <td><button (click)="removeSpell(spell.level, $index)">Remove</button></td>
+                    </tr>
+                }
+            </table>
+            <button (click)="addSpell(3)">Add Spell</button>
+        </article>
+
+        <article>
+            <div>
+                <div>4</div>
+                <div><input type="text" name="character_lvl_4_slots" id="character_lvl_4_slots" [(ngModel)]="currentCharacter.lvl4SpellSlots"></div>
+            </div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Damage</th>
+                    <th>Range</th>
+                    <th>Link</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                @for (spell of currentCharacter.lvl4Spells; track $index) {
+                    <tr (click)="openSpell($event ,spell)">
+                        <td><input type="text" [(ngModel)]="spell.name"></td>
+                        <td><input type="text" [(ngModel)]="spell.damage"></td>
+                        <td><input type="text" [(ngModel)]="spell.range"></td>
+                        <td><input type="url" [(ngModel)]="spell.link"></td>
+                        <td><textarea [(ngModel)]="spell.description"></textarea></td>
+                        <td><button (click)="removeSpell(spell.level, $index)">Remove</button></td>
+                    </tr>
+                }
+            </table>
+            <button (click)="addSpell(4)">Add Spell</button>
+        </article>
+
+        <article>
+            <div>
+                <div>5</div>
+                <div><input type="text" name="character_lvl_5_slots" id="character_lvl_5_slots" [(ngModel)]="currentCharacter.lvl5SpellSlots"></div>
+            </div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Damage</th>
+                    <th>Range</th>
+                    <th>Link</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                @for (spell of currentCharacter.lvl5Spells; track $index) {
+                    <tr (click)="openSpell($event ,spell)">
+                        <td><input type="text" [(ngModel)]="spell.name"></td>
+                        <td><input type="text" [(ngModel)]="spell.damage"></td>
+                        <td><input type="text" [(ngModel)]="spell.range"></td>
+                        <td><input type="url" [(ngModel)]="spell.link"></td>
+                        <td><textarea [(ngModel)]="spell.description"></textarea></td>
+                        <td><button (click)="removeSpell(spell.level, $index)">Remove</button></td>
+                    </tr>
+                }
+            </table>
+            <button (click)="addSpell(5)">Add Spell</button>
+        </article>
+
+        <article>
+            <div>
+                <div>6</div>
+                <div><input type="text" name="character_lvl_6_slots" id="character_lvl_6_slots" [(ngModel)]="currentCharacter.lvl6SpellSlots"></div>
+            </div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Damage</th>
+                    <th>Range</th>
+                    <th>Link</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                @for (spell of currentCharacter.lvl6Spells; track $index) {
+                    <tr (click)="openSpell($event ,spell)">
+                        <td><input type="text" [(ngModel)]="spell.name"></td>
+                        <td><input type="text" [(ngModel)]="spell.damage"></td>
+                        <td><input type="text" [(ngModel)]="spell.range"></td>
+                        <td><input type="url" [(ngModel)]="spell.link"></td>
+                        <td><textarea [(ngModel)]="spell.description"></textarea></td>
+                        <td><button (click)="removeSpell(spell.level, $index)">Remove</button></td>
+                    </tr>
+                }
+            </table>
+            <button (click)="addSpell(6)">Add Spell</button>
+        </article>
+
+        <article>
+            <div>
+                <div>7</div>
+                <div><input type="text" name="character_lvl_7_slots" id="character_lvl_7_slots" [(ngModel)]="currentCharacter.lvl7SpellSlots"></div>
+            </div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Damage</th>
+                    <th>Range</th>
+                    <th>Link</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                @for (spell of currentCharacter.lvl7Spells; track $index) {
+                    <tr (click)="openSpell($event ,spell)">
+                        <td><input type="text" [(ngModel)]="spell.name"></td>
+                        <td><input type="text" [(ngModel)]="spell.damage"></td>
+                        <td><input type="text" [(ngModel)]="spell.range"></td>
+                        <td><input type="url" [(ngModel)]="spell.link"></td>
+                        <td><textarea [(ngModel)]="spell.description"></textarea></td>
+                        <td><button (click)="removeSpell(spell.level, $index)">Remove</button></td>
+                    </tr>
+                }
+            </table>
+            <button (click)="addSpell(7)">Add Spell</button>
+        </article>
+
+        <article>
+            <div>
+                <div>8</div>
+                <div><input type="text" name="character_lvl_8_slots" id="character_lvl_8_slots" [(ngModel)]="currentCharacter.lvl8SpellSlots"></div>
+            </div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Damage</th>
+                    <th>Range</th>
+                    <th>Link</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                @for (spell of currentCharacter.lvl8Spells; track $index) {
+                    <tr (click)="openSpell($event ,spell)">
+                        <td><input type="text" [(ngModel)]="spell.name"></td>
+                        <td><input type="text" [(ngModel)]="spell.damage"></td>
+                        <td><input type="text" [(ngModel)]="spell.range"></td>
+                        <td><input type="url" [(ngModel)]="spell.link"></td>
+                        <td><textarea [(ngModel)]="spell.description"></textarea></td>
+                        <td><button (click)="removeSpell(spell.level, $index)">Remove</button></td>
+                    </tr>
+                }
+            </table>
+            <button (click)="addSpell(8)">Add Spell</button>
+        </article>
+
+        <article>
+            <div>
+                <div>9</div>
+                <div><input type="text" name="character_lvl_9_slots" id="character_lvl_9_slots" [(ngModel)]="currentCharacter.lvl9SpellSlots"></div>
+            </div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Damage</th>
+                    <th>Range</th>
+                    <th>Link</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                @for (spell of currentCharacter.lvl9Spells; track $index) {
+                    <tr (click)="openSpell($event ,spell)">
+                        <td><input type="text" [(ngModel)]="spell.name"></td>
+                        <td><input type="text" [(ngModel)]="spell.damage"></td>
+                        <td><input type="text" [(ngModel)]="spell.range"></td>
+                        <td><input type="url" [(ngModel)]="spell.link"></td>
+                        <td><textarea [(ngModel)]="spell.description"></textarea></td>
+                        <td><button (click)="removeSpell(spell.level, $index)">Remove</button></td>
+                    </tr>
+                }
+            </table>
+            <button (click)="addSpell(9)">Add Spell</button>
+        </article>
+
+    </section>
+</main>

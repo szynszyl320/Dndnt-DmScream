@@ -310,6 +310,7 @@
                         <td><input type="text" [(ngModel)]="weapon.bonusToHit"></td>
                         <td><input type="text" [(ngModel)]="weapon.range"></td>
                         <td><textarea [(ngModel)]="weapon.description"></textarea></td>
+                        <td><button (click)="removeWeapon($index)">Remove</button></td>
                     </tr>
                 }
             </table>

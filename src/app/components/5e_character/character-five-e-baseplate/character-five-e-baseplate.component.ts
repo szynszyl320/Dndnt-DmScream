@@ -8,10 +8,17 @@ import { Character5e } from '../../../class/character-5e';
 
 //Components imports
 import { CharacterFiveEMainComponent } from '../character-five-e-main/character-five-e-main.component';
+import { CharacterFiveEBackgroundComponent } from '../character-five-e-background/character-five-e-background.component';
+import { CharacerFiveESpellsComponent } from '../characer-five-e-spells/characer-five-e-spells.component';
 
 @Component({
   selector: 'app-character-five-e-baseplate',
-  imports: [FormsModule, CharacterFiveEMainComponent],
+  imports: [
+    FormsModule, 
+    CharacterFiveEMainComponent, 
+    CharacterFiveEBackgroundComponent,
+    CharacerFiveESpellsComponent
+  ],
   templateUrl: './character-five-e-baseplate.component.html',
   styleUrl: './character-five-e-baseplate.component.css'
 })

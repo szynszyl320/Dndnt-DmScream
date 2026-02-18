@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 //service imports
@@ -63,5 +63,36 @@ toggleFailure(count: number): void {
 addNewWeapon() :void {
   this.currentCharacter.weapons.push(new Weapon);
 }
+
+removeWeapon(weaponIndex :number) :void {
+  this.currentCharacter.weapons.splice(weaponIndex, 1);
+}
+
+saveChanges() :void {
+
+    //all the strings get split back up to arrays 
+     this.currentCharacter.personalityTraits = this.personalityTraitsString.split('\n');
+    this.currentCharacter.ideals = this.idealsString.split('\n');
+    this.currentCharacter.bonds = this.bondsString.split('\n');
+    this.currentCharacter.flaws = this.flawsString.split('\n');
+    this.currentCharacter.equipment = this.equipmentString.split('\n');
+    this.currentCharacter.proficiencies = this.proficienciesString.split('\n');
+    this.currentCharacter.featuresAndTraits = this.featuresAndTraitsString.split('\n');
+    this.currentCharacter.languages = this.languagesString.split('\n');
+    this.currentCharacter.otherWeaponsAndAttacks = this.otherWeaponsAndAttacksString.split('\n');
+    
+
+    this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 
+    
+    this.characterHandler.saveContent(); //all the changes get saved to localstorage
+  }
+
+//Listener that triggers the function saveChanges anytime an input gets modified in any way. 
+@HostListener('input', ['$event'])
+onAnyInput(_: Event) {
+  this.saveChanges();
+  this.characterHandler.getCampaings();
+}
+
 
 }

@@ -1,0 +1,78 @@
+<header>
+    
+    <h2><input type="text" name="character_name" id="character_name" [(ngModel)]="currentCharacter.name"></h2>
+
+    <article>
+        <label>
+            <input type="text" name="character_age" id="character_age" [(ngModel)]="currentCharacter.age">
+            <p>Age</p>
+        </label>
+        
+        <label>
+            <input type="text" name="character_height" id="character_height" [(ngModel)]="currentCharacter.height">
+            <p>Height</p>
+        </label>
+
+        <label>
+            <input type="text" name="character_weight" id="character_weight" [(ngModel)]="currentCharacter.weight">
+            <p>Weight</p>
+        </label>
+
+        <label>
+            <input type="text" name="character_eyes" id="character_eyes" [(ngModel)]="currentCharacter.eyeColor">
+            <p>Eye Color</p>
+        </label>
+    
+        <label>
+            <input type="text" name="character_skin" id="character_skin" [(ngModel)]="currentCharacter.skinColor">
+            <p>Skin Color</p>
+        </label>
+
+        <label>
+            <input type="text" name="character_hair" id="character_hair" [(ngModel)]="currentCharacter.hairColor">
+            <p>Hair</p>
+        </label>
+    </article>
+
+</header>
+<main>
+
+    <section id="left_section">
+
+       <label>
+        <img [src]="currentCharacter.characterAppearance ? URL.createObjectURL(currentCharacter.characterAppearance) : ''" 
+            (click)="fileInput.click()"
+            style="cursor: pointer;">
+        <input #fileInput type="file" name="character_appearance" id="character_appearance" 
+            (change)="onAppearanceChange($event)"
+            style="display: none;">
+        <p>Character Appearance</p>
+    </label>
+
+        <label>
+            <textarea name="character_magic_items" id="character_magic_items" [(ngModel)]="magicItemsString"></textarea>
+            <p>Magic items</p>
+        </label>
+
+    </section>
+
+    <section id="right_section">
+
+        <label>
+            <textarea name="character_backstory" id="character_backstory" [(ngModel)]="currentCharacter.origin"></textarea>
+            <p>Backstory</p>
+        </label>
+
+        <label>
+            <textarea name="character_additional_features_and_traits" id="character_additional_features_and_traits" [(ngModel)]="additionalFeaturesAndTraitsString"></textarea>
+            <p>Additional features and traits</p>
+        </label>
+
+        <label>
+            <textarea name="character_allies_and_organisations" id="character_allies_and_organisations" [(ngModel)]="alliesAndOrganisationsString"></textarea>
+            <p>Allies and Organisations</p>
+        </label>
+
+    </section>
+
+</main>

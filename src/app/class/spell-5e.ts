@@ -7,4 +7,8 @@ export class Spell5e {
     public name :string = "";
     public range :string = "";
 
+    constructor(level :number) {
+        this.level = level;
+    }
+
 }

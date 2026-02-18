@@ -76,6 +76,13 @@ export class Character5e extends CharacterBaseplate {
 
     public otherWeaponsAndAttacks :Array<string> = [];
 
+    public age :string = "";
+    public height :string = "";
+    public weight :string = "";
+    public eyeColor :string = "";
+    public skinColor :string = "";
+    public hairColor :string = "";
+
     //Hit dice 
     public totalHitDice :number = 0;
     public hitDice :string = "";
@@ -111,7 +118,8 @@ export class Character5e extends CharacterBaseplate {
     public spellSaveDc :number = 0;
     public spellAttackBonus :number = 0;
 
-    //Spells 
+
+    //Spells
     public cantrips :Array<Spell5e> = [];
     public lvl1Spells :Array<Spell5e> = [];
     public lvl2Spells :Array<Spell5e> = [];
@@ -122,6 +130,16 @@ export class Character5e extends CharacterBaseplate {
     public lvl7Spells :Array<Spell5e> = [];
     public lvl8Spells :Array<Spell5e> = [];
     public lvl9Spells :Array<Spell5e> = [];
+
+    public lvl1SpellSlots :number = 0;
+    public lvl2SpellSlots :number = 0;
+    public lvl3SpellSlots :number = 0;
+    public lvl4SpellSlots :number = 0;
+    public lvl5SpellSlots :number = 0;
+    public lvl6SpellSlots :number = 0;
+    public lvl7SpellSlots :number = 0;
+    public lvl8SpellSlots :number = 0;
+    public lvl9SpellSlots :number = 0;
 
     public type :string = '5e';
 
