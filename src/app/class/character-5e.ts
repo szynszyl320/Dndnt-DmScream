@@ -12,7 +12,6 @@ export class Character5e extends CharacterBaseplate {
     public inspiration :number = 0;
     public proficiencyBonus :number = 0;
 
-    public initiative :number = 0;
     public movement :number = 0;
 
     //Saving throws

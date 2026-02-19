@@ -31,4 +31,10 @@ export class CharacterBaseplate {
 
     public characterAppearance :Blob = new Blob;
 
+    public initiative :number = 0; 
+
+    public changeCharacterHealth(inputNumber :number) :void {
+        this.currentHp += inputNumber;
+    }
+
 }

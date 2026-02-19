@@ -1,10 +1,9 @@
 //This is a class for weapons in my and my friends homebrew stuff, a 5e version is coming! Someday...
 
-import { Character5e } from "./character-5e";
-import { DndtCharacter } from "./dndt-character";
-import { ScuffCharacter } from "./scuff-character";
+import { TurnHandlerService } from "../services/turn-handler.service";
 
 export class Weapon {
+    
     public name :string = "";
     public damage :string = "";
     public damageType :string = "";
@@ -13,7 +12,8 @@ export class Weapon {
     public range :string = "";
 
     
-    rollWeaponDamage() :string {
+    public rollWeaponDamage() :Array<any> {
+         
         const damageArray :Array<string> = this.damage.split(' ');
 
         const assignArray :Array<number> = [];
@@ -60,8 +60,12 @@ export class Weapon {
         scoreArray.forEach(score => {
             result += score;
         });
+ 
 
-        return `The roll for damage was: ${result}. Specifically speaking: | ${returnScore}`;
+        return [
+            `The roll for damage was: ${result}. Specifically speaking: | ${returnScore}`,
+            result
+        ];
     }
 
 }

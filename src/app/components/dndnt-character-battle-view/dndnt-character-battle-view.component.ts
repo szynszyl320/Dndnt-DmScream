@@ -129,7 +129,7 @@ export class DndntCharacterBattleViewComponent {
   }
 
   rollWeapon(weapon :Weapon) {
-    this.finalScore = weapon.rollWeaponDamage();
+    this.finalScore = weapon.rollWeaponDamage()[0];
     this.isOutputVisible = true;
     this.startProgress();
   }

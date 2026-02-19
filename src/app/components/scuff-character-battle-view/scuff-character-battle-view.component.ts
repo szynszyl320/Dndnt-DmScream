@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 //service imports
 import { CharacterHandlerService } from '../../services/character-handler.service';
+import { TurnHandlerService } from '../../services/turn-handler.service';
 
 //pipe imports
 import { ModifierCeilPipe } from '../../pipes/modifier-ceil.pipe';
@@ -22,7 +23,7 @@ import { Timer, timer } from 'd3-timer';
 })
 export class ScuffCharacterBattleViewComponent {
 
-  constructor(private characterHandler: CharacterHandlerService, private ngZone: NgZone) {}
+  constructor(private characterHandler: CharacterHandlerService, private ngZone: NgZone, private turnHandler :TurnHandlerService) {}
 
   hpChange : number = 0;
   shieldsChange :number = 0;
@@ -48,6 +49,11 @@ export class ScuffCharacterBattleViewComponent {
       this.implantsString = value.implants.join('\n');
       this.statusesString = value.statuses.join('\n');
 
+      let weaponsArray :Array<Weapon> = new Array
+      this.currentCharacter.weapons.forEach(weapon => {
+          weaponsArray.push(Object.assign(new Weapon, weapon))
+      });
+      this.currentCharacter.weapons = weaponsArray
     })
 
   }
@@ -78,7 +84,12 @@ export class ScuffCharacterBattleViewComponent {
   }
 
   rollWeapon(weapon :Weapon) :void {
-    this.finalScore = weapon.rollWeaponDamage();
+    let weaponOutput = weapon.rollWeaponDamage()
+
+    this.finalScore = weaponOutput[0];    
+
+    console.log(this.turnHandler.statusApply(this.currentCharacter, weaponOutput[1], weapon.damageType.split('|'), 12));
+    
 
     this.isOutputVisible = true;
     this.startProgress();

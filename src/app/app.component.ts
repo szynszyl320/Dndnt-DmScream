@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 //Components
 import { CharacterSelectionComponent } from './components/character-selection/character-selection.component';
@@ -22,7 +24,7 @@ import { CharacterHandlerService } from './services/character-handler.service';
     ToolboxComponent,
     DndntCharacterComponent,
     ScuffCharacterBattleViewComponent,
-    DndntCharacterBattleViewComponent,
+    DndntCharacterBattleViewComponent,  
     CharacterFiveEBaseplateComponent
   ],
   templateUrl: './app.component.html',
@@ -31,10 +33,23 @@ import { CharacterHandlerService } from './services/character-handler.service';
 
 
 export class AppComponent {
-  constructor(private characterHandler: CharacterHandlerService ) {}
+  private router = inject(Router);
+  
+  constructor(private characterHandler: CharacterHandlerService) {}
   
   ngOnInit() {
-    //Code executed upon componen initialization 
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        console.log('Route loaded:', event.url);
+        if(event.url == '/battler') {
+          this.showLayout = false;
+        } else {
+          this.showLayout = true
+        }
+      });
+    
+      //Code executed upon componen initialization 
     this.characterHandler.$CurrentCharacter.subscribe((content) => {
       this.currentCharacter = content;
       this.typeToBeDisplayed = this.currentCharacter.type;
@@ -42,6 +57,8 @@ export class AppComponent {
   }
   
   currentCharacter :any = {}; 
+
+  showLayout :boolean = true;
 
   typeToBeDisplayed :string = "";
 
@@ -61,6 +78,8 @@ export class AppComponent {
   isToolBoxVisible :boolean = false;
 
   typeOfView :string = "standard";
+
+
 
 }
 

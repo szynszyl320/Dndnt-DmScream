@@ -1,0 +1,31 @@
+<div id="container">
+
+    <nav>
+        @for (character of Battler.characters; track $index) {
+            <button (click)="switchCharacter(character)">{{character.name}} | {{character.initiative}}</button>
+        }
+    </nav>
+
+    <main>
+
+        <section>
+            @if (displayedCharacter.type == 'dndnt') {
+                <app-dndnt-character-battle-view></app-dndnt-character-battle-view>
+            } @else if (displayedCharacter.type == 'generation ship') {
+                <app-scuff-character-battle-view></app-scuff-character-battle-view>
+            } @else {
+                <h2>Unsuported character chosen!</h2>
+            }
+        </section>
+
+        <aside>
+            <h2>Options</h2>
+            <label>Initiative: <input type="number" name="character_initiative" id="character_initiative" [(ngModel)]="displayedCharacter.initiative"></label>
+            <button (click)="rerollInitiative()">Rerrol initative</button>
+            
+            <button (click)="removeCharacter()">Remove character</button>
+        </aside>
+
+    </main>
+
+</div>

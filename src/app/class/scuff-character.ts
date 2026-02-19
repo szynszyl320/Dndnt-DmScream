@@ -8,6 +8,8 @@ export class ScuffCharacter extends CharacterBaseplate {
 
     public height :string = "";
 
+    public bodyType :string = ""
+
     public traits :Array<string> = [];
 
     public languages :Array<string> = [];
@@ -16,7 +18,7 @@ export class ScuffCharacter extends CharacterBaseplate {
 
     public clothes :Array<string> = [];
 
-    public statuses :Array<string> = [];
+    public statuses :Array<any> = [];
 
     public implants :Array<string> = [];
 
@@ -24,5 +26,8 @@ export class ScuffCharacter extends CharacterBaseplate {
 
     public components :Array<string> = [];
 
-    public type :string = "generation ship"
+
+    public type :string = "generation ship";
+
+
 }

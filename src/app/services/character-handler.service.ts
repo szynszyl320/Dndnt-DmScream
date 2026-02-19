@@ -31,7 +31,7 @@ export class CharacterHandlerService {
         MainSave = JSON.parse(localMainsave); 
       } else {
         MainSave = {
-          CurrenCharacter: new ScuffCharacter,
+          CurrentCharacter: new ScuffCharacter,
           CharacterList: [new ScuffCharacter]
         }
       }

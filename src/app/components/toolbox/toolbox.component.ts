@@ -1,13 +1,16 @@
 //Angular imports
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from "@angular/router";
 
 //Service imports
 import { CharacterHandlerService } from '../../services/character-handler.service';
+import { BattlerHandlerService } from '../../services/battler-handler.service';
+
 
 @Component({
   selector: 'app-toolbox',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './toolbox.component.html',
   styleUrl: './toolbox.component.css'
 })
@@ -27,7 +30,7 @@ export class ToolboxComponent {
 
   isToolboxVisible :boolean = false; //creates a variable to check if the toolbox is visible 
 
-  constructor(private characterHandler: CharacterHandlerService) {} //Instatniates the characterHandler serivce 
+  constructor(private characterHandler: CharacterHandlerService, private battlerHandler: BattlerHandlerService) {} //Instatniates the characterHandler and battlerHandler serivce 
 
   //Code executed on initiation of the component
   ngOnInit() {
@@ -133,6 +136,12 @@ export class ToolboxComponent {
     //clears the dice to roll and scoring 
     this.diceToRoll = [];
     this.scores = "";
+  }
+
+  pushCurrentCharactertoBattler() :void {
+    this.battlerHandler.loadNewCharacter(this.currentCharacter);
+    this.battlerHandler.saveContent();
+    this.battlerHandler.loadcontent()
   }
 
 }
