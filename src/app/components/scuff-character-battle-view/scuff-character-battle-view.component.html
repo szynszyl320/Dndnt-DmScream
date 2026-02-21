@@ -77,7 +77,7 @@
             <th>Description</th>
         </tr>       
         @for (weapon of currentCharacter.weapons; track $index) {
-            <tr (click)="attack(weapon)">
+            <tr (click)="attack(weapon, $event)">
                 <td>{{weapon.name}}</td>
                 <td>{{weapon.damage}}</td>
                 <td>{{weapon.damageType}}</td>
@@ -100,9 +100,30 @@
             <p>Implants:</p>
             <textarea name="implants" id="implants" [(ngModel)]="implantsString" rows="4" cols="50"></textarea>
         </label>
-        <!-- <label>
-            <p>Effecting statuses: </p>
-            <textarea name="statuses" id="statuses" [(ngModel)]="statusesString" rows="4" cols="50"></textarea>
-        </label> -->
+        <article>
+            <p>Statuses</p>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Stacks</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @for (status of currentCharacter.statuses; track $index) {
+                    <tr>
+                        <td>{{status.name}}</td>
+                        <td>{{status.stacks}}</td>
+                        <td><button (click)="removeStatusStacks(1, $index)">-1</button></td>
+                        <td><button (click)="removeStatusStacks(status.stacks, $index)">X</button></td>
+                    </tr>
+                }
+            </table>
+            <div>
+                <label>Name: <input type="text" name="status_name" id="status_name" [(ngModel)]="statusEffectName"></label>
+                <label>Stacks: <input type="number" name="status_stacks" id="status_stacks" [(ngModel)]="statusEffectStacks"></label>
+                <label>Is lowered by turn?<input type="radio" name="does_lower" id="does_lower" [(ngModel)]="statusEffectDoesLower"></label>
+                <button (click)="addNewStatusEffect()">Add new status</button>
+            </div>
+        </article>
     </section>
 </main>

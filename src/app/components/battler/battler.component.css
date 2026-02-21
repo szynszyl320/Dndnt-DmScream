@@ -16,3 +16,8 @@ aside {
     display: flex;
     flex-direction: column;
 }
+
+button.selected-target {
+  background-color: #ffeb3b; /* Or your preferred color */
+  font-weight: bold;
+}

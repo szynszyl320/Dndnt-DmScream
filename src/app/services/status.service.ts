@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ScuffCharacter } from '../class/scuff-character';
 
 @Injectable({
   providedIn: 'root'
@@ -7,25 +8,31 @@ export class StatusService {
 
   constructor() { }
 
-  public PushStatus(statusArray :Array<any>, statusName :string, stacks :number, doesLower? :boolean) :Array<any> {    
+  public PushStatus(character :ScuffCharacter, statusName :string, stacks :number, doesLower? :boolean) :Array<any> | void {    
 
-    statusArray.forEach((status, index) => {
+    if(stacks < 1) {
+        return
+    }
+
+    character.statuses.forEach((status, index) => {
         if(status.name == statusName) {
             stacks += status.stacks
-            statusArray.splice(index, 1)
+            character.statuses.splice(index, 1)
         }
     });
 
-    statusArray.push({
+    let payload = {
         name: statusName,
         stacks: stacks,
         doesLower: doesLower || true
-    })
+    }
+    
+    character.statuses.push(payload)
 
-    return statusArray
+    
   }
 
-  public  Bleed = {
+  public Bleed = {
         checkForBleed(damageDealt :number, bodyType :string) :number {
             if(damageDealt%2 == 0 && bodyType != 'highly cybernetic' && bodyType != 'mechanical') {
                 return 1

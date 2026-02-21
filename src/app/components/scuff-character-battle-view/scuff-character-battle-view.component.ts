@@ -1,6 +1,6 @@
 //Angular imports
-import { Component, NgZone, HostListener } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, NgZone, HostListener, input } from '@angular/core';
+import { FormsModule, StatusChangeEvent } from '@angular/forms';
 
 //service imports
 import { CharacterHandlerService } from '../../services/character-handler.service';
@@ -45,9 +45,11 @@ export class ScuffCharacterBattleViewComponent {
   traitsString :string = "";
   proficienciesString :string = '';
   implantsString :string = "";
-  statusesString :string = "";
-
   target :ScuffCharacter | null = null
+
+  statusEffectName :string = ""
+  statusEffectStacks :number = 0
+  statusEffectDoesLower :boolean = true
 
   ngOnInit() {
 
@@ -57,7 +59,6 @@ export class ScuffCharacterBattleViewComponent {
       this.traitsString = value.traits.join('\n');
       this.proficienciesString = value.proficiencies.join('\n');
       this.implantsString = value.implants.join('\n');
-      this.statusesString = value.statuses.join('\n');
 
       let weaponsArray :Array<Weapon> = new Array
       this.currentCharacter.weapons.forEach(weapon => {
@@ -112,8 +113,7 @@ export class ScuffCharacterBattleViewComponent {
     this.currentCharacter.traits = this.traitsString.split('\n');
     this.currentCharacter.proficiencies = this.proficienciesString.split('\n');
     this.currentCharacter.implants = this.implantsString.split('\n');
-    this.currentCharacter.statuses = this.statusesString.split('\n')
-
+    
     this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 
     
     this.characterHandler.saveContent(); //all the changes get saved to localstorage
@@ -168,24 +168,43 @@ export class ScuffCharacterBattleViewComponent {
     this.characterHandler.getCampaings();
   }
 
-  attack(weapon :Weapon, advantage :number = 0, damage? :number, rollToHit? :number) :void {
+  attack(weapon :Weapon, event? :MouseEvent, advantage :number = 0, damage :number = 0, rollToHit? :number) :void {
+    console.log('Attack initiated');
+
+    const isShiftDown = !!event && event.shiftKey;
+
+    if(isShiftDown) {
+      const inputString = prompt('Input custom roll and damage. One after another, separated by ",".') 
+      if(inputString) {
+        const inputArray :Array<any> = inputString.split(',') 
+
+        rollToHit = Number(inputArray[0])
+        damage = Number(inputArray[1])
+      }
+
+    }
+
     //Getting the bonus to hit from the weapon 
     let weaponBonus :string = weapon.bonusToHit.substring(0,3).toLowerCase()
     
+    let modifier :number = (Math.ceil((this.currentCharacter[weaponBonus]-10)/2))
+
+    let damageRolls :number = 1
+
     //Rolling to hit and checking advantages 
     if(!rollToHit) {
-      rollToHit = Math.floor((Math.random()*20)+1)+(Math.ceil((this.currentCharacter[weaponBonus]-10)/2))
+      rollToHit = Math.floor((Math.random()*20)+1)+modifier
        
       //The character has advantage 
       if (advantage == 1) {
-        let secondRoll = Math.floor((Math.random()*20)+1)+(Math.ceil((this.currentCharacter[weaponBonus]-10)/2))
+        let secondRoll = Math.floor((Math.random()*20)+1)+modifier
         if (secondRoll > rollToHit) {
           rollToHit = secondRoll
         }
       
       //The character has disadvantage 
       } else if (advantage == -1) {
-        let secondRoll = Math.floor((Math.random()*20)+1)+(Math.ceil((this.currentCharacter[weaponBonus]-10)/2))
+        let secondRoll = Math.floor((Math.random()*20)+1)+modifier
         if (secondRoll < rollToHit) {
           rollToHit = secondRoll
         }
@@ -200,19 +219,25 @@ export class ScuffCharacterBattleViewComponent {
       }
     }
 
-    //Checking if the damage has already been preinputed 
-    if(!damage) {
-      damage = weapon.rollWeaponDamage()[1]
+    if(rollToHit-modifier == 20) {
+      damageRolls = 2
     }
 
+    //Checking if the damage has already been preinputed 
+    for (let index = 0; index < damageRolls; index++) {
+      if(damage == 0) {
+        damage += weapon.rollWeaponDamage()[1]
+      }
+
     //Processing the damage statuses and damage types
-    if(this.target != null && damage) {
-      damage += this.turnHandler.processAttackTypes(weapon.damageType, damage, this.target)
-      damage += this.turnHandler.proccessAttackStatus(this.target, damage)
+      if(this.target != null && damage) {
+        damage = this.turnHandler.processAttackTypes(weapon.damageType, damage, this.target)
+        damage = this.turnHandler.proccessAttackStatus(this.target, damage)
+      }
     }
-  
-    console.log(this.target);
-    
+
+
+
     //apply the damage to the target 
     if(this.target != null && damage) {
       this.target.changeCharacterHealth(-1*(damage))
@@ -222,13 +247,38 @@ export class ScuffCharacterBattleViewComponent {
       this.battlerHandler.saveContent();
     }
 
-    if(rollToHit-(Math.ceil((this.currentCharacter[weaponBonus]-10)/2)) == 20){
-      
+    //apply the statuses
+    if(this.target != null && damage) {
+      this.turnHandler.statusApply(this.target, damage, weapon.damageType, rollToHit);
+      console.log(this.target.statuses);      
     }
 
     this.finalScore = `The roll to hit ${rollToHit} passed. The attack dealt ${damage} damage!`
     this.isOutputVisible = true;
     this.startProgress();
+  }
+
+
+  removeStatusStacks(stackAmount :number, index :number) :void {
+    if(stackAmount == this.currentCharacter.statuses[index].stacks) {
+      this.currentCharacter.statuses.splice(index,1)
+    } else {
+      this.currentCharacter.statuses[index].stacks -= stackAmount
+    }
+    this.battlerHandler.saveContent()
+  }
+
+  addNewStatusEffect() {
+    if(this.statusEffectStacks > 0) {
+      this.statusHandler.PushStatus(this.currentCharacter, this.statusEffectName.trim().toLowerCase(), this.statusEffectStacks, this.statusEffectDoesLower)
+    }
+    
+    this.statusEffectName = "";
+    this.statusEffectStacks = 0;
+    this.statusEffectDoesLower = true;
+    
+    this.battlerHandler.saveContent();
+
   }
 
 }

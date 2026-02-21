@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ScuffCharacter } from '../class/scuff-character';
+import { DndtCharacter } from '../class/dndt-character';
+import { Character5e } from '../class/character-5e';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +37,18 @@ export class CharacterHandlerService {
           CharacterList: [new ScuffCharacter]
         }
       }
+
+      
+      //Parser
+      MainSave.CharacterList.forEach((character :ScuffCharacter | DndtCharacter | Character5e) => {
+        if(character.type == "generation ship") {
+          character = Object.assign(new ScuffCharacter, character)
+        } else if (character.type == 'dndnt') {
+          character = Object.assign(new DndtCharacter, character)
+        } else if (character.type = '5e') {
+          character = Object.assign(new Character5e, character)
+        }
+      });
 
       const initial = MainSave.CurrentCharacter ||  MainSave.CharacterList[0] || null; // creates a constant with the for the loaded Current Character, if not found, chooses the first character in the Character Array, if none are found, it just inserts a null value. 
       this.$CurrentCharacter = new BehaviorSubject<any>(initial); // Creates a new Subject with the initial value 
@@ -81,7 +95,7 @@ export class CharacterHandlerService {
     }
   }
 
-  modifyArray(characterIndex :number | any, character :any ) :void {
+  modifyArray(characterIndex :number | any, character :any) :void {
     try {
       const characters :Array<any> = this.$CharacterList.getValue(); //Creates a temporary array based on the $CharacterList Subject's value 
       characters[characterIndex] = character; //Modifies the desired character in the temporary array 
@@ -140,4 +154,17 @@ export class CharacterHandlerService {
       console.error("Error trying to isolate campaigns: ", error);
     }
   }
+
+  characterParser(character :ScuffCharacter | Character5e | DndtCharacter) :ScuffCharacter | Character5e | DndtCharacter {
+    if(character.type == 'generation ship') {
+      character = Object.assign(new ScuffCharacter, character)
+    } else if (character.type == 'dndnt') {
+      character = Object.assign(new ScuffCharacter, character)
+    } else if (character.type == '5e') {
+      character = Object.assign(new Character5e, character)
+    }
+
+    return character
+  }
+
 }

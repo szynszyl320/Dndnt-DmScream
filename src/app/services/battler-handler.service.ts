@@ -63,14 +63,15 @@ export class BattlerHandlerService {
         Characters = this.$Battler.getValue().characters
       }
 
-      Characters.push(newCharacter);
-
       Characters.forEach((character) => {
         if (character.name == newCharacter.name) {
           Characters[Characters.length-1].name += ` ${Math.floor(Math.random()*50)}`;
           return
         }
       })
+
+      Characters.push(newCharacter);
+
 
       newCharacter.name= oldname;
 

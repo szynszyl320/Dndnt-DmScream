@@ -16,11 +16,11 @@ export class TurnHandlerService {
     character.statuses.forEach((status) => {
       switch(status.name) {
         case('bleed'):
-          character.changeCharacterHealth(this.statusProcessor.Bleed.processBleed(status.stacks))
+          character.changeCharacterHealth(-1*this.statusProcessor.Bleed.processBleed(status.stacks))
           break;
         
         case('burn'):
-          character.changeCharacterHealth(this.statusProcessor.Burn.processBurn(status.stacks))
+          character.changeCharacterHealth(-1*this.statusProcessor.Burn.processBurn(status.stacks))
           break;
         
         case('vulnerability'):
@@ -57,6 +57,8 @@ export class TurnHandlerService {
     chacaracter.statuses.forEach((status) => {
       switch(status.name) {
         case 'viral':
+          console.log('a');
+          
           damage += this.statusProcessor.Viral.processViral(chacaracter.bodyType, status.stacks)
           break;
       }
@@ -65,11 +67,10 @@ export class TurnHandlerService {
     return damage;
   }
 
-  statusApply(character :ScuffCharacter, damage :number, damageTypes :Array<any>, rollToHit :number) :Array<any> {
-    
-    let returnArray :Array<any> = []
-    
-    damageTypes.forEach((type :string) => { 
+  statusApply(character :ScuffCharacter, damage :number, damageTypes :string, rollToHit :number) :void {
+    let damageTypesArray :Array<string> = damageTypes.toLowerCase().trim().split('|')
+   
+    damageTypesArray.forEach((type :string) => { 
       let isApplied :number = 0 
       let name :string = ''
       let doesLower :boolean = true
@@ -97,12 +98,12 @@ export class TurnHandlerService {
 
         case ('slashing'):
           isApplied = this.statusProcessor.Bind.checkForBind(rollToHit)
-          name = 'Bind'
+          name = 'bind'
           break;
         
         case ('fire'):
           isApplied = 1;
-          name = 'Burn';
+          name = 'burn';
           break;
         
         case ('explosion'):
@@ -118,13 +119,9 @@ export class TurnHandlerService {
           
       }
  
-
-      if(isApplied) {
-        returnArray.push(this.statusProcessor.PushStatus(character.statuses, name, isApplied, doesLower) )
-      }
+      this.statusProcessor.PushStatus(character, name, isApplied, doesLower)
+      
     })
-
-    return returnArray
 
   }
 

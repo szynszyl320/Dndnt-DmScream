@@ -55,12 +55,13 @@ export class Weapon {
             offset += assignArray[i];
             returnScore += ` +${temporaryScore} |`;
         }
+        
 
         let result :number = 0;
         scoreArray.forEach(score => {
             result += score;
         });
- 
+        
 
         return [
             `The roll for damage was: ${result}. Specifically speaking: | ${returnScore}`,

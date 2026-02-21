@@ -2,7 +2,7 @@
 
     <nav>
         @for (character of Battler.characters; track $index) {
-            <button (click)="switchCharacter(character, $event)">{{character.name}} | {{character.initiative}}</button>
+            <button (click)="switchCharacter(character, $event)" [class.selected-target]="isSelectedTarget(character)">{{character.name}} | {{character.initiative}}</button>
         }
     </nav>
 
@@ -22,8 +22,8 @@
             <h2>Options</h2>
             <label>Initiative: <input type="number" name="character_initiative" id="character_initiative" [(ngModel)]="displayedCharacter.initiative"></label>
             <button (click)="rerollInitiative()">Rerrol initative</button>
-            
             <button (click)="removeCharacter()">Remove character</button>
+            <button (click)="processTurn()">Process the turn</button>
         </aside>
 
     </main>
