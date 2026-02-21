@@ -20,7 +20,7 @@
         </label>
     
         <label>
-            Backgrond <input type="text" name="character_background" id="character_background" [(ngModel)]="currentCharacter.background">
+            Background <input type="text" name="character_background" id="character_background" [(ngModel)]="currentCharacter.background">
         </label>
         
         <label>
@@ -36,7 +36,11 @@
         </label>
 
         <label>
-            Experience points: <input type="text" name="character_experience_points" id="character_experience_points">
+            Experience points: <input type="text" name="character_experience_points" id="character_experience_points" [(ngModel)]="currentCharacter.experiencePoints">
+        </label>
+
+        <label>
+            Campaign: <input type="text" name="character_campaign" id="character_campaign" [(ngModel)]="currentCharacter.campaign">
         </label>
     </section>
 

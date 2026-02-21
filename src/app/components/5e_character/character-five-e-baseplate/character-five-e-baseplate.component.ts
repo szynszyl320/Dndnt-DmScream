@@ -1,6 +1,7 @@
 //Angular imports
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HostListener } from '@angular/core';
 
 //service imports
 import { CharacterHandlerService } from '../../../services/character-handler.service';
@@ -36,10 +37,18 @@ ngOnInit() {
     this.currentCharacter = value;
   })
 
-
-
 }
 
+saveChanges() :void {
+  this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 
+    
+  this.characterHandler.saveContent(); //all the changes get saved to localstorage
+}
 
+@HostListener('input', ['$event'])
+onAnyInput(_: Event) {
+  this.saveChanges();
+  this.characterHandler.getCampaings();
+}
 
 }

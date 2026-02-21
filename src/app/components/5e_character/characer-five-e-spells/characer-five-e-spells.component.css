@@ -1,0 +1,47 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3vw;
+}
+
+header label {
+    width: 10%;
+    text-align: center;
+}
+
+main {
+    width: 100%;
+    min-height: 2000px;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vh;
+    align-items: center;
+    justify-content: center;
+}
+
+article {
+    max-height: 400px;
+    overflow-y: auto;
+    width: 40%;
+    border: 1px solid gainsboro;
+    border-radius: 2%;
+}
+
+article div {
+    display: inline;
+    margin: 10px;
+}
+
+article div input{
+    width: 10%;
+}
+
+table input {
+    height: 25px;
+    border: 2px solid black;
+    border-radius: 5px;
+}

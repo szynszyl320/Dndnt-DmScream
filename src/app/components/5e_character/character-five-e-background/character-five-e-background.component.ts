@@ -10,7 +10,8 @@ import { Character5e } from '../../../class/character-5e';
   selector: 'app-character-five-e-background',
   imports: [FormsModule],
   templateUrl: './character-five-e-background.component.html',
-  styleUrl: './character-five-e-background.component.css'
+  styleUrl: './character-five-e-background.component.css',
+
 })
 export class CharacterFiveEBackgroundComponent {
 
@@ -23,6 +24,7 @@ alliesAndOrganisationsString :string = "";
 additionalFeaturesAndTraitsString :string = "";
 magicItemsString :string = "";
 
+appearanceUrl :string = '';
 
 ngOnInit() {
   this.characterHandler.$CurrentCharacter.subscribe((value :Character5e) => {
@@ -31,19 +33,32 @@ ngOnInit() {
     this.alliesAndOrganisationsString = value.alliesAndOrganisations.join('\n');
     this.additionalFeaturesAndTraitsString = value.additionalFeaturesAndTraits.join('\n')
     this.magicItemsString = value.magicItems.join('\n');
+
+    const data = JSON.parse(localStorage.getItem(value.name) || '{}');
+    if (data.appearanceBase64) {
+      this.appearanceUrl = data.appearanceBase64; // Base64 data URLs work directly in img src
+      this.currentCharacter.appearanceBase64 = data.appearanceBase64;
+    }
+    
   })
 
 }
 
 saveChanges() :void {
-
-    //all the strings get split back up to arrays 
+  //all the strings get split back up to arrays 
     this.currentCharacter.alliesAndOrganisations = this.alliesAndOrganisationsString.split('\n');
     this.currentCharacter.additionalFeaturesAndTraits = this.additionalFeaturesAndTraitsString.split('\n');
     this.currentCharacter.magicItems = this.magicItemsString.split('\n');
 
     this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 
-    
+  
+    const characterData = {
+      ...this.currentCharacter,
+      characterAppearance: undefined, // Don't save the File object
+      appearanceBase64: this.currentCharacter.appearanceBase64
+    };
+    localStorage.setItem(this.currentCharacter.name, JSON.stringify(characterData));
+
     this.characterHandler.saveContent(); //all the changes get saved to localstorage
   }
 
@@ -55,16 +70,35 @@ onAnyInput(_: Event) {
 }
 
 
-onAppearanceChange(event: Event): void {
+  onAppearanceChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     
     if (file) {
-        this.currentCharacter.characterAppearance = file;
+      if (this.appearanceUrl) {
+        URL.revokeObjectURL(this.appearanceUrl);
+      }
+      
+      this.appearanceUrl = URL.createObjectURL(file);
+      this.currentCharacter.characterAppearance = file;
+      
+      // Convert file to Base64 for localStorage
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64String = e.target?.result as string;
+        this.currentCharacter.appearanceBase64 = base64String;
         this.saveChanges();
+      };
+      reader.readAsDataURL(file);
     }
-}
+  }
 
-// ...existing code...
+
+  ngOnDestroy(): void {
+    // Clean up the blob URL when the component is destroyed
+    if (this.appearanceUrl) {
+      URL.revokeObjectURL(this.appearanceUrl);
+    }
+  }
 
 }

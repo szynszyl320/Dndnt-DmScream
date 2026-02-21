@@ -206,10 +206,15 @@
 
             <article>
 
-                <textarea name="character_languages" id="character_languages" [(ngModel)]="languagesString"></textarea>
+                <label>
+                    <p>Languages</p>
+                    <textarea name="character_languages" id="character_languages" [(ngModel)]="languagesString"></textarea>
+                </label>
 
-                <textarea name="character_proficiencies" id="character_proficiencies" [(ngModel)]="proficienciesString"></textarea>
-
+                <label>
+                    <p>Proficiencies</p>
+                    <textarea name="character_proficiencies" id="character_proficiencies" [(ngModel)]="proficienciesString"></textarea>
+                </label>
             </article>
 
         </section>
@@ -236,17 +241,22 @@
                 </label>
             </div>
 
-            <Label>Maximum Hit points: <input type="number" name="character_max_health" id="character_max_health" [(ngModel)]="currentCharacter.maxHp"></Label>
+            <div>
+                <Label> 
+                    <input type="number" name="character_max_health" id="character_max_health" [(ngModel)]="currentCharacter.maxHp">
+                    <p>Maximum Hit points</p>
+                </Label>
 
-            <label>
-                <input type="number" name="character_health" id="character_health" [(ngModel)]="currentCharacter.currentHp">
-                <p>Current Hit Points</p>
-            </label>
+                <label>
+                    <input type="number" name="character_health" id="character_health" [(ngModel)]="currentCharacter.currentHp">
+                    <p>Current Hit Points</p>
+                </label>
 
-            <label>
-                <input type="number" name="character_temp_health" id="character_temp_health" [(ngModel)]="currentCharacter.temporaryHitPoints">
-                <p>Temporary Hit Points</p>
-            </label>
+                <label>
+                    <input type="number" name="character_temp_health" id="character_temp_health" [(ngModel)]="currentCharacter.temporaryHitPoints">
+                    <p>Temporary Hit Points</p>
+                </label>
+            </div>
 
             <div>
                 <aside>
@@ -277,13 +287,13 @@
                     <label>FAILURES</label>
                     <div class="death-save-circles">
                         <div class="circle" 
-                             [class.active]="currentCharacter.failures >= 1"
+                             [class.unactive]="currentCharacter.failures >= 1"
                              (click)="toggleFailure(1)"></div>
                         <div class="circle" 
-                             [class.active]="currentCharacter.failures >= 2"
+                             [class.unactive]="currentCharacter.failures >= 2"
                              (click)="toggleFailure(2)"></div>
                         <div class="circle" 
-                             [class.active]="currentCharacter.failures >= 3"
+                             [class.unactive]="currentCharacter.failures >= 3"
                              (click)="toggleFailure(3)"></div>
                     </div>
                 </aside>
@@ -293,35 +303,36 @@
         </article>
 
         <article>
-
-
-            <table id="weapons">
-                <tr>
-                    <th>Name</th>
-                    <th>Damage</th>
-                    <th>Bonus to hit</th>
-                    <th>Range</th>
-                    <th>Description</th>
-                </tr>
-                @for (weapon of currentCharacter.weapons; track $index) {
+            <div id="weapon_container">
+                <table id="weapons">
                     <tr>
-                        <td><input type="text" [(ngModel)]="weapon.name"></td>
-                        <td><input type="text" [(ngModel)]="weapon.damage"></td>
-                        <td><input type="text" [(ngModel)]="weapon.bonusToHit"></td>
-                        <td><input type="text" [(ngModel)]="weapon.range"></td>
-                        <td><textarea [(ngModel)]="weapon.description"></textarea></td>
-                        <td><button (click)="removeWeapon($index)">Remove</button></td>
+                        <th>Name</th>
+                        <th>Damage</th>
+                        <th>Bonus to hit</th>
+                        <th>Range</th>
+                        <th>Description</th>
                     </tr>
-                }
-            </table>
+                    @for (weapon of currentCharacter.weapons; track $index) {
+                        <tr>
+                            <td><input type="text" [(ngModel)]="weapon.name"></td>
+                            <td><input type="text" [(ngModel)]="weapon.damage"></td>
+                            <td><input type="text" [(ngModel)]="weapon.bonusToHit"></td>
+                            <td><input type="text" [(ngModel)]="weapon.range"></td>
+                            <td><textarea [(ngModel)]="weapon.description" ></textarea></td>
+                            <td><button (click)="removeWeapon($index)">Remove</button></td>
+                        </tr>
+                    }
+                </table>
+            </div>
             <button (click)="addNewWeapon()">Add new weapon</button>
 
-            <textarea name="chracter_other_weapons_and_attacks" id="chracter_other_weapons_and_attacks" [(ngModel)]="otherWeaponsAndAttacksString"></textarea>
-
-            <p>Weapons and other attacks</p>
+            <label id="other_weapons">
+                <textarea name="chracter_other_weapons_and_attacks" id="chracter_other_weapons_and_attacks" [(ngModel)]="otherWeaponsAndAttacksString"></textarea>
+                <p>Weapons and other attacks</p>
+            </label>
         </article>
 
-        <article>
+        <article id="lower_center">
 
             <div>
                 <label>CP <input type="number" name="character_cp" id="character_cp" [(ngModel)]="currentCharacter.cp"></label>
@@ -331,39 +342,41 @@
                 <label>PP <input type="number" name="character_pp" id="character_pp" [(ngModel)]="currentCharacter.pp"></label>
             </div>
 
-            <textarea name="character_equipment" id="character_equipment" [(ngModel)]="equipmentString"></textarea>
+            <label>
+                <textarea name="character_equipment" id="character_equipment" [(ngModel)]="equipmentString" rows="25" cols="120"></textarea>
 
-            <p>Equipment</p>
+                <p>Equipment</p>
+            </label>
         </article>
 
     </section>
 
-    <section id="main_left">
+    <section id="main_right">
         <article id="misc">
 
             <label>
-                <textarea name="character_personality_traits" id="character_personality_traits" [(ngModel)]="personalityTraitsString"></textarea>
+                <textarea name="character_personality_traits" id="character_personality_traits" [(ngModel)]="personalityTraitsString" rows="8"></textarea>
                 <p>Personality Traits</p>
             </label>
 
             <label>
-                <textarea name="character_ideals" id="character_ideals" [(ngModel)]="idealsString"></textarea>
+                <textarea name="character_ideals" id="character_ideals" [(ngModel)]="idealsString" rows="8"></textarea>
                 <p>Ideals</p>
             </label>
 
             <label>
-                <textarea name="character_bonds" id="character_bonds"></textarea>
+                <textarea name="character_bonds" id="character_bonds" rows="8"></textarea>
                 <p>Bonds</p>
             </label>
 
             <label>
-                <textarea name="character_flaws" id="character_flaws"></textarea>
+                <textarea name="character_flaws" id="character_flaws" rows="8"></textarea>
                 <p>Flaws</p>
             </label>
         </article>
 
-        <label>
-            <textarea name="character_features_and_traits" id="character_features_and_traits"></textarea>
+        <label id="features_and_traits">
+            <textarea name="character_features_and_traits" id="character_features_and_traits" rows="20"></textarea>
             <p>Features and Traits</p>
         </label>
 

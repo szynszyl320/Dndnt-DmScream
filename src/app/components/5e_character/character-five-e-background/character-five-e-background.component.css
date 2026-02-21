@@ -1,0 +1,48 @@
+header,
+main {
+    background-color: rgb(194, 189, 189);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header article {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    gap: 0.5vw;
+    justify-content: center;
+}
+
+header article label {
+    text-align: center;
+    /* width: 40%; */
+}
+
+main {
+    display: flex;
+    gap: 3vw;
+    padding: 3px;
+}
+
+main label {
+    text-align: center;
+}
+
+img {
+    max-height: 400px;
+}
+
+#right_section,
+#left_section {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+ 

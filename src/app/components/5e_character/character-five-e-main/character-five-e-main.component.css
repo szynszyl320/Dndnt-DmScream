@@ -21,3 +21,87 @@
 .circle.active {
     background-color: #4CAF50;
 }
+
+.circle.unactive {
+    background-color: rgb(162, 28, 28);
+}
+
+main {
+    display: flex;
+    max-height: 1500px;
+}
+
+#main_left {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    background-color: rgb(233, 233, 233);
+    padding: 8px;
+}
+
+#upper_left {
+    display: flex;
+}
+
+#main_center {
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+    background-color: rgb(225, 223, 223);
+    width: 60%;
+    padding: 8px;
+}
+
+#health {
+    display: flex;
+    flex-direction: column;
+}
+
+#main_center div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 3vw;
+}
+
+#weapon_container {
+    border: 1px solid rgb(41, 39, 39);
+    border-radius: 3%;
+    max-height: 275px;
+    overflow-y: auto;
+}
+
+table textarea {
+    resize: none;
+}
+
+label p {
+    text-align: center;
+}
+
+#lower_center {
+    display: flex;
+}
+
+#lower_center div {
+    display: flex;
+    flex-direction: column;    
+    gap: 3vh;
+}
+
+#lower_center textarea {
+    margin-top: 2vh;
+}
+
+#main_right {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    padding: 5px;
+    background-color: rgb(233, 233, 233);
+}
+
+#character_features_and_traits {
+    border: 2px solid black;
+}

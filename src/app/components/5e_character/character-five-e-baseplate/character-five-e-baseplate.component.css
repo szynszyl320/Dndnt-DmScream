@@ -1,0 +1,42 @@
+nav {
+    display: flex;
+}
+
+nav button {
+    width: 15%;
+    margin: 4px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    margin-bottom: 8vh;
+}
+
+label {
+    margin: 1px;
+}
+
+header label {
+    height: 100%;
+    width: 30%;
+    font-weight: bold;
+}
+
+section {
+    display:flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    width: 70%;
+}
+
+section label {
+    width: 24%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}

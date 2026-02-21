@@ -1,7 +1,4 @@
 <header>
-    
-    <h2><input type="text" name="character_name" id="character_name" [(ngModel)]="currentCharacter.name"></h2>
-
     <article>
         <label>
             <input type="text" name="character_age" id="character_age" [(ngModel)]="currentCharacter.age">
@@ -33,24 +30,26 @@
             <p>Hair</p>
         </label>
     </article>
-
 </header>
 <main>
 
     <section id="left_section">
 
        <label>
-        <img [src]="currentCharacter.characterAppearance ? URL.createObjectURL(currentCharacter.characterAppearance) : ''" 
-            (click)="fileInput.click()"
-            style="cursor: pointer;">
-        <input #fileInput type="file" name="character_appearance" id="character_appearance" 
-            (change)="onAppearanceChange($event)"
-            style="display: none;">
-        <p>Character Appearance</p>
-    </label>
+            <img [src]="appearanceUrl" 
+                (click)="fileInput.click()"
+                style="cursor: pointer;">
+            <input #fileInput 
+                    type="file" 
+                    name="character_appearance" 
+                    id="character_appearance" 
+                    (change)="onAppearanceChange($event)"
+                    style="display: none;">
+            <p>Character Appearance</p>
+        </label>
 
         <label>
-            <textarea name="character_magic_items" id="character_magic_items" [(ngModel)]="magicItemsString"></textarea>
+            <textarea name="character_magic_items" id="character_magic_items" [(ngModel)]="magicItemsString" rows="10"></textarea>
             <p>Magic items</p>
         </label>
 
@@ -59,17 +58,17 @@
     <section id="right_section">
 
         <label>
-            <textarea name="character_backstory" id="character_backstory" [(ngModel)]="currentCharacter.origin"></textarea>
+            <textarea name="character_backstory" id="character_backstory" [(ngModel)]="currentCharacter.origin" rows="10"></textarea>
             <p>Backstory</p>
         </label>
 
         <label>
-            <textarea name="character_additional_features_and_traits" id="character_additional_features_and_traits" [(ngModel)]="additionalFeaturesAndTraitsString"></textarea>
+            <textarea name="character_additional_features_and_traits" id="character_additional_features_and_traits" [(ngModel)]="additionalFeaturesAndTraitsString" rows="10"></textarea>
             <p>Additional features and traits</p>
         </label>
 
         <label>
-            <textarea name="character_allies_and_organisations" id="character_allies_and_organisations" [(ngModel)]="alliesAndOrganisationsString"></textarea>
+            <textarea name="character_allies_and_organisations" id="character_allies_and_organisations" [(ngModel)]="alliesAndOrganisationsString" rows="10"></textarea>
             <p>Allies and Organisations</p>
         </label>
 

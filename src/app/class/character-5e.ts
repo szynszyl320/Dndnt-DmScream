@@ -140,6 +140,8 @@ export class Character5e extends CharacterBaseplate {
     public lvl8SpellSlots :number = 0;
     public lvl9SpellSlots :number = 0;
 
+    public appearanceBase64 :string = ""
+
     public type :string = '5e';
 
 }

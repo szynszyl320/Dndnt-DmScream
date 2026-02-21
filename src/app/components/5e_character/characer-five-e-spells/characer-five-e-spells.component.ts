@@ -93,6 +93,7 @@ openSpell(event :MouseEvent, spell :Spell5e) {
 onAnyInput(_: Event) {
   this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter);
   this.characterHandler.saveContent();
+  this.characterHandler.changeCharacter(this.currentCharacter)
 }
 
 }
