@@ -77,7 +77,7 @@
             <th>Description</th>
         </tr>       
         @for (weapon of currentCharacter.weapons; track $index) {
-            <tr (click)="rollWeapon(weapon)">
+            <tr (click)="attack(weapon)">
                 <td>{{weapon.name}}</td>
                 <td>{{weapon.damage}}</td>
                 <td>{{weapon.damageType}}</td>
@@ -100,9 +100,9 @@
             <p>Implants:</p>
             <textarea name="implants" id="implants" [(ngModel)]="implantsString" rows="4" cols="50"></textarea>
         </label>
-        <label>
+        <!-- <label>
             <p>Effecting statuses: </p>
             <textarea name="statuses" id="statuses" [(ngModel)]="statusesString" rows="4" cols="50"></textarea>
-        </label>
+        </label> -->
     </section>
 </main>

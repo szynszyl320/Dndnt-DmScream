@@ -21,6 +21,7 @@ import { ScuffCharacterBattleViewComponent } from '../scuff-character-battle-vie
   templateUrl: './battler.component.html',
   styleUrl: './battler.component.css'
 })
+
 export class BattlerComponent {
   
   constructor(private battleHandler: BattlerHandlerService, private characterHandler :CharacterHandlerService) {} //Instatniates the battlerhandler and characterHandler serivce 
@@ -40,8 +41,22 @@ export class BattlerComponent {
     }) //subscribes to the Current Character
   } 
 
-  switchCharacter(character :ScuffCharacter | DndtCharacter | Character5e) :void {
-    this.characterHandler.changeCharacter(character);
+  switchCharacter(character :ScuffCharacter | DndtCharacter | Character5e, event? :MouseEvent) :void {
+    const isShiftDown = !!event && event.shiftKey;
+
+    if(isShiftDown && character.type == 'generation ship') {
+      character = Object.assign(new ScuffCharacter, character)
+      
+      if(character instanceof ScuffCharacter) {
+        this.battleHandler.selectNewTarget(character)
+      }
+      
+      console.log('target selected', character);
+    } else {
+      this.characterHandler.changeCharacter(character); 
+      console.log(this.displayedCharacter.currentHp);
+       
+    }
   }
   
   rerollInitiative() :void {

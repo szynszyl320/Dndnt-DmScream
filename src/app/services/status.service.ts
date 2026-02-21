@@ -7,7 +7,7 @@ export class StatusService {
 
   constructor() { }
 
-  public PushStatus(statusArray :Array<any>, statusName :string, stacks :number) :Array<any> {    
+  public PushStatus(statusArray :Array<any>, statusName :string, stacks :number, doesLower? :boolean) :Array<any> {    
 
     statusArray.forEach((status, index) => {
         if(status.name == statusName) {
@@ -18,7 +18,8 @@ export class StatusService {
 
     statusArray.push({
         name: statusName,
-        stacks: stacks
+        stacks: stacks,
+        doesLower: doesLower || true
     })
 
     return statusArray
@@ -83,5 +84,6 @@ export class StatusService {
       }
       
   }
+
 
 }

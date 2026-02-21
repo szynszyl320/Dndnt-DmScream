@@ -15,7 +15,7 @@ import { DndtCharacter } from '../class/dndt-character';
 export class BattlerHandlerService {
 
   $Battler :BehaviorSubject<any> = new BehaviorSubject<any>(null)
-
+  $Target :BehaviorSubject<any> = new BehaviorSubject<any>(null)
 
   constructor(private characterHandler : CharacterHandlerService) {
     this.loadcontent() 
@@ -136,12 +136,22 @@ export class BattlerHandlerService {
       let newBattler :any = this.$Battler.getValue();
       if(-1 < characterIndex && characterIndex < newBattler.characters.length) {
         newBattler.characters.splice(characterIndex, 1)
+      } else {
+        throw 'character index out of bounds'
       }
 
       this.$Battler.next(newBattler);
 
     } catch (error) {
       console.error('Failed to remove character', error)
+    }
+  }
+
+  selectNewTarget(character :ScuffCharacter | null) :void {
+    try { 
+      this.$Target.next(character);
+    } catch (error) {
+      console.error('Failed to target the character')
     }
   }
 

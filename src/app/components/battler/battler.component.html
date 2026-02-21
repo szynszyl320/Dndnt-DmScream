@@ -2,7 +2,7 @@
 
     <nav>
         @for (character of Battler.characters; track $index) {
-            <button (click)="switchCharacter(character)">{{character.name}} | {{character.initiative}}</button>
+            <button (click)="switchCharacter(character, $event)">{{character.name}} | {{character.initiative}}</button>
         }
     </nav>
 

@@ -102,6 +102,10 @@
     </section>
     <section id="right_section">
         <label>
+            <p>Body type</p>
+            <input type="text" name="body_type" id="body_type" [(ngModel)]="currentCharacter.bodyType">
+        </label>
+        <label>
             <p>Proficiencies</p>
             <textarea name="proficiencies" id="proficiencies" [(ngModel)]="proficienciesString" rows="4" cols="50"></textarea>
         </label>

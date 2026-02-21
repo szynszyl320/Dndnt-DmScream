@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 //service imports
 import { CharacterHandlerService } from '../../services/character-handler.service';
 import { TurnHandlerService } from '../../services/turn-handler.service';
+import { BattlerHandlerService } from '../../services/battler-handler.service';
+import { StatusService } from '../../services/status.service';
 
 //pipe imports
 import { ModifierCeilPipe } from '../../pipes/modifier-ceil.pipe';
@@ -23,7 +25,13 @@ import { Timer, timer } from 'd3-timer';
 })
 export class ScuffCharacterBattleViewComponent {
 
-  constructor(private characterHandler: CharacterHandlerService, private ngZone: NgZone, private turnHandler :TurnHandlerService) {}
+  constructor(
+    private characterHandler: CharacterHandlerService, 
+    private ngZone: NgZone, 
+    private turnHandler :TurnHandlerService,
+    private battlerHandler :BattlerHandlerService,
+    private statusHandler :StatusService
+  ) {}
 
   hpChange : number = 0;
   shieldsChange :number = 0;
@@ -38,6 +46,8 @@ export class ScuffCharacterBattleViewComponent {
   proficienciesString :string = '';
   implantsString :string = "";
   statusesString :string = "";
+
+  target :ScuffCharacter | null = null
 
   ngOnInit() {
 
@@ -54,6 +64,10 @@ export class ScuffCharacterBattleViewComponent {
           weaponsArray.push(Object.assign(new Weapon, weapon))
       });
       this.currentCharacter.weapons = weaponsArray
+    })
+
+    this.battlerHandler.$Target.subscribe((value :ScuffCharacter | null) => {
+      this.target = value
     })
 
   }
@@ -87,9 +101,6 @@ export class ScuffCharacterBattleViewComponent {
     let weaponOutput = weapon.rollWeaponDamage()
 
     this.finalScore = weaponOutput[0];    
-
-    console.log(this.turnHandler.statusApply(this.currentCharacter, weaponOutput[1], weapon.damageType.split('|'), 12));
-    
 
     this.isOutputVisible = true;
     this.startProgress();
@@ -155,6 +166,69 @@ export class ScuffCharacterBattleViewComponent {
   onAnyInput(_: Event) {
     this.saveChanges();
     this.characterHandler.getCampaings();
+  }
+
+  attack(weapon :Weapon, advantage :number = 0, damage? :number, rollToHit? :number) :void {
+    //Getting the bonus to hit from the weapon 
+    let weaponBonus :string = weapon.bonusToHit.substring(0,3).toLowerCase()
+    
+    //Rolling to hit and checking advantages 
+    if(!rollToHit) {
+      rollToHit = Math.floor((Math.random()*20)+1)+(Math.ceil((this.currentCharacter[weaponBonus]-10)/2))
+       
+      //The character has advantage 
+      if (advantage == 1) {
+        let secondRoll = Math.floor((Math.random()*20)+1)+(Math.ceil((this.currentCharacter[weaponBonus]-10)/2))
+        if (secondRoll > rollToHit) {
+          rollToHit = secondRoll
+        }
+      
+      //The character has disadvantage 
+      } else if (advantage == -1) {
+        let secondRoll = Math.floor((Math.random()*20)+1)+(Math.ceil((this.currentCharacter[weaponBonus]-10)/2))
+        if (secondRoll < rollToHit) {
+          rollToHit = secondRoll
+        }
+      }
+    }
+
+    //Checking if the attack hit 
+    if(this.target != null) {
+      if(this.target.ac > rollToHit) {
+        this.finalScore = `The roll to hit ${rollToHit} didn't pass the ac ${this.target.ac}`
+        return
+      }
+    }
+
+    //Checking if the damage has already been preinputed 
+    if(!damage) {
+      damage = weapon.rollWeaponDamage()[1]
+    }
+
+    //Processing the damage statuses and damage types
+    if(this.target != null && damage) {
+      damage += this.turnHandler.processAttackTypes(weapon.damageType, damage, this.target)
+      damage += this.turnHandler.proccessAttackStatus(this.target, damage)
+    }
+  
+    console.log(this.target);
+    
+    //apply the damage to the target 
+    if(this.target != null && damage) {
+      this.target.changeCharacterHealth(-1*(damage))
+      
+      this.battlerHandler.modifyCharacter(this.target, this.battlerHandler.getCharacterIndex(this.target.name))
+
+      this.battlerHandler.saveContent();
+    }
+
+    if(rollToHit-(Math.ceil((this.currentCharacter[weaponBonus]-10)/2)) == 20){
+      
+    }
+
+    this.finalScore = `The roll to hit ${rollToHit} passed. The attack dealt ${damage} damage!`
+    this.isOutputVisible = true;
+    this.startProgress();
   }
 
 }
