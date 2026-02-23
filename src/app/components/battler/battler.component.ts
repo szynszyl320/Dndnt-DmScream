@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 import { BattlerHandlerService } from '../../services/battler-handler.service';
 import { CharacterHandlerService } from '../../services/character-handler.service';
@@ -19,7 +20,8 @@ import { CharacterFiveEBattleViewComponent } from '../5e_character/character-fiv
     DndntCharacterBattleViewComponent,
     ScuffCharacterBattleViewComponent,
     CharacterFiveEBattleViewComponent,
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './battler.component.html',
   styleUrl: './battler.component.css'
