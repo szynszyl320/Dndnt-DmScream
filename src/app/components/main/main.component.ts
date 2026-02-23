@@ -7,6 +7,7 @@ import { DndntCharacterComponent } from '../dndnt-character/dndnt-character.comp
 import { ScuffCharacterBattleViewComponent } from '../scuff-character-battle-view/scuff-character-battle-view.component';
 import { DndntCharacterBattleViewComponent } from '../dndnt-character-battle-view/dndnt-character-battle-view.component';
 import { CharacterFiveEBaseplateComponent } from '../5e_character/character-five-e-baseplate/character-five-e-baseplate.component';
+import { CharacterFiveEBattleViewComponent } from '../5e_character/character-five-e-battle-view/character-five-e-battle-view.component';
 
 //Services
 import { CharacterHandlerService } from '../../services/character-handler.service';
@@ -20,7 +21,8 @@ import { CharacterHandlerService } from '../../services/character-handler.servic
     DndntCharacterComponent,
     ScuffCharacterBattleViewComponent,
     DndntCharacterBattleViewComponent,  
-    CharacterFiveEBaseplateComponent
+    CharacterFiveEBaseplateComponent,
+    CharacterFiveEBattleViewComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'

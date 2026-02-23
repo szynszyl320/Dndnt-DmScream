@@ -42,7 +42,6 @@ export class CharacterSelectionComponent {
     try {
       this.characterHandler.changeCharacter(character);
       this.characterHandler.saveContent();
-      console.log(character);
     } catch (error) {
       console.error("Something went wrong when changing character", error); 
     }

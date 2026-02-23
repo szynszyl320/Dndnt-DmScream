@@ -1,0 +1,329 @@
+@if (isOutputVisible) {
+    <section id="function_output" (click)="hideOutput()" title="click to stop">
+        <p>{{ finalScore }}</p>
+        <div class="progress-track">
+            <div class="progress-fill" [style.width.%]="progress * 100"></div>
+        </div>
+    </section>
+}
+
+<header>
+    <label>
+        <p>Name</p>
+        <input type="text" name="character_name" id="character_name" [(ngModel)]="currentCharacter.name">
+    </label>
+    <article>
+        <label class="vertical_Label">
+            <input type="number" name="character_ac" id="character_ac" [(ngModel)]="currentCharacter.ac">
+            <p>Armour Class</p>
+        </label>
+    
+        <label class="vertical_Label">
+            <input type="number" name="character_initiative" id="character_initiative" [(ngModel)]="currentCharacter.initiative">
+            <p>Initiative</p>
+        </label>
+        
+        <label class="vertical_Label">
+            <input type="number" name="character_speed" id="character_speed" [(ngModel)]="currentCharacter.movement">
+            <p>Speed</p>
+        </label>
+    
+        <Label> 
+            <input type="number" name="character_max_health" id="character_max_health" [(ngModel)]="currentCharacter.maxHp">
+            <p>Maximum Hit points</p>
+        </Label>
+
+        <label>
+            <input type="number" name="character_health" id="character_health" [(ngModel)]="currentCharacter.currentHp">
+            <p>Current Hit Points</p>
+        </label>
+
+        <label>
+            <input type="number" name="character_temp_health" id="character_temp_health" [(ngModel)]="currentCharacter.temporaryHitPoints">
+            <p>Temporary Hit Points</p>
+        </label>
+    </article>
+</header>
+
+<main>
+
+    <section id="top_section">
+        <article id="first_section">
+            <aside id="stats">
+                <div>
+                    <p>Strength</p>
+                    <p>{{currentCharacter.str | modifier5e}}</p>
+                    <input type="number" name="character_str" id="character_str" [(ngModel)]="currentCharacter.str">
+                </div>
+                <div>
+                    <p>Dexterity</p>
+                    <p>{{currentCharacter.dex | modifier5e}}</p>
+                    <input type="number" name="character_dex" id="character_dex" [(ngModel)]="currentCharacter.dex">
+                </div>
+                <div>
+                    <p>Constitution</p>
+                    <p>{{currentCharacter.con | modifier5e}}</p>
+                    <input type="number" name="character_con" id="character_con" [(ngModel)]="currentCharacter.con">
+                </div>
+                <div>
+                    <p>Inteligence</p>
+                    {{currentCharacter.int | modifier5e}}
+                    <input type="number" name="character_int" id="character_int" [(ngModel)]="currentCharacter.int">
+                </div>
+                <div>
+                    <p>Wisdom</p>
+                    <p>{{currentCharacter.wis | modifier5e}}</p>
+                    <input type="number" name="character_wis" id="character_wis" [(ngModel)]="currentCharacter.wis">
+                </div>
+                <div>
+                    <p>Charisma</p>
+                    <p>{{currentCharacter.cha | modifier5e}}</p>
+                    <input type="number" name="character_cha" id="character_cha" [(ngModel)]="currentCharacter.cha">
+                </div>
+            </aside>
+
+            <article id="inner_right_section">
+
+                <label>Inspiration: <input type="number" name="character_inspiration" id="character_inspiration" [(ngModel)]="currentCharacter.inspiration"></label>
+
+                <label>Proficiency Bonus: <input type="number" name="character_prof_bonus" id="character_prof_bonus" [(ngModel)]="currentCharacter.proficiencyBonus"></label>
+
+                <table id="saving_throws">
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.strSavingThrowChecked"></td>
+                        <td><input type="number" name="character_str_saving_throw" id="character_str_saving_throw" [(ngModel)]="currentCharacter.strSavingThrow"></td>
+                        <td>Strength</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.dexSavingThrowChecked"></td>
+                        <td><input type="number" name="character_dex_saving_throw" id="character_dex_saving_throw" [(ngModel)]="currentCharacter.dexSavingThrow"></td>
+                        <td>Dexterity</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.conSavingThrowChecked"></td>
+                        <td><input type="number" name="character_con_saving_throw" id="character_con_saving_throw" [(ngModel)]="currentCharacter.conSavingThrow"></td>
+                        <td>Constitution</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.intSavingThrowChecked"></td>
+                        <td><input type="number" name="character_int_saving_throw" id="character_int_saving_throw" [(ngModel)]="currentCharacter.intSavingThrow"></td>
+                        <td>Intelligence</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.wisSavingThrowChecked"></td>
+                        <td><input type="number" name="character_wis_saving_throw" id="character_wis_saving_throw" [(ngModel)]="currentCharacter.wisSavingThrow"></td>
+                        <td>Wisdom</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.chaSavingThrowChecked"></td>
+                        <td><input type="number" name="character_cha_saving_throw" id="character_cha_saving_throw" [(ngModel)]="currentCharacter.chaSavingThrow"></td>
+                        <td>Charisma</td>
+                    </tr>
+                    <tr><td colspan="3">Saving throws</td></tr>
+                </table>
+
+                <table id="skills">
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.acrobaticsProf"></td>
+                        <td><input type="number" name="character_acrobatics" id="character_acrobatics" [(ngModel)]="currentCharacter.acrobatics"></td>
+                        <td>Acrobatics (dex)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.animalHandlingProf"></td>
+                        <td><input type="number" name="character_animal_handling" id="character_animal_handling" [(ngModel)]="currentCharacter.animalHandling"></td>
+                        <td>Animal Handling (wis)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.arcanaProf"></td>
+                        <td><input type="number" name="character_arcana" id="character_arcana" [(ngModel)]="currentCharacter.arcana"></td>
+                        <td>Arcana (int)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.athleticsProf"></td>
+                        <td><input type="number" name="character_athletics" id="character_athletics" [(ngModel)]="currentCharacter.athletics"></td>
+                        <td>Athletics (str)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.deceptionProf"></td>
+                        <td><input type="number" name="character_deception" id="character_deception" [(ngModel)]="currentCharacter.deception"></td>
+                        <td>Deception (cha)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.historyProf"></td>
+                        <td><input type="number" name="character_history" id="character_history" [(ngModel)]="currentCharacter.history"></td>
+                        <td>History (int)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.insightProf"></td>
+                        <td><input type="number" name="character_insight" id="character_insight" [(ngModel)]="currentCharacter.insight"></td>
+                        <td>Insight (wis)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.intimidationProf"></td>
+                        <td><input type="number" name="character_intimidation" id="character_intimidation" [(ngModel)]="currentCharacter.intimidation"></td>
+                        <td>Intimidation (cha)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.investigationprof"></td>
+                        <td><input type="number" name="character_investigation" id="character_investigation" [(ngModel)]="currentCharacter.investigation"></td>
+                        <td>Investigation (int)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.medicineProf"></td>
+                        <td><input type="number" name="character_medicine" id="character_medicine" [(ngModel)]="currentCharacter.medicine"></td>
+                        <td>Medicine (wis)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.natureProf"></td>
+                        <td><input type="number" name="character_nature" id="character_nature" [(ngModel)]="currentCharacter.nature"></td>
+                        <td>Nature (int)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.perceptionProf"></td>
+                        <td><input type="number" name="character_perception" id="character_perception" [(ngModel)]="currentCharacter.perception"></td>
+                        <td>Perception (wis)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.performanceProf"></td>
+                        <td><input type="number" name="character_performance" id="character_performance" [(ngModel)]="currentCharacter.performance"></td>
+                        <td>Performance (cha)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.persuasionProf"></td>
+                        <td><input type="number" name="character_persuasion" id="character_persuasion" [(ngModel)]="currentCharacter.persuasion"></td>
+                        <td>Persuasion (cha)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.religionProf"></td>
+                        <td><input type="number" name="character_religion" id="character_religion" [(ngModel)]="currentCharacter.religion"></td>
+                        <td>Religion (int)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.sleightOfHandProf"></td>
+                        <td><input type="number" name="character_sleight_of_hand" id="character_sleight_of_hand" [(ngModel)]="currentCharacter.sleightOfHand"></td>
+                        <td>Sleight of Hand (dex)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.stealthProf"></td>
+                        <td><input type="number" name="character_stealth" id="character_stealth" [(ngModel)]="currentCharacter.stealth"></td>
+                        <td>Stealth (dex)</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" [(ngModel)]="currentCharacter.survivalProf"></td>
+                        <td><input type="number" name="character_survival" id="character_survival" [(ngModel)]="currentCharacter.survival"></td>
+                        <td>Survival (wis)</td>
+                    </tr>
+
+                    <tr><td colspan="3" id="last_one">Skills</td></tr>
+
+                </table>
+
+            </article>
+
+        </article>
+
+        <article id="second_section">
+            <div>
+                <aside>
+
+                    <label>Total: <input type="number" name="character_hit_dice_num" id="character_hit_dice_num" [(ngModel)]="currentCharacter.totalHitDice"></label>
+
+                    <label>
+                        <input type="text" name="character_hit_die" id="character_hit_die" [(ngModel)]="currentCharacter.hitDice">
+                        HIT DICE
+                    </label>
+
+                </aside>
+
+                <aside>
+                    <label>SUCCESSES</label>
+                    <div class="death-save-circles">
+                        <div class="circle" 
+                             [class.active]="currentCharacter.saves >= 1"
+                             (click)="toggleSave(1)"></div>
+                        <div class="circle" 
+                             [class.active]="currentCharacter.saves >= 2"
+                             (click)="toggleSave(2)"></div>
+                        <div class="circle" 
+                             [class.active]="currentCharacter.saves >= 3"
+                             (click)="toggleSave(3)"></div>
+                    </div>
+                
+                    <label>FAILURES</label>
+                    <div class="death-save-circles">
+                        <div class="circle" 
+                             [class.unactive]="currentCharacter.failures >= 1"
+                             (click)="toggleFailure(1)"></div>
+                        <div class="circle" 
+                             [class.unactive]="currentCharacter.failures >= 2"
+                             (click)="toggleFailure(2)"></div>
+                        <div class="circle" 
+                             [class.unactive]="currentCharacter.failures >= 3"
+                             (click)="toggleFailure(3)"></div>
+                    </div>
+                </aside>
+
+            </div>
+
+            <div id="weapon_container">
+                <table id="weapons">
+                    <tr>
+                        <th>Name</th>
+                        <th>Damage</th>
+                        <th>Bonus to hit</th>
+                        <th>Range</th>
+                        <th>Description</th>
+                    </tr>
+                    @for (weapon of currentCharacter.weapons; track $index) {
+                        <tr (click)="attack(weapon, $event, 0)">
+                            <td>{{weapon.name}}</td>
+                            <td>{{weapon.damage}}</td>
+                            <td>{{weapon.bonusToHit}}</td>
+                            <td>{{weapon.range}}</td>
+                            <td>{{weapon.description}}</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+            <label id="other_weapons">
+                <textarea name="chracter_other_weapons_and_attacks" id="chracter_other_weapons_and_attacks" [(ngModel)]="otherWeaponsAndAttacksString" rows="40"></textarea>
+                <p>Weapons and other attacks</p>
+            </label>
+        </article>
+            
+        <article id="third_section">
+            <label>
+                <textarea name="character_equipment" id="character_equipment" rows="50"></textarea>
+                <p>Equipment</p>
+            </label>
+        </article>
+    
+    </section>
+
+    <app-characer-five-e-spells></app-characer-five-e-spells>
+
+</main>

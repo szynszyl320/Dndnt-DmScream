@@ -1,0 +1,162 @@
+.death-save-circles {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #333;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.circle:hover {
+    background-color: #f0f0f0;
+}
+
+input {
+    min-width: 50px;
+}
+
+.circle.active {
+    background-color: #4CAF50;
+}
+
+.circle.unactive {
+    background-color: rgb(162, 28, 28);
+}
+
+header {
+    display: flex;
+    width: 100%;
+}
+
+header label {
+    width: 20%;
+}
+
+header article {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    gap: 5px;
+}
+
+header article label {
+    width: 32%;
+}
+
+header,
+main {
+    margin: 10px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+main label p {
+    text-align: center;
+}
+
+#top_section {
+    display: flex;
+    gap: 3vw;
+}
+
+#top_section article {
+    width: 33%;
+    margin-bottom: 0;
+    margin-top: auto;
+}
+
+#first_section {
+    display: flex;
+}
+
+#inner_right_section {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#last_one {
+    text-align: center;
+}
+
+#second_section {
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+}
+
+#weapon_container {
+    max-height: 300px;
+}
+
+#second_section div {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#second_section aside div {
+    display: flex;
+    flex-direction: row;
+}
+
+#weapons {
+    width: 100%;
+    border: 1px solid black;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#weapons tr {
+    background-color: #ddd;
+    border: 1px solid black;
+    border-collapse: collapse;
+    min-height: 30px;
+}
+
+#weapons tr:hover {
+    background-color: #615d5d;
+    cursor: pointer;
+}
+
+.progress-track {
+    width: 200px;
+    height: 12px;
+    background: #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #3b82f6;
+    width: 0%;
+    transition: width 50ms linear;
+}
+
+#function_output {
+    position: fixed;
+    background-color: beige;
+    top: 5px;
+    left: 40%;
+    z-index: 12;
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+
+#third_section {
+    margin-bottom: 0;
+    margin-top: auto;
+}

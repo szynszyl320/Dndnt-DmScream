@@ -42,12 +42,14 @@ currentCharacter :DndtCharacter = new DndtCharacter; //defines a variable for th
       this.currentCharacter = value; //subscribes to the current character
     
       //all  the arrays get joined to be displayed as strings 
-      this.traitsString = value.traits.join('\n') || "";
-      this.proficienciesString = value.proficiencies.join('\n') || "";
-      this.clothesString = value.clothes.join('\n') || "";
-      this.inventoryString = value.inventory.join('\n') || "";
-      this.langaugesString = value.languages.join('\n') || "";
-      this.woundsString = value.wounds.join('\n') || "";
+      if(value.wounds) {
+        this.traitsString = value.traits.join('\n') || "";
+        this.proficienciesString = value.proficiencies.join('\n') || "";
+        this.clothesString = value.clothes.join('\n') || "";
+        this.inventoryString = value.inventory.join('\n') || "";
+        this.langaugesString = value.languages.join('\n') || "";
+        this.woundsString = value.wounds.join('\n') || "";
+      }
 
     }); 
   }

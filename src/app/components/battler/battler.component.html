@@ -13,6 +13,8 @@
                 <app-dndnt-character-battle-view></app-dndnt-character-battle-view>
             } @else if (displayedCharacter.type == 'generation ship') {
                 <app-scuff-character-battle-view></app-scuff-character-battle-view>
+            } @else if (displayedCharacter.type == '5e') {
+                <app-character-five-e-battle-view></app-character-five-e-battle-view>
             } @else {
                 <h2>Unsuported character chosen!</h2>
             }

@@ -30,9 +30,11 @@ ngOnInit() {
   this.characterHandler.$CurrentCharacter.subscribe((value :Character5e) => {
     this.currentCharacter = value;
   
-    this.alliesAndOrganisationsString = value.alliesAndOrganisations.join('\n');
-    this.additionalFeaturesAndTraitsString = value.additionalFeaturesAndTraits.join('\n')
-    this.magicItemsString = value.magicItems.join('\n');
+    if(value.alliesAndOrganisations) {
+      this.alliesAndOrganisationsString = value.alliesAndOrganisations.join('\n');
+      this.additionalFeaturesAndTraitsString = value.additionalFeaturesAndTraits.join('\n')
+      this.magicItemsString = value.magicItems.join('\n');
+    }
 
     const data = JSON.parse(localStorage.getItem(value.name) || '{}');
     if (data.appearanceBase64) {

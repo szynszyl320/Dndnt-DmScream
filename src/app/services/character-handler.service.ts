@@ -86,7 +86,8 @@ export class CharacterHandlerService {
   changeCharacter(newChosenCharacter :ScuffCharacter | any) :void {
     try {
       if(newChosenCharacter != null) {
-      this.$CurrentCharacter.next(newChosenCharacter); //changes the current character by inserting a new value into the $CurrentCharacter Subject
+        newChosenCharacter = this.characterParser(newChosenCharacter)
+        this.$CurrentCharacter.next(newChosenCharacter); //changes the current character by inserting a new value into the $CurrentCharacter Subject
     } else {
       return;
     }
@@ -159,7 +160,7 @@ export class CharacterHandlerService {
     if(character.type == 'generation ship') {
       character = Object.assign(new ScuffCharacter, character)
     } else if (character.type == 'dndnt') {
-      character = Object.assign(new ScuffCharacter, character)
+      character = Object.assign(new DndtCharacter, character)
     } else if (character.type == '5e') {
       character = Object.assign(new Character5e, character)
     }

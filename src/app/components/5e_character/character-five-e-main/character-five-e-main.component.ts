@@ -38,15 +38,22 @@ ngOnInit() {
   this.characterHandler.$CurrentCharacter.subscribe((value :Character5e) => {
     this.currentCharacter = value;
     
-    this.personalityTraitsString = value.personalityTraits.join('\n');
-    this.idealsString = value.ideals.join('\n');
-    this.bondsString = value.bonds.join('\n');
-    this.flawsString = value.flaws.join('\n');
-    this.equipmentString = value.equipment.join('\n');
-    this.proficienciesString = value.proficiencies.join('\n');
-    this.featuresAndTraitsString = value.featuresAndTraits.join('\n')
-    this.languagesString = value.languages.join('\n');
-    this.otherWeaponsAndAttacksString = value.otherWeaponsAndAttacks.join('\n');
+    const parserOutput = this.characterHandler.characterParser(this.currentCharacter)      
+      if(parserOutput instanceof Character5e) {
+        this.currentCharacter = parserOutput
+      }
+
+    if(value.spellAttackBonus) {
+      this.personalityTraitsString = value.personalityTraits.join('\n') || '';
+      this.idealsString = this.currentCharacter.ideals.join('\n') || '';
+      this.bondsString = this.currentCharacter.bonds.join('\n') || '';
+      this.flawsString = this.currentCharacter.flaws.join('\n') || '';
+      this.equipmentString = this.currentCharacter.equipment.join('\n') || '';
+      this.proficienciesString = this.currentCharacter.proficiencies.join('\n') || '';
+      this.featuresAndTraitsString = this.currentCharacter.featuresAndTraits.join('\n') || ''
+      this.languagesString = this.currentCharacter.languages.join('\n') || '';
+      this.otherWeaponsAndAttacksString = this.currentCharacter.otherWeaponsAndAttacks.join('\n') || '';
+    }
 
   })
 

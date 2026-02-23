@@ -39,27 +39,27 @@
         </tr>
         <tr>
             <td>Strength</td>
-            <td><button (click)="rollModifier(currentCharacter.str, 'str')">{{currentCharacter.str | modifierCeil}}</button></td>
+            <td><button (click)="rollModifier('str')">{{currentCharacter.str | modifierCeil}}</button></td>
         </tr>
         <tr>
             <td>Dexterity</td>
-            <td><button (click)="rollModifier(currentCharacter.dex, 'dex')">{{currentCharacter.dex | modifierCeil}}</button></td>
+            <td><button (click)="rollModifier('dex')">{{currentCharacter.dex | modifierCeil}}</button></td>
         </tr>
         <tr>
             <td>Constitution</td>
-            <td><button (click)="rollModifier(currentCharacter.con, 'con')">{{currentCharacter.con | modifierCeil}}</button></td>
+            <td><button (click)="rollModifier('con')">{{currentCharacter.con | modifierCeil}}</button></td>
         </tr>
         <tr>
             <td>Inteligence</td>
-            <td><button (click)="rollModifier(currentCharacter.int, 'int')">{{currentCharacter.int| modifierCeil}}</button></td>
+            <td><button (click)="rollModifier('int')">{{currentCharacter.int| modifierCeil}}</button></td>
         </tr>
         <tr>
             <td>Wisdom</td>
-            <td><button (click)="rollModifier(currentCharacter.wis, 'wis')">{{currentCharacter.wis| modifierCeil}}</button></td>
+            <td><button (click)="rollModifier('wis')">{{currentCharacter.wis| modifierCeil}}</button></td>
         </tr>
         <tr>
             <td>Charisma</td>
-            <td><button (click)="rollModifier(currentCharacter.cha, 'cha')">{{currentCharacter.cha| modifierCeil}}</button></td>
+            <td><button (click)="rollModifier('cha')">{{currentCharacter.cha| modifierCeil}}</button></td>
         </tr>
     </table>
     <section id="mid_section">
@@ -72,7 +72,7 @@
             <th>Description</th>
         </tr>       
         @for (weapon of currentCharacter.weapons; track $index) {
-            <tr (click)="rollWeapon(weapon)">
+            <tr (click)="attack(weapon, $event, 0)">
                 <td>{{weapon.name}}</td>
                 <td>{{weapon.damage}}</td>
                 <td>{{weapon.damageType}}</td>

@@ -144,4 +144,5 @@ export class Character5e extends CharacterBaseplate {
 
     public type :string = '5e';
 
+    [key :string]:any
 }

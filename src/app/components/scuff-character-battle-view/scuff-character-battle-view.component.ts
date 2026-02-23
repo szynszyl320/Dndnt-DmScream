@@ -1,6 +1,6 @@
 //Angular imports
-import { Component, NgZone, HostListener, input } from '@angular/core';
-import { FormsModule, StatusChangeEvent } from '@angular/forms';
+import { Component, NgZone, HostListener } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 //service imports
 import { CharacterHandlerService } from '../../services/character-handler.service';
@@ -56,16 +56,25 @@ export class ScuffCharacterBattleViewComponent {
 
     this.characterHandler.$CurrentCharacter.subscribe((value :ScuffCharacter) => {
       this.currentCharacter = value;
-    
-      this.traitsString = value.traits.join('\n');
-      this.proficienciesString = value.proficiencies.join('\n');
-      this.implantsString = value.implants.join('\n');
 
+      const parserOutput = this.characterHandler.characterParser(this.currentCharacter)
+      
+      if(parserOutput instanceof ScuffCharacter) {
+        this.currentCharacter = parserOutput
+      }
+
+      if(value.implants) {
+        this.traitsString = value.traits.join('\n');
+        this.proficienciesString = value.proficiencies.join('\n');
+        this.implantsString = value.implants.join('\n');
+      }
+      
       let weaponsArray :Array<Weapon> = new Array
       this.currentCharacter.weapons.forEach(weapon => {
           weaponsArray.push(Object.assign(new Weapon, weapon))
       });
       this.currentCharacter.weapons = weaponsArray
+
     })
 
     this.battlerHandler.$Target.subscribe((value :ScuffCharacter | DndtCharacter | null) => {

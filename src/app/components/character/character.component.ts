@@ -45,14 +45,23 @@ export class CharacterComponent {
     
       this.currentCharacter = value; //subscribes to the current character
     
+      const parserOutput = this.characterHandler.characterParser(this.currentCharacter)
+      
+      if(parserOutput instanceof ScuffCharacter) {
+        this.currentCharacter = parserOutput
+      }
+
+
       //all  the arrays get joined to be displayed as strings 
-      this.traitsString = value.traits.join('\n') || "";
-      this.proficienciesString = value.proficiencies.join('\n') || "";
-      this.clothesString = value.clothes.join('\n') || "";
-      this.implantsString = value.implants.join('\n') || "";
-      this.inventoryString = value.inventory.join('\n') || "";
-      this.componentsString = value.components.join('\n') || "";
-      this.langaugesString = value.languages.join('\n') || "";
+      if(value.implants) {
+        this.traitsString = this.currentCharacter.traits.join('\n') || "";
+        this.proficienciesString = this.currentCharacter.proficiencies.join('\n') || "";
+        this.clothesString = this.currentCharacter.clothes.join('\n') || "";
+        this.implantsString = this.currentCharacter.implants.join('\n') || "";
+        this.inventoryString = this.currentCharacter.inventory.join('\n') || "";
+        this.componentsString = this.currentCharacter.components.join('\n') || "";
+        this.langaugesString = this.currentCharacter.languages.join('\n') || "";
+      }
 
     }); 
   }

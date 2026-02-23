@@ -35,7 +35,11 @@
         }
       
       } @else if (typeToBeDisplayed == '5e') {
-        <app-character-five-e-baseplate></app-character-five-e-baseplate>
+        @if (typeOfView == 'standard') {
+          <app-character-five-e-baseplate></app-character-five-e-baseplate>
+        } @else if (typeOfView == 'battle') {
+          <app-character-five-e-battle-view></app-character-five-e-battle-view>
+        }
       }
 
       @else {

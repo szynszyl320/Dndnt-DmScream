@@ -17,7 +17,6 @@ import { DndtCharacter } from '../../class/dndt-character';
 //External library imports
 import { Timer, timer } from 'd3-timer';
 import { ScuffCharacter } from '../../class/scuff-character';
-import { DndntCharacterComponent } from '../dndnt-character/dndnt-character.component';
 import { Character5e } from '../../class/character-5e';
 
 @Component({
@@ -52,11 +51,20 @@ export class DndntCharacterBattleViewComponent {
 
   ngOnInit() {
 
-    this.characterHandler.$CurrentCharacter.subscribe((value :DndtCharacter) => {
+    this.characterHandler.$CurrentCharacter.subscribe((value :DndtCharacter) => {      
 
       this.currentCharacter = value;
 
-      this.woundsString = value.wounds.join('\n')
+      if(value.wounds) {
+        this.woundsString = value.wounds.join('\n')
+      }
+      
+      let weaponsArray :Array<Weapon> = new Array
+      this.currentCharacter.weapons.forEach(weapon => {
+          weaponsArray.push(Object.assign(new Weapon, weapon))
+      });
+      this.currentCharacter.weapons = weaponsArray
+
     })
 
     this.battlerHandler.$Target.subscribe((value :ScuffCharacter | DndtCharacter | Character5e) => {
@@ -64,6 +72,8 @@ export class DndntCharacterBattleViewComponent {
       this.target = value 
 
     })
+
+    
 
   }
 
@@ -131,7 +141,7 @@ export class DndntCharacterBattleViewComponent {
     this.characterHandler.getCampaings();
   }
 
-  rollModifier(modifier :number, type :string) :void {
+  rollModifier(type :string) :void {
     let randomRoll :number = (Math.floor(Math.random()*20)+1)
     let result :any;
     if (randomRoll == 20) {
@@ -139,22 +149,16 @@ export class DndntCharacterBattleViewComponent {
     } else if (randomRoll == 1) {
       result='Natural One!'
     } else {
-      result = randomRoll+Math.ceil((modifier-10)/2);
+      result = randomRoll+Math.ceil((this.currentCharacter[type]-10)/2);
     }
     this.finalScore = `The roll for ${type} resulted in: ${result}`;
     this.isOutputVisible = true;
     this.startProgress();
   }
 
-  rollWeapon(weapon :Weapon) {
-    this.finalScore = weapon.rollWeaponDamage()[0];
-    this.isOutputVisible = true;
-    this.startProgress();
-  }
-
   attack(weapon :Weapon, event? :MouseEvent, advantage :number = 0, damage :number = 0, rollToHit? :number) :void {
       const isShiftDown = !!event && event.shiftKey;
-  
+
       if(isShiftDown) {
         const inputString = prompt('Input custom roll and damage. One after another, separated by ",".') 
         if(inputString) {

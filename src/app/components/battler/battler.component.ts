@@ -11,14 +11,14 @@ import { Character5e } from '../../class/character-5e';
 
 import { DndntCharacterBattleViewComponent } from '../dndnt-character-battle-view/dndnt-character-battle-view.component';
 import { ScuffCharacterBattleViewComponent } from '../scuff-character-battle-view/scuff-character-battle-view.component';
-
-import { output } from '@angular/core';
+import { CharacterFiveEBattleViewComponent } from '../5e_character/character-five-e-battle-view/character-five-e-battle-view.component';
 
 @Component({
   selector: 'app-battler',
   imports: [
     DndntCharacterBattleViewComponent,
     ScuffCharacterBattleViewComponent,
+    CharacterFiveEBattleViewComponent,
     FormsModule
   ],
   templateUrl: './battler.component.html',
@@ -55,13 +55,12 @@ export class BattlerComponent {
   switchCharacter(character :ScuffCharacter | DndtCharacter | Character5e, event? :MouseEvent) :void {
     const isShiftDown = !!event && event.shiftKey;
 
-    if(isShiftDown && character.type == 'generation ship') {
-      character = Object.assign(new ScuffCharacter, character)
-      
-      if(character instanceof ScuffCharacter) {
-        this.selectedTarget = character;
-        this.battleHandler.selectNewTarget(character)
-      }
+    character = this.characterHandler.characterParser(character)
+
+    if(isShiftDown) {
+      this.selectedTarget = character;
+      this.battleHandler.selectNewTarget(character)
+    
       
       console.log('target selected', character);
     } else {

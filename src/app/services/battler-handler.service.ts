@@ -148,7 +148,7 @@ export class BattlerHandlerService {
     }
   }
 
-  selectNewTarget(character :ScuffCharacter | null) :void {
+  selectNewTarget(character :ScuffCharacter | DndtCharacter | Character5e | null) :void {
     try { 
       this.$Target.next(character);
     } catch (error) {
