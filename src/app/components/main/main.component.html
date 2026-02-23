@@ -1,0 +1,50 @@
+@if (showLayout) {
+  <button (click)="isToolBoxVisible = !isToolBoxVisible" id="toolbox_toggle">Toggle toolbox</button>
+  @if (isToolBoxVisible) {
+    <app-toolbox></app-toolbox>
+  }
+  <button id="sideBar_Toggle" (click)="switchSideBar()">Toggle sidebar</button>
+  <section id="container">
+
+    @if (isSideBarVisible) {
+      <app-character-selection id="right_section"></app-character-selection>
+    }
+
+
+    <section id="left_section" [style.width]="leftSectionWidth">
+      <section id="views">
+      
+        <button (click)="typeOfView = `standard`">Standard view</button>
+        <button (click)="typeOfView = `battle`">Battle view</button>
+      
+      </section>
+      @if (typeToBeDisplayed == "generation ship") {
+        
+        @if (typeOfView == 'standard') {
+          <app-character></app-character>
+        } @else if (typeOfView == 'battle') {
+          <app-scuff-character-battle-view></app-scuff-character-battle-view>
+        }
+
+      } @else if (typeToBeDisplayed == "dndnt") { 
+        
+        @if (typeOfView == 'standard') {
+          <app-dndnt-character></app-dndnt-character>
+        } @else if (typeOfView == 'battle') {
+          <app-dndnt-character-battle-view></app-dndnt-character-battle-view>
+        }
+      
+      } @else if (typeToBeDisplayed == '5e') {
+        <app-character-five-e-baseplate></app-character-five-e-baseplate>
+      }
+
+      @else {
+        <h1>An unsupported character chosen!</h1>
+      }
+      
+    </section>
+
+  </section>
+
+  <a href="#sideBar_Toggle" id="go_up_button">/\</a>
+}

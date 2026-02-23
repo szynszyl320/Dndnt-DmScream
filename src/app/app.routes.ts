@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { BattlerComponent } from './components/battler/battler.component';
+import { MainComponent } from './components/main/main.component';
 
 export const routes: Routes = [
     {
@@ -7,4 +8,8 @@ export const routes: Routes = [
         component: BattlerComponent,
         data: ['test']
     },
+    {
+        path: '',
+        component: MainComponent
+    }
 ];

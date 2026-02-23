@@ -24,5 +24,7 @@ export class DndtCharacter extends CharacterBaseplate {
 
     public inventory :Array<string> = [];
 
-    public type :string = "dndnt"
+    public type :string = "dndnt";
+
+    [key :string]:any
 }

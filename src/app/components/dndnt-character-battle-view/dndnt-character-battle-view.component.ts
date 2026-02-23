@@ -1,9 +1,11 @@
 //Angular imports
 import { Component, NgZone, HostListener } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
 
 //service imports
 import { CharacterHandlerService } from '../../services/character-handler.service';
+import { BattlerHandlerService } from '../../services/battler-handler.service';
+import { TurnHandlerService } from '../../services/turn-handler.service';
 
 //pipe imports
 import { ModifierCeilPipe } from '../../pipes/modifier-ceil.pipe';
@@ -14,6 +16,9 @@ import { DndtCharacter } from '../../class/dndt-character';
 
 //External library imports
 import { Timer, timer } from 'd3-timer';
+import { ScuffCharacter } from '../../class/scuff-character';
+import { DndntCharacterComponent } from '../dndnt-character/dndnt-character.component';
+import { Character5e } from '../../class/character-5e';
 
 @Component({
   selector: 'app-dndnt-character-battle-view',
@@ -25,9 +30,16 @@ import { Timer, timer } from 'd3-timer';
 
 export class DndntCharacterBattleViewComponent {
 
-  constructor(private characterHandler: CharacterHandlerService, private ngZone :NgZone) {};
+  constructor(
+    private characterHandler: CharacterHandlerService, 
+    private ngZone :NgZone, 
+    private battlerHandler :BattlerHandlerService,
+    private turnHandler :TurnHandlerService
+  ) {};
 
   currentCharacter :DndtCharacter = new DndtCharacter;
+
+  target :ScuffCharacter | DndtCharacter | Character5e | null = null
 
   hpChange :number = 0;
   maxHpChange :number = 0;
@@ -45,6 +57,12 @@ export class DndntCharacterBattleViewComponent {
       this.currentCharacter = value;
 
       this.woundsString = value.wounds.join('\n')
+    })
+
+    this.battlerHandler.$Target.subscribe((value :ScuffCharacter | DndtCharacter | Character5e) => {
+
+      this.target = value 
+
     })
 
   }
@@ -133,5 +151,92 @@ export class DndntCharacterBattleViewComponent {
     this.isOutputVisible = true;
     this.startProgress();
   }
+
+  attack(weapon :Weapon, event? :MouseEvent, advantage :number = 0, damage :number = 0, rollToHit? :number) :void {
+      const isShiftDown = !!event && event.shiftKey;
+  
+      if(isShiftDown) {
+        const inputString = prompt('Input custom roll and damage. One after another, separated by ",".') 
+        if(inputString) {
+          const inputArray :Array<any> = inputString.split(',') 
+  
+          rollToHit = Number(inputArray[0])
+          damage = Number(inputArray[1])
+        }
+  
+      }
+  
+      //Getting the bonus to hit from the weapon 
+      let weaponBonus :string = weapon.bonusToHit.substring(0,3).toLowerCase()
+      
+      let modifier :number = (Math.ceil((this.currentCharacter[weaponBonus]-10)/2))
+  
+      let damageRolls :number = 1
+  
+      //Rolling to hit and checking advantages 
+      if(!rollToHit) {
+        rollToHit = Math.floor((Math.random()*20)+1)+modifier
+         
+        //The character has advantage 
+        if (advantage == 1) {
+          let secondRoll = Math.floor((Math.random()*20)+1)+modifier
+          if (secondRoll > rollToHit) {
+            rollToHit = secondRoll
+          }
+        
+        //The character has disadvantage 
+        } else if (advantage == -1) {
+          let secondRoll = Math.floor((Math.random()*20)+1)+modifier
+          if (secondRoll < rollToHit) {
+            rollToHit = secondRoll
+          }
+        }
+      }
+  
+      //Checking if the attack hit 
+      if(this.target != null) {
+        if(this.target.ac > rollToHit) {
+          this.finalScore = `The roll to hit ${rollToHit} didn't pass the ac ${this.target.ac}`
+          this.isOutputVisible = true
+          this.startProgress()
+          return
+        }
+      }
+  
+      if(rollToHit-modifier == 20) {
+        damageRolls = 2
+      }
+  
+      //Checking if the damage has already been preinputed 
+      for (let index = 0; index < damageRolls; index++) {
+        if(damage == 0) {
+          damage += weapon.rollWeaponDamage()[1]
+        }
+  
+      //Processing the damage statuses and damage types
+        if(this.target != null && damage && this.target instanceof ScuffCharacter) {
+          damage = this.turnHandler.processAttackTypes(weapon.damageType, damage, this.target)
+          damage = this.turnHandler.proccessAttackStatus(this.target, damage)
+        }
+      }
+  
+      //apply the damage to the target 
+      if(this.target != null && damage) {
+        this.target.changeCharacterHealth(-1*(damage))
+        
+        this.battlerHandler.modifyCharacter(this.target, this.battlerHandler.getCharacterIndex(this.target.name))
+  
+        this.battlerHandler.saveContent();
+      }
+  
+      //apply the statuses
+      if(this.target != null && damage && this.target instanceof ScuffCharacter) {
+        this.turnHandler.statusApply(this.target, damage, weapon.damageType, rollToHit);
+      }
+  
+      this.finalScore = `The roll to hit ${rollToHit} passed. The attack dealt ${damage} damage!`
+      this.isOutputVisible = true;
+      this.startProgress();
+    }
 
 }

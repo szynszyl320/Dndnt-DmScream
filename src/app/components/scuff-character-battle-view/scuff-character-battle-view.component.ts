@@ -16,6 +16,7 @@ import { Weapon } from '../../class/weapon';
 import { ScuffCharacter } from '../../class/scuff-character';
 
 import { Timer, timer } from 'd3-timer';
+import { DndtCharacter } from '../../class/dndt-character';
 
 @Component({
   selector: 'app-scuff-character-battle-view',
@@ -45,7 +46,7 @@ export class ScuffCharacterBattleViewComponent {
   traitsString :string = "";
   proficienciesString :string = '';
   implantsString :string = "";
-  target :ScuffCharacter | null = null
+  target :ScuffCharacter | DndtCharacter | null = null
 
   statusEffectName :string = ""
   statusEffectStacks :number = 0
@@ -67,7 +68,7 @@ export class ScuffCharacterBattleViewComponent {
       this.currentCharacter.weapons = weaponsArray
     })
 
-    this.battlerHandler.$Target.subscribe((value :ScuffCharacter | null) => {
+    this.battlerHandler.$Target.subscribe((value :ScuffCharacter | DndtCharacter | null) => {
       this.target = value
     })
 
@@ -169,8 +170,6 @@ export class ScuffCharacterBattleViewComponent {
   }
 
   attack(weapon :Weapon, event? :MouseEvent, advantage :number = 0, damage :number = 0, rollToHit? :number) :void {
-    console.log('Attack initiated');
-
     const isShiftDown = !!event && event.shiftKey;
 
     if(isShiftDown) {
@@ -215,6 +214,8 @@ export class ScuffCharacterBattleViewComponent {
     if(this.target != null) {
       if(this.target.ac > rollToHit) {
         this.finalScore = `The roll to hit ${rollToHit} didn't pass the ac ${this.target.ac}`
+        this.isOutputVisible = true
+        this.startProgress()
         return
       }
     }
@@ -230,13 +231,11 @@ export class ScuffCharacterBattleViewComponent {
       }
 
     //Processing the damage statuses and damage types
-      if(this.target != null && damage) {
+      if(this.target != null && damage && this.target instanceof ScuffCharacter) {
         damage = this.turnHandler.processAttackTypes(weapon.damageType, damage, this.target)
         damage = this.turnHandler.proccessAttackStatus(this.target, damage)
       }
     }
-
-
 
     //apply the damage to the target 
     if(this.target != null && damage) {
@@ -248,9 +247,8 @@ export class ScuffCharacterBattleViewComponent {
     }
 
     //apply the statuses
-    if(this.target != null && damage) {
+    if(this.target != null && damage && this.target instanceof ScuffCharacter) {
       this.turnHandler.statusApply(this.target, damage, weapon.damageType, rollToHit);
-      console.log(this.target.statuses);      
     }
 
     this.finalScore = `The roll to hit ${rollToHit} passed. The attack dealt ${damage} damage!`
