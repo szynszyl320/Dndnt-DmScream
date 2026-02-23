@@ -52,32 +52,32 @@
             <aside id="stats">
                 <div>
                     <p>Strength</p>
-                    <p>{{currentCharacter.str | modifier5e}}</p>
+                    <p><button (click)="rollModifier('str')">{{currentCharacter.str | modifier5e}}</button></p>
                     <input type="number" name="character_str" id="character_str" [(ngModel)]="currentCharacter.str">
                 </div>
                 <div>
                     <p>Dexterity</p>
-                    <p>{{currentCharacter.dex | modifier5e}}</p>
+                    <p><button (click)="rollModifier('dex')">{{currentCharacter.dex | modifier5e}}</button></p>
                     <input type="number" name="character_dex" id="character_dex" [(ngModel)]="currentCharacter.dex">
                 </div>
                 <div>
                     <p>Constitution</p>
-                    <p>{{currentCharacter.con | modifier5e}}</p>
+                    <p><button (click)="rollModifier('con')">{{currentCharacter.con | modifier5e}}</button></p>
                     <input type="number" name="character_con" id="character_con" [(ngModel)]="currentCharacter.con">
                 </div>
                 <div>
                     <p>Inteligence</p>
-                    {{currentCharacter.int | modifier5e}}
+                    <p><button (click)="rollModifier('int')">{{currentCharacter.int | modifier5e}}</button></p>
                     <input type="number" name="character_int" id="character_int" [(ngModel)]="currentCharacter.int">
                 </div>
                 <div>
                     <p>Wisdom</p>
-                    <p>{{currentCharacter.wis | modifier5e}}</p>
+                    <p><button (click)="rollModifier('wis')">{{currentCharacter.wis | modifier5e}}</button></p>
                     <input type="number" name="character_wis" id="character_wis" [(ngModel)]="currentCharacter.wis">
                 </div>
                 <div>
                     <p>Charisma</p>
-                    <p>{{currentCharacter.cha | modifier5e}}</p>
+                    <p><button (click)="rollModifier('cha')">{{currentCharacter.cha | modifier5e}}</button></p>
                     <input type="number" name="character_cha" id="character_cha" [(ngModel)]="currentCharacter.cha">
                 </div>
             </aside>
