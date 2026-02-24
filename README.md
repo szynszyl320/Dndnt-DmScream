@@ -1,6 +1,13 @@
 # DnDn't 
-This is a WIP project that includes creating a site for TTRPG's that me and my buddies play, including our own homebrew versions of 5e.  
 
-Support for 5e itself is planned and I think it will come at some point.  
+## Description
+This is WIP project meant to create a DM screen website. As of right now the project encompasses creating and managing multiple character sheets, as well as a battler system to easily manage your players mid battle!
 
-I also plan on adding something akin to a battle controller, but that I'm not sure if that will ever happen.  
+## Support
+As of right now the website has support for:
+- D&D 5e 
+- Generation ship (my own Scifi themed homebrew version of 5e, the player handbook for which is available in the releases tab if you're interested!)
+- Dndn't (the namesake of the application. It's my friends homebrew version of 5e)
+
+## Desktop 
+I currently offer a desktop application version for the website, both for windows and linux. The whole build is very hacky in it's nature, but for now it seems to be working. 
