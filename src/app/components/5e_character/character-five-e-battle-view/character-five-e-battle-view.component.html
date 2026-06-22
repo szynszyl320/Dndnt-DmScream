@@ -1,12 +1,3 @@
-@if (isOutputVisible) {
-    <section id="function_output" (click)="hideOutput()" title="click to stop">
-        <p>{{ finalScore }}</p>
-        <div class="progress-track">
-            <div class="progress-fill" [style.width.%]="progress * 100"></div>
-        </div>
-    </section>
-}
-
 <header>
     <label>
         <p>Name</p>
@@ -298,7 +289,7 @@
                         <th>Description</th>
                     </tr>
                     @for (weapon of currentCharacter.weapons; track $index) {
-                        <tr (click)="attack(weapon, $event, 0)">
+                        <tr (click)="attack(weapon, $event)">
                             <td>{{weapon.name}}</td>
                             <td>{{weapon.damage}}</td>
                             <td>{{weapon.bonusToHit}}</td>

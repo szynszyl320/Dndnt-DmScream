@@ -26,6 +26,7 @@ import { CharacterFiveEBattleViewComponent } from '../5e_character/character-fiv
 })
 
 export class BattlerComponent {
+
   
   constructor(
     private battleHandler: BattlerHandlerService, 
@@ -37,6 +38,8 @@ export class BattlerComponent {
   displayedCharacter :ScuffCharacter | DndtCharacter | Character5e = new Character5e
   selectedTarget: ScuffCharacter | DndtCharacter | Character5e | null = null;
 
+  isAttackInfoDisplayed :boolean = false;
+  lastAttackInfo :any = false;
 
   //Code executed on initiation of the component
   ngOnInit() {
@@ -48,6 +51,14 @@ export class BattlerComponent {
         this.displayedCharacter = value;
     }) //subscribes to the Current Character
   
+    this.battleHandler.$DisplayAttackInformation.subscribe((value :boolean) => {
+      this.isAttackInfoDisplayed = value
+    })
+
+    this.battleHandler.$LastAttackDetails.subscribe((value :any) => {
+      this.lastAttackInfo = value;
+    })
+
     this.displayedCharacter = this.characterHandler.characterParser(this.displayedCharacter)
 
   } 
@@ -58,11 +69,15 @@ export class BattlerComponent {
     character = this.characterHandler.characterParser(character)
 
     if(isShiftDown) {
-      this.selectedTarget = character;
-      this.battleHandler.selectNewTarget(character)
-    
-      
-      console.log('target selected', character);
+      if(this.selectedTarget && this.selectedTarget.name == character.name) {
+        this.selectedTarget = null;
+        this.battleHandler.selectNewTarget(null)
+        console.log('target deselected');
+      } else {
+        this.selectedTarget = character;
+        this.battleHandler.selectNewTarget(character)
+        console.log('target selected', character);
+      }
     } else {
       this.characterHandler.changeCharacter(character); 
       this.displayedCharacter = this.characterHandler.characterParser(this.displayedCharacter)

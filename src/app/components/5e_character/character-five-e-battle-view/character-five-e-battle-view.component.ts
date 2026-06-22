@@ -156,8 +156,12 @@ export class CharacterFiveEBattleViewComponent {
     this.startProgress();
   }
 
-  attack(weapon :Weapon, event? :MouseEvent, advantage :number = 0, damage :number = 0, rollToHit? :number) :void {
+  attack(weapon :Weapon, event? :MouseEvent) :void {
     const isShiftDown = !!event && event.shiftKey;
+
+    let advantage = 0;
+    let damage = null;
+    let rollToHit = 0;
 
     if(isShiftDown) {
       const inputString = prompt('Input custom roll and damage. One after another, separated by ",".') 
@@ -167,80 +171,10 @@ export class CharacterFiveEBattleViewComponent {
         rollToHit = Number(inputArray[0])
         damage = Number(inputArray[1])
       }
-
     }
 
-    //Getting the bonus to hit from the weapon 
-    let weaponBonus :string = weapon.bonusToHit.substring(0,3).toLowerCase()
-    
-    let modifier :number = (Math.ceil((this.currentCharacter[weaponBonus]-10)/2))
+    this.battlerHandler.attackTarget(weapon, this.currentCharacter, damage, advantage, rollToHit)
 
-    let damageRolls :number = 1
-
-    //Rolling to hit and checking advantages 
-    if(!rollToHit) {
-      rollToHit = Math.floor((Math.random()*20)+1)+modifier
-        
-      //The character has advantage 
-      if (advantage == 1) {
-        let secondRoll = Math.floor((Math.random()*20)+1)+modifier
-        if (secondRoll > rollToHit) {
-          rollToHit = secondRoll
-        }
-      
-      //The character has disadvantage 
-      } else if (advantage == -1) {
-        let secondRoll = Math.floor((Math.random()*20)+1)+modifier
-        if (secondRoll < rollToHit) {
-          rollToHit = secondRoll
-        }
-      }
-    }
-
-    //Checking if the attack hit 
-    if(this.target != null) {
-      if(this.target.ac > rollToHit) {
-        this.finalScore = `The roll to hit ${rollToHit} didn't pass the ac ${this.target.ac}`
-        this.isOutputVisible = true
-        this.startProgress()
-        return
-      }
-    }
-
-    if(rollToHit-modifier == 20) {
-      damageRolls = 2
-    }
-
-    //Checking if the damage has already been preinputed 
-    for (let index = 0; index < damageRolls; index++) {
-      if(damage == 0) {
-        damage += weapon.rollWeaponDamage()[1]
-      }
-
-    //Processing the damage statuses and damage types
-      if(this.target != null && damage && this.target instanceof ScuffCharacter) {
-        damage = this.turnHandler.processAttackTypes(weapon.damageType, damage, this.target)
-        damage = this.turnHandler.proccessAttackStatus(this.target, damage)
-      }
-    }
-
-    //apply the damage to the target 
-    if(this.target != null && damage) {
-      this.target.changeCharacterHealth(-1*(damage))
-      
-      this.battlerHandler.modifyCharacter(this.target, this.battlerHandler.getCharacterIndex(this.target.name))
-
-      this.battlerHandler.saveContent();
-    }
-
-    //apply the statuses
-    if(this.target != null && damage && this.target instanceof ScuffCharacter) {
-      this.turnHandler.statusApply(this.target, damage, weapon.damageType, rollToHit);
-    }
-
-    this.finalScore = `The roll to hit ${rollToHit} passed. The attack dealt ${damage} damage!`
-    this.isOutputVisible = true;
-    this.startProgress();
   }
 
 }

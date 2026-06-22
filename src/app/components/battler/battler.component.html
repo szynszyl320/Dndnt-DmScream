@@ -21,6 +21,28 @@
         </section>
 
         <aside>
+            <section>
+                @if (!selectedTarget) {
+                    <p>Hold shift while clicking a character to selectem them as a target!</p>
+                } @else {
+                    <p>Target: {{selectedTarget.name}}</p>
+                    <p>Target AC: {{selectedTarget.ac}}</p>
+                    <p>Target Health: {{selectedTarget.currentHp}}</p>
+                }
+            </section>
+            <section>
+                @if (!lastAttackInfo) {
+                    <p>Information about your last attack will be displayed here.</p>
+                } @else {
+                    @if(typeof lastAttackInfo === "string") {
+                        <p>{{lastAttackInfo}}</p>
+                    } @else { 
+                        <p>Roll to hit: {{lastAttackInfo.rollToHit}}</p>
+                        <p>Damage: {{lastAttackInfo.damage}}</p>
+                    }
+                }
+            </section>
+            
             <h2>Options</h2>
             <label>Initiative: <input type="number" name="character_initiative" id="character_initiative" [(ngModel)]="displayedCharacter.initiative"></label>
             <button (click)="rerollInitiative()">Rerrol initative</button>
