@@ -1,6 +1,7 @@
 //Angular imports
-import { Component, NgZone, HostListener } from '@angular/core';
+import { Component, NgZone, HostListener, inject } from '@angular/core';
 import { FormsModule} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 //service imports
 import { CharacterHandlerService } from '../../services/character-handler.service';
@@ -36,6 +37,8 @@ export class DndntCharacterBattleViewComponent {
     private turnHandler :TurnHandlerService
   ) {};
 
+  private activatedRoute = inject(ActivatedRoute);
+
   currentCharacter :DndtCharacter = new DndtCharacter;
 
   target :ScuffCharacter | DndtCharacter | Character5e | null = null
@@ -48,6 +51,8 @@ export class DndntCharacterBattleViewComponent {
   isOutputVisible :boolean = false;
 
   finalScore :string = "";
+
+  attackInformation :any = null;
 
   ngOnInit() {
 
@@ -174,6 +179,16 @@ export class DndntCharacterBattleViewComponent {
     }
 
     this.battlerHandler.attackTarget(weapon, this.currentCharacter, damage, advantage, rollToHit)
+
+    if(this.activatedRoute.snapshot.url.length == 0) {
+      this.finalScore = `
+        The attack dealt: ${this.attackInformation.damage}. 
+        With a roll to hit of: ${this.attackInformation.rollToHit}
+      `;
+      this.isOutputVisible = true;
+      this.startProgress();
+    }
+    
 
   }
 

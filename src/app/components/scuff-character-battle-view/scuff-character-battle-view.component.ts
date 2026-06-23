@@ -1,10 +1,10 @@
 //Angular imports
-import { Component, NgZone, HostListener } from '@angular/core';
+import { Component, NgZone, HostListener, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
 //service imports
 import { CharacterHandlerService } from '../../services/character-handler.service';
-import { TurnHandlerService } from '../../services/turn-handler.service';
 import { BattlerHandlerService } from '../../services/battler-handler.service';
 import { StatusService } from '../../services/status.service';
 
@@ -18,6 +18,7 @@ import { ScuffCharacter } from '../../class/scuff-character';
 import { Timer, timer } from 'd3-timer';
 import { DndtCharacter } from '../../class/dndt-character';
 import { Character5e } from '../../class/character-5e';
+import { BattlerComponent } from '../battler/battler.component';
 
 @Component({
   selector: 'app-scuff-character-battle-view',
@@ -30,10 +31,11 @@ export class ScuffCharacterBattleViewComponent {
   constructor(
     private characterHandler: CharacterHandlerService, 
     private ngZone: NgZone, 
-    private turnHandler :TurnHandlerService,
     private battlerHandler :BattlerHandlerService,
     private statusHandler :StatusService
   ) {}
+
+  private activatedRoute = inject(ActivatedRoute);
 
   hpChange : number = 0;
   shieldsChange :number = 0;
@@ -52,6 +54,8 @@ export class ScuffCharacterBattleViewComponent {
   statusEffectName :string = ""
   statusEffectStacks :number = 0
   statusEffectDoesLower :boolean = true
+
+  attackInformation :any = null;
 
   ngOnInit() {
 
@@ -77,9 +81,13 @@ export class ScuffCharacterBattleViewComponent {
       this.currentCharacter.weapons = weaponsArray
 
     })
-
+    
     this.battlerHandler.$Target.subscribe((value :ScuffCharacter | DndtCharacter | null) => {
       this.target = value
+    })
+
+    this.battlerHandler.$LastAttackDetails.subscribe((value :any) => {
+      this.attackInformation = value;
     })
 
   }
@@ -197,6 +205,16 @@ export class ScuffCharacterBattleViewComponent {
     }
 
     this.battlerHandler.attackTarget(weapon, this.currentCharacter, damage, advantage, rollToHit)
+
+    if(this.activatedRoute.snapshot.url.length == 0) {
+      this.finalScore = `
+        The attack dealt: ${this.attackInformation.damage}. 
+        With a roll to hit of: ${this.attackInformation.rollToHit}
+      `;
+      this.isOutputVisible = true;
+      this.startProgress();
+    }
+    
 
   }
 

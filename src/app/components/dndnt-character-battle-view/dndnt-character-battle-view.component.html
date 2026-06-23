@@ -1,3 +1,12 @@
+@if (isOutputVisible) {
+    <section id="function_output" (click)="hideOutput()" title="click to stop">
+        <p>{{ finalScore }}</p>
+        <div class="progress-track">
+            <div class="progress-fill" [style.width.%]="progress * 100"></div>
+        </div>
+    </section>
+}
+
 <header>
     <label>
         Name: <input type="text" name="character_name" id="character_name" [(ngModel)]="currentCharacter.name">

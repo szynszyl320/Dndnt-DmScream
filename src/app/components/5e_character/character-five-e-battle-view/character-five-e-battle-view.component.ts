@@ -1,5 +1,6 @@
-import { Component, NgZone, HostListener } from '@angular/core';
+import { Component, NgZone, HostListener, inject } from '@angular/core';
 import { FormsModule} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { CharacerFiveESpellsComponent } from '../characer-five-e-spells/characer-five-e-spells.component';
 
@@ -36,6 +37,8 @@ export class CharacterFiveEBattleViewComponent {
     private ngZone :NgZone
   ) {}
 
+  private activatedRoute = inject(ActivatedRoute);
+
   currentCharacter  :Character5e = new Character5e;
   
   target :Character5e | ScuffCharacter | DndtCharacter | null = null 
@@ -46,6 +49,8 @@ export class CharacterFiveEBattleViewComponent {
   isOutputVisible :boolean = false;
 
   finalScore :string = ""
+
+  attackInformation :any = null;
 
   ngOnInit() {
     this.characterHandler.$CurrentCharacter.subscribe((value :Character5e) => {
@@ -174,6 +179,15 @@ export class CharacterFiveEBattleViewComponent {
     }
 
     this.battlerHandler.attackTarget(weapon, this.currentCharacter, damage, advantage, rollToHit)
+
+    if(this.activatedRoute.snapshot.url.length == 0) {
+      this.finalScore = `
+        The attack dealt: ${this.attackInformation.damage}. 
+        With a roll to hit of: ${this.attackInformation.rollToHit}
+      `;
+      this.isOutputVisible = true;
+      this.startProgress();
+    }
 
   }
 
