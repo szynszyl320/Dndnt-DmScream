@@ -12,6 +12,7 @@ import { Character5e } from '../../class/character-5e';
 import { DndntCharacterBattleViewComponent } from '../dndnt-character-battle-view/dndnt-character-battle-view.component';
 import { ScuffCharacterBattleViewComponent } from '../scuff-character-battle-view/scuff-character-battle-view.component';
 import { CharacterFiveEBattleViewComponent } from '../5e_character/character-five-e-battle-view/character-five-e-battle-view.component';
+import { CustomDamageInputComponent } from '../custom-damage-input/custom-damage-input.component';
 
 @Component({
   selector: 'app-battler',
@@ -19,6 +20,7 @@ import { CharacterFiveEBattleViewComponent } from '../5e_character/character-fiv
     DndntCharacterBattleViewComponent,
     ScuffCharacterBattleViewComponent,
     CharacterFiveEBattleViewComponent,
+    CustomDamageInputComponent,
     FormsModule
   ],
   templateUrl: './battler.component.html',
@@ -41,6 +43,8 @@ export class BattlerComponent {
   isAttackInfoDisplayed :boolean = false;
   lastAttackInfo :any = false;
 
+  isCustomAttackPopupVisible :boolean = false;
+
   //Code executed on initiation of the component
   ngOnInit() {
     this.battleHandler.$Battler.subscribe((value: any) => {      
@@ -58,6 +62,8 @@ export class BattlerComponent {
     this.battleHandler.$LastAttackDetails.subscribe((value :any) => {
       this.lastAttackInfo = value;
     })
+
+    
 
     this.displayedCharacter = this.characterHandler.characterParser(this.displayedCharacter)
 

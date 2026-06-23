@@ -161,7 +161,7 @@ export class DndntCharacterBattleViewComponent {
     this.startProgress();
   }
 
-  attack(weapon :Weapon, event? :MouseEvent) :void {
+  async attack(weapon :Weapon, event? :MouseEvent) {
     const isShiftDown = !!event && event.shiftKey;
 
     let advantage = 0;
@@ -169,13 +169,13 @@ export class DndntCharacterBattleViewComponent {
     let rollToHit = 0;
 
     if(isShiftDown) {
-      const inputString = prompt('Input custom roll and damage. One after another, separated by ",".') 
-      if(inputString) {
-        const inputArray :Array<any> = inputString.split(',') 
+      this.battlerHandler.switchCustomAttackInput();
 
-        rollToHit = Number(inputArray[0])
-        damage = Number(inputArray[1])
-      }
+      const customAttackInformation = await this.battlerHandler.waitForCustomAttackData();
+      
+      damage = customAttackInformation.damage;
+      advantage = customAttackInformation.advantage;
+      rollToHit = customAttackInformation.rollToHit; 
     }
 
     this.battlerHandler.attackTarget(weapon, this.currentCharacter, damage, advantage, rollToHit)
@@ -189,7 +189,6 @@ export class DndntCharacterBattleViewComponent {
       this.startProgress();
     }
     
-
   }
 
 }

@@ -1,5 +1,7 @@
 <div id="container">
 
+    <app-custom-damage-input></app-custom-damage-input>
+
     <nav>
         @for (character of Battler.characters; track $index) {
             <button (click)="switchCharacter(character, $event)" [class.selected-target]="isSelectedTarget(character)">{{character.name}} | {{character.initiative}}</button>

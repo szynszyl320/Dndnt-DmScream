@@ -1,0 +1,17 @@
+@if(isCustomAttackPopupVisible) {
+    <main>
+        <header>Input custom stats to your damage</header>
+        <section>
+            <label>Damage: <input type="number" name="customDamage" id="customDamage" [(ngModel)]="damage"></label>
+            <label>Roll to hit: <input type="number" name="customRollToHit" id="customRollToHit" [(ngModel)]="rollToHit"></label>
+            <label>Does Attacker have advantage: 
+                <select name="customAdvanatage" id="customAdvanatage">
+                    <option value="1">Advantage</option>
+                    <option selected value="0">No advantage</option>
+                    <option value="-1">Disadvantage</option>
+                </select>
+            </label>
+            <button (click)="inputCustomAttackStatistics()">Submit</button>
+        </section>
+    </main>
+}

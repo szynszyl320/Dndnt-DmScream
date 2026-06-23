@@ -1,7 +1,8 @@
 //Angular imports
 import { Component, NgZone, HostListener, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs';
 
 //service imports
 import { CharacterHandlerService } from '../../services/character-handler.service';
@@ -187,7 +188,7 @@ export class ScuffCharacterBattleViewComponent {
     this.characterHandler.getCampaings();
   }
 
-  attack(weapon :Weapon, event? :MouseEvent) :void {
+  async attack(weapon :Weapon, event? :MouseEvent) {
     const isShiftDown = !!event && event.shiftKey;
 
     let advantage = 0;
@@ -195,13 +196,13 @@ export class ScuffCharacterBattleViewComponent {
     let rollToHit = 0;
 
     if(isShiftDown) {
-      const inputString = prompt('Input custom roll and damage. One after another, separated by ",".') 
-      if(inputString) {
-        const inputArray :Array<any> = inputString.split(',') 
+      this.battlerHandler.switchCustomAttackInput();
 
-        rollToHit = Number(inputArray[0])
-        damage = Number(inputArray[1])
-      }
+      const customAttackInformation = await this.battlerHandler.waitForCustomAttackData();
+      
+      damage = customAttackInformation.damage;
+      advantage = customAttackInformation.advantage;
+      rollToHit = customAttackInformation.rollToHit; 
     }
 
     this.battlerHandler.attackTarget(weapon, this.currentCharacter, damage, advantage, rollToHit)
@@ -215,7 +216,6 @@ export class ScuffCharacterBattleViewComponent {
       this.startProgress();
     }
     
-
   }
 
   removeStatusStacks(stackAmount :number, index :number) :void {

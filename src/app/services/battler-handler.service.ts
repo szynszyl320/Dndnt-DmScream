@@ -18,12 +18,53 @@ export class BattlerHandlerService {
 
   $Battler :BehaviorSubject<any> = new BehaviorSubject<any>(null)
   $Target :BehaviorSubject<any> = new BehaviorSubject<any>(null)
-  $DisplayAttackInformation :BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   $LastAttackDetails :BehaviorSubject<any> = new BehaviorSubject<any>(null)
+  $IsCustomAttackVisible :BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $CustomAttackData :BehaviorSubject<any> = new BehaviorSubject<any>(null)
+  $DisplayAttackInformation :BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+
+  private attackDataResolver: ((value: any) => void) | null = null;
+
+  loadSpecialAttackInformation(damage :number, rollToHit :number, advantage :number) :void {
+    try {
+      this.$CustomAttackData.next({
+        damage: damage,
+        rollToHit: rollToHit,
+        advantage: advantage
+      })
+      
+      // Resolve the waiting promise
+      if (this.attackDataResolver) {
+        this.attackDataResolver(this.$CustomAttackData.getValue());
+        this.attackDataResolver = null;
+      }
+
+      console.log("Custom data inpputed");
+    } catch (error) {
+      console.error('Failed to input custom attack information', error);
+    }
+  }
+
+  // Return a promise that resolves when user submits
+  waitForCustomAttackData(): Promise<any> {
+    return new Promise((resolve) => {
+      this.attackDataResolver = resolve;
+      this.$DisplayAttackInformation.next(true); // Open modal
+    });
+  }
 
   constructor(private characterHandler : CharacterHandlerService, private turnHandler :TurnHandlerService) {
     this.loadcontent() 
     this.sortArray()  
+  }
+
+
+  switchCustomAttackInput() :void {
+    try {
+      this.$IsCustomAttackVisible.next(!this.$IsCustomAttackVisible.getValue())
+    } catch (error) {
+      console.error("Failed to switch the attack view", error);
+    }
   }
 
   switchTargetView() :void {

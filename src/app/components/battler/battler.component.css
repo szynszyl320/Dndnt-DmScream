@@ -21,3 +21,9 @@ button.selected-target {
   background-color: #ffeb3b; /* Or your preferred color */
   font-weight: bold;
 }
+
+app-custom-damage-input {
+    position: absolute;
+    left: 25vw;
+    top: 25vh;
+}
