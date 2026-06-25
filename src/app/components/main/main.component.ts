@@ -8,6 +8,7 @@ import { ScuffCharacterBattleViewComponent } from '../scuff-character-battle-vie
 import { DndntCharacterBattleViewComponent } from '../dndnt-character-battle-view/dndnt-character-battle-view.component';
 import { CharacterFiveEBaseplateComponent } from '../5e_character/character-five-e-baseplate/character-five-e-baseplate.component';
 import { CharacterFiveEBattleViewComponent } from '../5e_character/character-five-e-battle-view/character-five-e-battle-view.component';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 //Services
 import { CharacterHandlerService } from '../../services/character-handler.service';
@@ -22,7 +23,8 @@ import { CharacterHandlerService } from '../../services/character-handler.servic
     ScuffCharacterBattleViewComponent,
     DndntCharacterBattleViewComponent,  
     CharacterFiveEBaseplateComponent,
-    CharacterFiveEBattleViewComponent
+    CharacterFiveEBattleViewComponent,
+    NavbarComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'

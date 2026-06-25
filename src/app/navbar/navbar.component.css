@@ -1,0 +1,24 @@
+nav {
+    display: flex;
+    gap: 0.5vw; 
+}
+
+a {
+    background-color: darkgray;
+    border: 1px solid black;
+    margin: 2.5px;
+    padding: 5px;
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: azure;
+    scale: 1.2;
+}
+
+a.active {
+    background-color: bisque;
+    color: black;
+}
+

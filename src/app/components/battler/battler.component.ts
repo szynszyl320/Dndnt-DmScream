@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { BattlerHandlerService } from '../../services/battler-handler.service';
@@ -13,6 +13,7 @@ import { DndntCharacterBattleViewComponent } from '../dndnt-character-battle-vie
 import { ScuffCharacterBattleViewComponent } from '../scuff-character-battle-view/scuff-character-battle-view.component';
 import { CharacterFiveEBattleViewComponent } from '../5e_character/character-five-e-battle-view/character-five-e-battle-view.component';
 import { CustomDamageInputComponent } from '../custom-damage-input/custom-damage-input.component';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-battler',
@@ -21,6 +22,7 @@ import { CustomDamageInputComponent } from '../custom-damage-input/custom-damage
     ScuffCharacterBattleViewComponent,
     CharacterFiveEBattleViewComponent,
     CustomDamageInputComponent,
+    NavbarComponent,
     FormsModule
   ],
   templateUrl: './battler.component.html',

@@ -1,15 +1,17 @@
+  <app-navbar></app-navbar>
+
 @if (showLayout) {
   <button (click)="isToolBoxVisible = !isToolBoxVisible" id="toolbox_toggle">Toggle toolbox</button>
   @if (isToolBoxVisible) {
     <app-toolbox></app-toolbox>
   }
   <button id="sideBar_Toggle" (click)="switchSideBar()">Toggle sidebar</button>
+
   <section id="container">
 
     @if (isSideBarVisible) {
       <app-character-selection id="right_section"></app-character-selection>
     }
-
 
     <section id="left_section" [style.width]="leftSectionWidth">
       <section id="views">
