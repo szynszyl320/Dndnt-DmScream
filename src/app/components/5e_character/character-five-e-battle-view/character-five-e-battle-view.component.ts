@@ -33,19 +33,18 @@ export class CharacterFiveEBattleViewComponent {
   constructor(
     private characterHandler :CharacterHandlerService,
     private battlerHandler :BattlerHandlerService,
-    private turnHandler: TurnHandlerService,
     private ngZone :NgZone
   ) {}
 
   private activatedRoute = inject(ActivatedRoute);
 
   currentCharacter  :Character5e = new Character5e;
-  
-  target :Character5e | ScuffCharacter | DndtCharacter | null = null 
+
+  target :Character5e | ScuffCharacter | DndtCharacter | null = null
 
   equipmentString :string = "";
   otherWeaponsAndAttacksString :string = "";
-  
+
   isOutputVisible :boolean = false;
 
   finalScore :string = ""
@@ -55,9 +54,9 @@ export class CharacterFiveEBattleViewComponent {
   ngOnInit() {
     this.characterHandler.$CurrentCharacter.subscribe((value :Character5e) => {
       this.currentCharacter = value;
-      
+
       const parserOutput = this.characterHandler.characterParser(this.currentCharacter)
-      
+
       if(parserOutput instanceof Character5e) {
         this.currentCharacter = parserOutput
       }
@@ -90,12 +89,12 @@ export class CharacterFiveEBattleViewComponent {
 
   saveChanges() :void {
 
-    //all the strings get split back up to arrays 
+    //all the strings get split back up to arrays
     this.currentCharacter.equipment = this.equipmentString.split('\n');
     this.currentCharacter.otherWeaponsAndAttacks = this.otherWeaponsAndAttacksString.split('\n');
-  
-    this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 
-    
+
+    this.characterHandler.modifyArray(this.characterHandler.CurrentCharacterId, this.currentCharacter); //the current character gets modified
+
     this.characterHandler.saveContent(); //all the changes get saved to localstorage
   }
 
@@ -104,8 +103,8 @@ export class CharacterFiveEBattleViewComponent {
     this.saveChanges();
     this.characterHandler.getCampaings();
   }
-  
-  progress: number = 0;             
+
+  progress: number = 0;
   isProgressRunning: boolean = false;
   progressTimer?: Timer;
 
@@ -172,23 +171,23 @@ export class CharacterFiveEBattleViewComponent {
       this.battlerHandler.switchCustomAttackInput();
 
       const customAttackInformation = await this.battlerHandler.waitForCustomAttackData();
-      
+
       damage = customAttackInformation.damage;
       advantage = customAttackInformation.advantage;
-      rollToHit = customAttackInformation.rollToHit; 
+      rollToHit = customAttackInformation.rollToHit;
     }
 
     this.battlerHandler.attackTarget(weapon, this.currentCharacter, damage, advantage, rollToHit)
 
     if(this.activatedRoute.snapshot.url.length == 0) {
       this.finalScore = `
-        The attack dealt: ${this.attackInformation.damage}. 
+        The attack dealt: ${this.attackInformation.damage}.
         With a roll to hit of: ${this.attackInformation.rollToHit}
       `;
       this.isOutputVisible = true;
       this.startProgress();
     }
-    
+
   }
 
 }

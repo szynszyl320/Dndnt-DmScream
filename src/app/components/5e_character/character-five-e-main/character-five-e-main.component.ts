@@ -37,8 +37,8 @@ ngOnInit() {
 
   this.characterHandler.$CurrentCharacter.subscribe((value :Character5e) => {
     this.currentCharacter = value;
-    
-    const parserOutput = this.characterHandler.characterParser(this.currentCharacter)      
+
+    const parserOutput = this.characterHandler.characterParser(this.currentCharacter)
       if(parserOutput instanceof Character5e) {
         this.currentCharacter = parserOutput
       }
@@ -77,7 +77,7 @@ removeWeapon(weaponIndex :number) :void {
 
 saveChanges() :void {
 
-    //all the strings get split back up to arrays 
+    //all the strings get split back up to arrays
     this.currentCharacter.personalityTraits = this.personalityTraitsString.split('\n');
     this.currentCharacter.ideals = this.idealsString.split('\n');
     this.currentCharacter.bonds = this.bondsString.split('\n');
@@ -87,14 +87,14 @@ saveChanges() :void {
     this.currentCharacter.featuresAndTraits = this.featuresAndTraitsString.split('\n');
     this.currentCharacter.languages = this.languagesString.split('\n');
     this.currentCharacter.otherWeaponsAndAttacks = this.otherWeaponsAndAttacksString.split('\n');
-    
-  
-    this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 
-    
+
+
+    this.characterHandler.modifyArray(this.characterHandler.CurrentCharacterId, this.currentCharacter); //the current character gets modified
+
     this.characterHandler.saveContent(); //all the changes get saved to localstorage
   }
 
-//Listener that triggers the function saveChanges anytime an input gets modified in any way. 
+//Listener that triggers the function saveChanges anytime an input gets modified in any way.
 @HostListener('input', ['$event'])
 onAnyInput(_: Event) {
   this.saveChanges();

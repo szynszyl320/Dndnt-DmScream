@@ -42,12 +42,12 @@ export class CharacerFiveESpellsComponent {
   };
 
   const targetArray = spellArrays[spellLevel];
-  
+
   if (targetArray) {
     targetArray.push(new Spell5e(spellLevel));
   }
 
-  this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter);
+  this.characterHandler.modifyArray(this.characterHandler.CurrentCharacterId, this.currentCharacter);
   this.characterHandler.saveContent();
 }
 
@@ -66,7 +66,7 @@ removeSpell(spellLevel :number, spellIndex :number) :void {
   };
 
   const targetArray = spellArrays[spellLevel];
-  
+
   if (targetArray) {
     targetArray.splice(spellIndex, 1);
   }

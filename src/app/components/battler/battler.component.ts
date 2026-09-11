@@ -14,6 +14,7 @@ import { ScuffCharacterBattleViewComponent } from '../scuff-character-battle-vie
 import { CharacterFiveEBattleViewComponent } from '../5e_character/character-five-e-battle-view/character-five-e-battle-view.component';
 import { CustomDamageInputComponent } from '../custom-damage-input/custom-damage-input.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
+import { MaidClass } from '../../class/maid-class';
 
 @Component({
   selector: 'app-battler',
@@ -31,16 +32,16 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 
 export class BattlerComponent {
 
-  
+
   constructor(
-    private battleHandler: BattlerHandlerService, 
+    private battleHandler: BattlerHandlerService,
     private characterHandler :CharacterHandlerService,
     private turnHandler: TurnHandlerService
-  ) {} //Instatniates the battlerhandler and characterHandler serivce 
+  ) {} //Instatniates the battlerhandler and characterHandler serivce
 
   Battler :any = {};
-  displayedCharacter :ScuffCharacter | DndtCharacter | Character5e = new Character5e
-  selectedTarget: ScuffCharacter | DndtCharacter | Character5e | null = null;
+  displayedCharacter :ScuffCharacter | DndtCharacter | Character5e | MaidClass  = new Character5e
+  selectedTarget: ScuffCharacter | DndtCharacter | Character5e | MaidClass | null = null;
 
   isAttackInfoDisplayed :boolean = false;
   lastAttackInfo :any = false;
@@ -49,14 +50,14 @@ export class BattlerComponent {
 
   //Code executed on initiation of the component
   ngOnInit() {
-    this.battleHandler.$Battler.subscribe((value: any) => {      
+    this.battleHandler.$Battler.subscribe((value: any) => {
       this.Battler = value;
-    });  
-    
+    });
+
     this.characterHandler.$CurrentCharacter.subscribe((value) => {
         this.displayedCharacter = value;
     }) //subscribes to the Current Character
-  
+
     this.battleHandler.$DisplayAttackInformation.subscribe((value :boolean) => {
       this.isAttackInfoDisplayed = value
     })
@@ -65,13 +66,13 @@ export class BattlerComponent {
       this.lastAttackInfo = value;
     })
 
-    
-
     this.displayedCharacter = this.characterHandler.characterParser(this.displayedCharacter)
+    if (this.displayedCharacter instanceof MaidClass) {
+      this.displayedCharacter = new Character5e
+    }
+  }
 
-  } 
-
-  switchCharacter(character :ScuffCharacter | DndtCharacter | Character5e, event? :MouseEvent) :void {
+  switchCharacter(character :ScuffCharacter | DndtCharacter | Character5e | MaidClass, event? :MouseEvent) :void {
     const isShiftDown = !!event && event.shiftKey;
 
     character = this.characterHandler.characterParser(character)
@@ -87,19 +88,22 @@ export class BattlerComponent {
         console.log('target selected', character);
       }
     } else {
-      this.characterHandler.changeCharacter(character); 
+      this.characterHandler.changeCharacter(character);
       this.displayedCharacter = this.characterHandler.characterParser(this.displayedCharacter)
     }
   }
 
-  isSelectedTarget(character: ScuffCharacter | DndtCharacter | Character5e): boolean {
+  isSelectedTarget(character: ScuffCharacter | DndtCharacter | Character5e | MaidClass): boolean {
     return this.selectedTarget?.name === character.name;
   }
-  
+
   rerollInitiative() :void {
-    let characterToModify :ScuffCharacter | DndtCharacter | Character5e = this.displayedCharacter 
+    let characterToModify :ScuffCharacter | DndtCharacter | Character5e | MaidClass  = this.displayedCharacter
+
+    if (characterToModify instanceof MaidClass) return
+
     characterToModify.initiative = Math.floor((Math.random()*20)+1)+Math.floor((characterToModify.dex-10)/2)
-    
+
     this.battleHandler.modifyCharacter(characterToModify, this.battleHandler.getCharacterIndex(characterToModify.name))
 
     this.battleHandler.sortArray()
@@ -127,17 +131,17 @@ export class BattlerComponent {
         }
 
       }
-        
+
       this.battleHandler.modifyCharacter(this.displayedCharacter, this.battleHandler.getCharacterIndex(this.displayedCharacter.name))
-      
-      this.battleHandler.saveContent();   
+
+      this.battleHandler.saveContent();
 
       this.characterHandler.changeCharacter(this.displayedCharacter)
-        
+
     }
   }
 
-  
+
   @HostListener('input', ['$event'])
   onAnyInput(_: Event) {
     this.battleHandler.modifyCharacter(this.displayedCharacter, this.battleHandler.getCharacterIndex(this.displayedCharacter.name))

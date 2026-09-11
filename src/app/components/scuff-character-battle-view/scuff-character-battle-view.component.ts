@@ -19,7 +19,6 @@ import { ScuffCharacter } from '../../class/scuff-character';
 import { Timer, timer } from 'd3-timer';
 import { DndtCharacter } from '../../class/dndt-character';
 import { Character5e } from '../../class/character-5e';
-import { BattlerComponent } from '../battler/battler.component';
 
 @Component({
   selector: 'app-scuff-character-battle-view',
@@ -30,8 +29,8 @@ import { BattlerComponent } from '../battler/battler.component';
 export class ScuffCharacterBattleViewComponent {
 
   constructor(
-    private characterHandler: CharacterHandlerService, 
-    private ngZone: NgZone, 
+    private characterHandler: CharacterHandlerService,
+    private ngZone: NgZone,
     private battlerHandler :BattlerHandlerService,
     private statusHandler :StatusService
   ) {}
@@ -64,7 +63,7 @@ export class ScuffCharacterBattleViewComponent {
       this.currentCharacter = value;
 
       const parserOutput = this.characterHandler.characterParser(this.currentCharacter)
-      
+
       if(parserOutput instanceof ScuffCharacter) {
         this.currentCharacter = parserOutput
       }
@@ -74,7 +73,7 @@ export class ScuffCharacterBattleViewComponent {
         this.proficienciesString = value.proficiencies.join('\n');
         this.implantsString = value.implants.join('\n');
       }
-      
+
       let weaponsArray :Array<Weapon> = new Array
       this.currentCharacter.weapons.forEach(weapon => {
           weaponsArray.push(Object.assign(new Weapon, weapon))
@@ -82,7 +81,7 @@ export class ScuffCharacterBattleViewComponent {
       this.currentCharacter.weapons = weaponsArray
 
     })
-    
+
     this.battlerHandler.$Target.subscribe((value :ScuffCharacter | DndtCharacter | null) => {
       this.target = value
     })
@@ -112,7 +111,7 @@ export class ScuffCharacterBattleViewComponent {
       result = 'Natural One!'
     } else {
       result = randomRoll+Math.ceil((modifier-10)/2);
-    } 
+    }
     this.finalScore = `The roll for ${type} resulted in: ${result}`;
     this.isOutputVisible = true;
     this.startProgress();
@@ -121,7 +120,7 @@ export class ScuffCharacterBattleViewComponent {
   rollWeapon(weapon :Weapon) :void {
     let weaponOutput = weapon.rollWeaponDamage()
 
-    this.finalScore = weaponOutput[0];    
+    this.finalScore = weaponOutput[0];
 
     this.isOutputVisible = true;
     this.startProgress();
@@ -129,18 +128,18 @@ export class ScuffCharacterBattleViewComponent {
 
   saveChanges() :void {
 
-    //all the strings get split back up to arrays 
+    //all the strings get split back up to arrays
     this.currentCharacter.traits = this.traitsString.split('\n');
     this.currentCharacter.proficiencies = this.proficienciesString.split('\n');
     this.currentCharacter.implants = this.implantsString.split('\n');
-    
-    this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 
-    
+
+    this.characterHandler.modifyArray(this.characterHandler.CurrentCharacterId, this.currentCharacter); //the current character gets modified
+
     this.characterHandler.saveContent(); //all the changes get saved to localstorage
   }
 
 
-  progress: number = 0;             
+  progress: number = 0;
   isProgressRunning: boolean = false;
   progressTimer?: Timer;
 
@@ -181,7 +180,7 @@ export class ScuffCharacterBattleViewComponent {
     }
   }
 
-  //Listener that triggers the function saveChanges anytime an input gets modified in any way. 
+  //Listener that triggers the function saveChanges anytime an input gets modified in any way.
   @HostListener('input', ['$event'])
   onAnyInput(_: Event) {
     this.saveChanges();
@@ -199,23 +198,23 @@ export class ScuffCharacterBattleViewComponent {
       this.battlerHandler.switchCustomAttackInput();
 
       const customAttackInformation = await this.battlerHandler.waitForCustomAttackData();
-      
+
       damage = customAttackInformation.damage;
       advantage = customAttackInformation.advantage;
-      rollToHit = customAttackInformation.rollToHit; 
+      rollToHit = customAttackInformation.rollToHit;
     }
 
     this.battlerHandler.attackTarget(weapon, this.currentCharacter, damage, advantage, rollToHit)
 
     if(this.activatedRoute.snapshot.url.length == 0) {
       this.finalScore = `
-        The attack dealt: ${this.attackInformation.damage}. 
+        The attack dealt: ${this.attackInformation.damage}.
         With a roll to hit of: ${this.attackInformation.rollToHit}
       `;
       this.isOutputVisible = true;
       this.startProgress();
     }
-    
+
   }
 
   removeStatusStacks(stackAmount :number, index :number) :void {
@@ -231,11 +230,11 @@ export class ScuffCharacterBattleViewComponent {
     if(this.statusEffectStacks > 0) {
       this.statusHandler.PushStatus(this.currentCharacter, this.statusEffectName.trim().toLowerCase(), this.statusEffectStacks, this.statusEffectDoesLower)
     }
-    
+
     this.statusEffectName = "";
     this.statusEffectStacks = 0;
     this.statusEffectDoesLower = true;
-    
+
     this.battlerHandler.saveContent();
 
   }

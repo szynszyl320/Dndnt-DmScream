@@ -29,7 +29,7 @@ appearanceUrl :string = '';
 ngOnInit() {
   this.characterHandler.$CurrentCharacter.subscribe((value :Character5e) => {
     this.currentCharacter = value;
-  
+
     if(value.alliesAndOrganisations) {
       this.alliesAndOrganisationsString = value.alliesAndOrganisations.join('\n');
       this.additionalFeaturesAndTraitsString = value.additionalFeaturesAndTraits.join('\n')
@@ -41,19 +41,19 @@ ngOnInit() {
       this.appearanceUrl = data.appearanceBase64; // Base64 data URLs work directly in img src
       this.currentCharacter.appearanceBase64 = data.appearanceBase64;
     }
-    
+
   })
 
 }
 
 saveChanges() :void {
-  //all the strings get split back up to arrays 
+  //all the strings get split back up to arrays
     this.currentCharacter.alliesAndOrganisations = this.alliesAndOrganisationsString.split('\n');
     this.currentCharacter.additionalFeaturesAndTraits = this.additionalFeaturesAndTraitsString.split('\n');
     this.currentCharacter.magicItems = this.magicItemsString.split('\n');
 
-    this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 
-  
+    this.characterHandler.modifyArray(this.characterHandler.CurrentCharacterId, this.currentCharacter); //the current character gets modified
+
     const characterData = {
       ...this.currentCharacter,
       characterAppearance: undefined, // Don't save the File object
@@ -64,7 +64,7 @@ saveChanges() :void {
     this.characterHandler.saveContent(); //all the changes get saved to localstorage
   }
 
-//Listener that triggers the function saveChanges anytime an input gets modified in any way. 
+//Listener that triggers the function saveChanges anytime an input gets modified in any way.
 @HostListener('input', ['$event'])
 onAnyInput(_: Event) {
   this.saveChanges();
@@ -75,15 +75,15 @@ onAnyInput(_: Event) {
   onAppearanceChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
-    
+
     if (file) {
       if (this.appearanceUrl) {
         URL.revokeObjectURL(this.appearanceUrl);
       }
-      
+
       this.appearanceUrl = URL.createObjectURL(file);
       this.currentCharacter.characterAppearance = file;
-      
+
       // Convert file to Base64 for localStorage
       const reader = new FileReader();
       reader.onload = (e) => {

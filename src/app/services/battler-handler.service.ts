@@ -8,6 +8,7 @@ import { ScuffCharacter } from '../class/scuff-character';
 import { Character5e } from '../class/character-5e';
 import { DndtCharacter } from '../class/dndt-character';
 import { Weapon } from '../class/weapon';
+import { MaidClass } from '../class/maid-class';
 
 
 @Injectable({
@@ -32,7 +33,7 @@ export class BattlerHandlerService {
         rollToHit: rollToHit,
         advantage: advantage
       })
-      
+
       // Resolve the waiting promise
       if (this.attackDataResolver) {
         this.attackDataResolver(this.$CustomAttackData.getValue());
@@ -54,8 +55,8 @@ export class BattlerHandlerService {
   }
 
   constructor(private characterHandler : CharacterHandlerService, private turnHandler :TurnHandlerService) {
-    this.loadcontent() 
-    this.sortArray()  
+    this.loadcontent()
+    this.sortArray()
   }
 
 
@@ -109,8 +110,10 @@ export class BattlerHandlerService {
     }
   }
 
-  loadNewCharacter(newCharacter :ScuffCharacter | Character5e | DndtCharacter ) :void {
-    try {      
+  loadNewCharacter(newCharacter :ScuffCharacter | Character5e | DndtCharacter | MaidClass ) :void {
+    try {
+      if (newCharacter instanceof MaidClass) return;
+
       newCharacter.initiative = Math.floor((Math.random()*20)+1)+Math.floor((newCharacter.dex-10)/2)
 
       let oldname = newCharacter.name;
@@ -133,8 +136,8 @@ export class BattlerHandlerService {
       newCharacter.name= oldname;
 
       let newBattler = this.$Battler.getValue()
-      newBattler.characters = Characters;      
-      this.$Battler.next(newBattler)  
+      newBattler.characters = Characters;
+      this.$Battler.next(newBattler)
 
       // this.characterHandler.changeCharacter(newBattler.characters[-1])
 
@@ -143,7 +146,7 @@ export class BattlerHandlerService {
     }
   }
 
-  modifyCharacter(character :ScuffCharacter | Character5e | DndtCharacter, characterIndex :number) :void {
+  modifyCharacter(character :ScuffCharacter | Character5e | DndtCharacter | MaidClass, characterIndex :number) :void {
     try {
       let newBattler :any = this.$Battler.getValue()
 
@@ -155,19 +158,19 @@ export class BattlerHandlerService {
 
     } catch (error) {
       console.error('Error modfiying character', error);
-      
+
     }
   }
 
   getCharacterIndex(characterName :string) :number {
     try {
-      let characterArray :Array<any> = this.$Battler.getValue().characters; 
+      let characterArray :Array<any> = this.$Battler.getValue().characters;
       return characterArray.findIndex((character) => {
         return character.name == characterName
       })
     } catch (error) {
       console.error("Couldn't find character", error);
-      return -1      
+      return -1
     }
   }
 
@@ -175,7 +178,7 @@ export class BattlerHandlerService {
     try {
       let characterArray :Array<any> = this.$Battler.getValue().characters;
       characterArray.sort((character, nextCharacter) => {
-        return nextCharacter.initiative - character.initiative  
+        return nextCharacter.initiative - character.initiative
       })
 
       let newBattler :any = this.$Battler.getValue()
@@ -205,8 +208,8 @@ export class BattlerHandlerService {
     }
   }
 
-  selectNewTarget(character :ScuffCharacter | DndtCharacter | Character5e | null) :void {
-    try { 
+  selectNewTarget(character :ScuffCharacter | DndtCharacter | Character5e | MaidClass | null) :void {
+    try {
       this.$Target.next(character);
     } catch (error) {
       console.error('Failed to target the character')
@@ -215,14 +218,14 @@ export class BattlerHandlerService {
 
   attackTarget(weapon :Weapon, currentCharacter :any, damage :number | null = 0, advantage :number = 0, rollToHit :number | null) :void {
     console.log("Attempting attack");
-    try {  
-      let target = this.$Target.getValue(); 
-      
+    try {
+      let target = this.$Target.getValue();
+
       let weaponBonus :string = weapon.bonusToHit.substring(0,3).toLowerCase();
-    
+
       let modifier :number = Math.ceil((currentCharacter[weaponBonus]-10)/2)
 
-      let damageRolls :number = 1 
+      let damageRolls :number = 1
 
       if(!rollToHit) {
         rollToHit = this.rollD20(modifier, advantage);
@@ -252,7 +255,7 @@ export class BattlerHandlerService {
       if(target && damage) {
         target.changeCharacterHealth(-(damage))
         console.log(damage, "dealt");
-        
+
 
         this.modifyCharacter(target, this.getCharacterIndex(target.name));
 
@@ -266,13 +269,13 @@ export class BattlerHandlerService {
       console.log({
         damage: damage,
         rollToHit: rollToHit,
-        target: target, 
+        target: target,
       });
-      
+
       this.$LastAttackDetails.next({
         damage: damage,
         rollToHit: rollToHit,
-        target: target, 
+        target: target,
       })
     } catch (error) {
       console.error("failed to roll an attack", error);

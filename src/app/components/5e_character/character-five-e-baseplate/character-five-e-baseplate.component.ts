@@ -15,8 +15,8 @@ import { CharacerFiveESpellsComponent } from '../characer-five-e-spells/characer
 @Component({
   selector: 'app-character-five-e-baseplate',
   imports: [
-    FormsModule, 
-    CharacterFiveEMainComponent, 
+    FormsModule,
+    CharacterFiveEMainComponent,
     CharacterFiveEBackgroundComponent,
     CharacerFiveESpellsComponent
   ],
@@ -40,8 +40,8 @@ ngOnInit() {
 }
 
 saveChanges() :void {
-  this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 
-    
+  this.characterHandler.modifyArray(this.characterHandler.CurrentCharacterId, this.currentCharacter); //the current character gets modified
+
   this.characterHandler.saveContent(); //all the changes get saved to localstorage
 }
 

@@ -24,7 +24,7 @@ import { ScuffCharacter } from '../../class/scuff-character';
 export class CharacterComponent {
   currentCharacter :ScuffCharacter = new ScuffCharacter; //defines a variable for the current character
 
-  hpChange :number = 0; //defines the variable for later use in changing hp. 
+  hpChange :number = 0; //defines the variable for later use in changing hp.
   shieldChange :number = 0; //defines the variable for later use in changing shields
 
   //strings defined for use in cases where the data is saved as arrays.
@@ -39,20 +39,20 @@ export class CharacterComponent {
   constructor(private characterHandler: CharacterHandlerService) {}
 
   ngOnInit() {
-    //Script running upon initiation of the component 
-    
-    this.characterHandler.$CurrentCharacter.subscribe((value: ScuffCharacter) => {  
-    
+    //Script running upon initiation of the component
+
+    this.characterHandler.$CurrentCharacter.subscribe((value: ScuffCharacter) => {
+
       this.currentCharacter = value; //subscribes to the current character
-    
+
       const parserOutput = this.characterHandler.characterParser(this.currentCharacter)
-      
+
       if(parserOutput instanceof ScuffCharacter) {
         this.currentCharacter = parserOutput
       }
 
 
-      //all  the arrays get joined to be displayed as strings 
+      //all  the arrays get joined to be displayed as strings
       if(value.implants) {
         this.traitsString = this.currentCharacter.traits.join('\n') || "";
         this.proficienciesString = this.currentCharacter.proficiencies.join('\n') || "";
@@ -63,12 +63,12 @@ export class CharacterComponent {
         this.langaugesString = this.currentCharacter.languages.join('\n') || "";
       }
 
-    }); 
+    });
   }
 
   saveChanges() :void {
 
-    //all the strings get split back up to arrays 
+    //all the strings get split back up to arrays
     this.currentCharacter.traits = this.traitsString.split('\n');
     this.currentCharacter.languages = this.langaugesString.split('\n');
     this.currentCharacter.proficiencies = this.proficienciesString.split('\n');
@@ -78,13 +78,13 @@ export class CharacterComponent {
     this.currentCharacter.components = this.componentsString.split('\n');
 
 
-    this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter); //the current character gets modified 
-    
+    this.characterHandler.modifyArray(this.characterHandler.CurrentCharacterId, this.currentCharacter); //the current character gets modified
+
     this.characterHandler.saveContent(); //all the changes get saved to localstorage
   }
 
   changeCurrentHp() :void {
-    //A function that adds the passed numbers to the current hp of the character, saves some time on calculations 
+    //A function that adds the passed numbers to the current hp of the character, saves some time on calculations
     this.currentCharacter.currentHp += this.hpChange;
     this.hpChange = 0;
   }
@@ -96,7 +96,7 @@ export class CharacterComponent {
 
   addWeapon() :void {
     this.currentCharacter.weapons.push(new Weapon) //pushes a new weapon into the weapon array
-    this.saveChanges(); 
+    this.saveChanges();
   }
 
   removeWeapon(weaponIndex :number) :void {
@@ -104,11 +104,11 @@ export class CharacterComponent {
     this.saveChanges();
   }
 
-  //Listener that triggers the function saveChanges anytime an input gets modified in any way. 
+  //Listener that triggers the function saveChanges anytime an input gets modified in any way.
   @HostListener('input', ['$event'])
   onAnyInput(_: Event) {
     this.saveChanges();
     this.characterHandler.getCampaings();
   }
- 
+
 }

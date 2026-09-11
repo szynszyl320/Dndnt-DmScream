@@ -9,6 +9,7 @@ import { DndntCharacterBattleViewComponent } from '../dndnt-character-battle-vie
 import { CharacterFiveEBaseplateComponent } from '../5e_character/character-five-e-baseplate/character-five-e-baseplate.component';
 import { CharacterFiveEBattleViewComponent } from '../5e_character/character-five-e-battle-view/character-five-e-battle-view.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
+import { MaidCharacterComponent } from '../maid-character/maid-character.component';
 
 //Services
 import { CharacterHandlerService } from '../../services/character-handler.service';
@@ -21,10 +22,11 @@ import { CharacterHandlerService } from '../../services/character-handler.servic
     ToolboxComponent,
     DndntCharacterComponent,
     ScuffCharacterBattleViewComponent,
-    DndntCharacterBattleViewComponent,  
+    DndntCharacterBattleViewComponent,
     CharacterFiveEBaseplateComponent,
     CharacterFiveEBattleViewComponent,
-    NavbarComponent
+    NavbarComponent,
+    MaidCharacterComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
@@ -40,17 +42,17 @@ export class MainComponent {
     }); //subscribing to the current character
   }
 
-  currentCharacter :any = {}; 
+  currentCharacter :any = {};
 
   showLayout :boolean = true;
 
   typeToBeDisplayed :string = "";
 
-  isSideBarVisible :boolean = true; //defines a variable for checking if the sidebar is visible 
+  isSideBarVisible :boolean = true; //defines a variable for checking if the sidebar is visible
   leftSectionWidth :string = "90%" //defines a variable with the default width of the right section
 
   switchSideBar() :void {
-    this.isSideBarVisible = !this.isSideBarVisible; //switches the value of the variable to the negation of it's former self 
+    this.isSideBarVisible = !this.isSideBarVisible; //switches the value of the variable to the negation of it's former self
     if(this.isSideBarVisible) {
       this.leftSectionWidth = "90%";
     } else {

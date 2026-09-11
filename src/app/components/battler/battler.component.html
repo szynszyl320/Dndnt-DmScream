@@ -1,58 +1,58 @@
 <app-navbar></app-navbar>
-<div id="container">
-
-    <app-custom-damage-input></app-custom-damage-input>
-
-    <nav>
-        @for (character of Battler.characters; track $index) {
-            <button (click)="switchCharacter(character, $event)" [class.selected-target]="isSelectedTarget(character)">{{character.name}} | {{character.initiative}}</button>
-        }
-    </nav>
-
-    <main>
-
-        <section>
-            @if (displayedCharacter.type == 'dndnt') {
-                <app-dndnt-character-battle-view></app-dndnt-character-battle-view>
-            } @else if (displayedCharacter.type == 'generation ship') {
-                <app-scuff-character-battle-view></app-scuff-character-battle-view>
-            } @else if (displayedCharacter.type == '5e') {
-                <app-character-five-e-battle-view></app-character-five-e-battle-view>
-            } @else {
-                <h2>Unsuported character chosen!</h2>
-            }
-        </section>
-
-        <aside>
-            <section>
-                @if (!selectedTarget) {
-                    <p>Hold shift while clicking a character to selectem them as a target!</p>
-                } @else {
-                    <p>Target: {{selectedTarget.name}}</p>
-                    <p>Target AC: {{selectedTarget.ac}}</p>
-                    <p>Target Health: {{selectedTarget.currentHp}}</p>
-                }
-            </section>
-            <section>
-                @if (!lastAttackInfo) {
-                    <p>Information about your last attack will be displayed here.</p>
-                } @else {
-                    @if(typeof lastAttackInfo === "string") {
-                        <p>{{lastAttackInfo}}</p>
-                    } @else { 
-                        <p>Roll to hit: {{lastAttackInfo.rollToHit}}</p>
-                        <p>Damage: {{lastAttackInfo.damage}}</p>
-                    }
-                }
-            </section>
-            
-            <h2>Options</h2>
-            <label>Initiative: <input type="number" name="character_initiative" id="character_initiative" [(ngModel)]="displayedCharacter.initiative"></label>
-            <button (click)="rerollInitiative()">Rerrol initative</button>
-            <button (click)="removeCharacter()">Remove character</button>
-            <button (click)="processTurn()">Process the turn</button>
-        </aside>
-
-    </main>
-
-</div>
+<!-- <div id="container"> -->
+<!---->
+<!--     <app-custom-damage-input></app-custom-damage-input> -->
+<!---->
+<!--     <nav> -->
+<!--         @for (character of Battler.characters; track $index) { -->
+<!--             <button (click)="switchCharacter(character, $event)" [class.selected-target]="isSelectedTarget(character)">{{character.name}} | {{character.initiative}}</button> -->
+<!--         } -->
+<!--     </nav> -->
+<!---->
+<!--     <main> -->
+<!---->
+<!--         <section> -->
+<!--             @if (displayedCharacter.type == 'dndnt') { -->
+<!--                 <app-dndnt-character-battle-view></app-dndnt-character-battle-view> -->
+<!--             } @else if (displayedCharacter.type == 'generation ship') { -->
+<!--                 <app-scuff-character-battle-view></app-scuff-character-battle-view> -->
+<!--             } @else if (displayedCharacter.type == '5e') { -->
+<!--                 <app-character-five-e-battle-view></app-character-five-e-battle-view> -->
+<!--             } @else { -->
+<!--                 <h2>Unsuported character chosen!</h2> -->
+<!--             } -->
+<!--         </section> -->
+<!---->
+<!--         <aside> -->
+<!--             <section> -->
+<!--                 @if (!selectedTarget) { -->
+<!--                     <p>Hold shift while clicking a character to selectem them as a target!</p> -->
+<!--                 } @else { -->
+<!--                     <p>Target: {{selectedTarget.name}}</p> -->
+<!--                     <p>Target AC: {{selectedTarget.ac}}</p> -->
+<!--                     <p>Target Health: {{selectedTarget.currentHp}}</p> -->
+<!--                 } -->
+<!--             </section> -->
+<!--             <section> -->
+<!--                 @if (!lastAttackInfo) { -->
+<!--                     <p>Information about your last attack will be displayed here.</p> -->
+<!--                 } @else { -->
+<!--                     @if(typeof lastAttackInfo === "string") { -->
+<!--                         <p>{{lastAttackInfo}}</p> -->
+<!--                     } @else {  -->
+<!--                         <p>Roll to hit: {{lastAttackInfo.rollToHit}}</p> -->
+<!--                         <p>Damage: {{lastAttackInfo.damage}}</p> -->
+<!--                     } -->
+<!--                 } -->
+<!--             </section> -->
+<!---->
+<!--             <h2>Options</h2> -->
+<!--             <label>Initiative: <input type="number" name="character_initiative" id="character_initiative" [(ngModel)]="displayedCharacter.initiative"></label> -->
+<!--             <button (click)="rerollInitiative()">Rerrol initative</button> -->
+<!--             <button (click)="removeCharacter()">Remove character</button> -->
+<!--             <button (click)="processTurn()">Process the turn</button> -->
+<!--         </aside> -->
+<!---->
+<!--     </main> -->
+<!---->
+<!-- </div> -->

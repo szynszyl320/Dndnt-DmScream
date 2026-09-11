@@ -31,10 +31,9 @@ import { Character5e } from '../../class/character-5e';
 export class DndntCharacterBattleViewComponent {
 
   constructor(
-    private characterHandler: CharacterHandlerService, 
-    private ngZone :NgZone, 
+    private characterHandler: CharacterHandlerService,
+    private ngZone :NgZone,
     private battlerHandler :BattlerHandlerService,
-    private turnHandler :TurnHandlerService
   ) {};
 
   private activatedRoute = inject(ActivatedRoute);
@@ -56,14 +55,14 @@ export class DndntCharacterBattleViewComponent {
 
   ngOnInit() {
 
-    this.characterHandler.$CurrentCharacter.subscribe((value :DndtCharacter) => {      
+    this.characterHandler.$CurrentCharacter.subscribe((value :DndtCharacter) => {
 
       this.currentCharacter = value;
 
       if(value.wounds) {
         this.woundsString = value.wounds.join('\n')
       }
-      
+
       let weaponsArray :Array<Weapon> = new Array
       this.currentCharacter.weapons.forEach(weapon => {
           weaponsArray.push(Object.assign(new Weapon, weapon))
@@ -74,11 +73,11 @@ export class DndntCharacterBattleViewComponent {
 
     this.battlerHandler.$Target.subscribe((value :ScuffCharacter | DndtCharacter | Character5e) => {
 
-      this.target = value 
+      this.target = value
 
     })
 
-    
+
 
   }
 
@@ -94,11 +93,11 @@ export class DndntCharacterBattleViewComponent {
 
   saveChanges() :void {
     this.currentCharacter.wounds = this.woundsString.split('\n');
-    this.characterHandler.modifyArray(this.characterHandler.findCharacterIndex(this.currentCharacter), this.currentCharacter);
+    this.characterHandler.modifyArray(this.characterHandler.CurrentCharacterId, this.currentCharacter);
     this.characterHandler.saveContent();
   }
 
-  progress: number = 0;             
+  progress: number = 0;
   isProgressRunning: boolean = false;
   progressTimer?: Timer;
 
@@ -139,7 +138,7 @@ export class DndntCharacterBattleViewComponent {
     }
   }
 
-  //Listener that triggers the function saveChanges anytime an input gets modified in any way. 
+  //Listener that triggers the function saveChanges anytime an input gets modified in any way.
   @HostListener('input', ['$event'])
   onAnyInput(_: Event) {
     this.saveChanges();
@@ -172,23 +171,23 @@ export class DndntCharacterBattleViewComponent {
       this.battlerHandler.switchCustomAttackInput();
 
       const customAttackInformation = await this.battlerHandler.waitForCustomAttackData();
-      
+
       damage = customAttackInformation.damage;
       advantage = customAttackInformation.advantage;
-      rollToHit = customAttackInformation.rollToHit; 
+      rollToHit = customAttackInformation.rollToHit;
     }
 
     this.battlerHandler.attackTarget(weapon, this.currentCharacter, damage, advantage, rollToHit)
 
     if(this.activatedRoute.snapshot.url.length == 0) {
       this.finalScore = `
-        The attack dealt: ${this.attackInformation.damage}. 
+        The attack dealt: ${this.attackInformation.damage}.
         With a roll to hit of: ${this.attackInformation.rollToHit}
       `;
       this.isOutputVisible = true;
       this.startProgress();
     }
-    
+
   }
 
 }
