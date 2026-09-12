@@ -2,26 +2,202 @@
   <header>
 
     <section id='left_header'>
+      <h2>
+        Maid RPG<br>
+        <span>Basic Character Sheet</span>
+      </h2>
+
       <label>
         <p>Maid Types</p>
-        <textarea rows="30" cols="10" [(ngModel)]="maidTypes"></textarea>
+        <textarea rows="3" [(ngModel)]="maidTypes"></textarea>
       </label>
 
+      <article>
+
+        <label>
+          <p>Special Qualities</p>
+          <textarea rows="10" [(ngModel)]="specialQualities">
+
+          </textarea>
+        </label>
+
+        <div>
+
+          <label>
+            <p>Maid Roots</p>
+            <input type="text" name="maid_roots" [(ngModel)]="currentCharacter.maidRoots">
+          </label>
+
+          <label>
+            <p>Stress Explosion!</p>
+            <input type="text" name="stress_explosion" [(ngModel)]="currentCharacter.stressExplosion">
+          </label>
+
+          <label>
+            <p>Maid Power</p>
+            <input type="text" name="maid_power" [(ngModel)]="currentCharacter.maidPower">
+          </label>
+
+        </div>
+
+      </article>
     </section>
 
     <section id='right_header'>
 
+      <article id="top_right_header">
+
+        <label>
+          <p>Name:</p>
+          <input type="text" name="name" [(ngModel)]="currentCharacter.name">
+        </label>
+
+        <label>
+          <p>Age:</p>
+          <input type="number" name="age" [(ngModel)]="currentCharacter.age">
+        </label>
+
+        <label>
+          <p>Campaign</p>
+          <input type="text" name="campaign" [(ngModel)]="currentCharacter.campaign">
+        </label>
+
+      </article>
+
+      <article>
+
+        <p>Maid Colors</p>
+        <div>
+
+          <label>Clothes <input type="text" name="clothes" [(ngModel)]="currentCharacter.clothesColor"></label>
+
+          <label>Eye <input type="text" name="eye" [(ngModel)]="currentCharacter.eyeColor"></label>
+
+          <label>Hair <input type="text" name="hair" [(ngModel)]="currentCharacter.hairColor"></label>
+
+        </div>
+
+      </article>
+
     </section>
 
   </header>
-  <section>
+  <section id="attributes">
 
+    <label>
+      <p>Athletics</p>
+      <input type="number" name="athletics" [(ngModel)]="currentCharacter.attributes.athletics">
+    </label>
 
+    <label>
+      <p>Affection</p>
+      <input type="number" name="affection" [(ngModel)]="currentCharacter.attributes.affection">
+    </label>
+
+    <label>
+      <p>Skill</p>
+      <input type="number" name="skill" [(ngModel)]="currentCharacter.attributes.skill">
+    </label>
+
+    <label>
+      <p>Cunning</p>
+      <input type="number" name="cunning" [(ngModel)]="currentCharacter.attributes.cunning">
+    </label>
+
+    <label>
+      <p>Luck</p>
+      <input type="number" name="luck" [(ngModel)]="currentCharacter.attributes.luck">
+    </label>
+
+    <label>
+      <p>Will</p>
+      <input type="number" name="will" [(ngModel)]="currentCharacter.attributes.will">
+    </label>
 
   </section>
+  <section id="lower_stats">
+
+    <section id="left_lowerstats">
+
+      <label>
+
+        <div>
+          <p>Stress</p>
+          <p>Spirit: {{currentCharacter.attributes.will*10}}</p>
+        </div>
+
+        <input type="number" name="stress" [(ngModel)]="currentCharacter.stress">
+
+        <article>
+
+          <p>Stress Change</p>
+
+          <input type="number" name="stress_change" [(ngModel)]="stressChange">
+
+          <button type="button" (click)="changeCurrentStress()">Change stress</button>
+
+        </article>
+
+      </label>
+
+      <label>
+        <div>
+          <p>Favor</p>
+
+          <p>Starting Favor: {{currentCharacter.attributes.affection*2}}</p>
+        </div>
+
+        <input type="number" name="favor" [(ngModel)]="currentCharacter.favor">
+      </label>
+
+      <label>
+        <p>Notes (Items, etc.)</p>
+        <textarea rows="10" [(ngModel)]="notes"></textarea>
+      </label>
+
+    </section>
+
+    <section id="right_lower_stats">
+
+      <label>
+        <p>Maid Weapons</p>
+        <textarea rows="12" [(ngModel)]="weapons"></textarea>
+      </label>
+
+      <label>
+        <p>Personality</p>
+        <textarea rows="12" [(ngModel)]="personality"></textarea>
+      </label>
+
+    </section>
+
+  </section>
+
   <footer>
 
+    <section id="left_footer">
 
+      <label>
+        <p>Backstory</p>
+        <textarea rows="40" cols="30"></textarea>
+      </label>
+
+    </section>
+
+    <section id="right_section">
+       <label>
+            <p>Character Appearance</p>
+            <img [src]="appearanceUrl"
+                (click)="fileInput.click()"
+                style="cursor: pointer;">
+            <input #fileInput
+                    type="file"
+                    name="character_appearance"
+                    id="character_appearance"
+                    (change)="onAppearanceChange($event)"
+                    style="display: none;">
+        </label>
+    </section>
 
   </footer>
 

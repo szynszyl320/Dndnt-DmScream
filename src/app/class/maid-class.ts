@@ -16,7 +16,7 @@ export class MaidClass {
 
   public clothesColor :string = "";
   public eyeColor :string = "";
-  public hair :string = "";
+  public hairColor :string = "";
 
   public maidRoots :string = "";
   public stressExplosion :string = "";
@@ -45,11 +45,12 @@ export class MaidClass {
 
   public weapons :Array<string> = [];
 
-  public appearnace :Array<string> = [];
-
   public personality :Array<string> = [];
 
+  public backStory :Array<string> = [];
+
   public appearanceBase64 :string = "";
+  public characterAppearance :Blob = new Blob;
 
   public type :string = "maid";
 
@@ -63,8 +64,8 @@ export class MaidClass {
       maidTypesString: this.maidTypes.join('\n'),
       notesString: this.notes.join('\n'),
       weaponsString: this.weapons.join('\n'),
-      appearnaceString: this.appearnace.join('\n'),
-      personalityString: this.personality.join('\n')
+      personalityString: this.personality.join('\n'),
+      backStoryString: this.backStory.join('\n')
     }
 
     return strings;
@@ -76,8 +77,8 @@ export class MaidClass {
     this.maidTypes = strings.maidTypesString.split('\n');
     this.notes = strings.notesString.split('\n');
     this.weapons = strings.weaponsString.split('\n');
-    this.appearnace = strings.appearnaceString.split('\n');
     this.personality = strings.personalityString.split('\n');
+    this.backStory = strings.backStoryString.split('\n')
 
   }
 
@@ -89,7 +90,7 @@ export interface StringifiedMaidArrays {
   maidTypesString :string,
   notesString :string,
   weaponsString :string,
-  appearnaceString :string,
   personalityString :string,
+  backStoryString :string
 
 }
