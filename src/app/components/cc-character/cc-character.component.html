@@ -1,0 +1,162 @@
+<main>
+
+    <div id="upper_section">
+
+        <header>
+            <article>
+              <label>
+                <p>Name:</p>
+                <input type="text" [(ngModel)]="currentCharacter.name">
+              </label>
+
+              <label>
+                <p>Player:</p>
+                <input type="text" [(ngModel)]="currentCharacter.player">
+              </label>
+
+              <label>
+                <p>Occupation</p>
+                <input type="text" [(ngModel)]="currentCharacter.occupation">
+              </label>
+
+              <label>
+                <p>Age</p>
+                <input type="number" [(ngModel)]="currentCharacter.age">
+              </label>
+
+              <label>
+                <p>Sex</p>
+                <input type="text" [(ngModel)]="currentCharacter.sex">
+              </label>
+
+              <label>
+                <p>Residence</p>
+                <input type="text" [(ngModel)]="currentCharacter.residence">
+              </label>
+
+              <label>
+                <p>Birthplace</p>
+                <input type="text" [(ngModel)]="currentCharacter.birthplace">
+              </label>
+            </article>
+
+            <article>
+              <h3>Characteristics</h3>
+              <div>
+                  <label>
+                    <p>STR</p>
+                    <input type="number" [(ngModel)]="currentCharacter.characteristics.str">
+                    <span>{{ currentCharacter.characteristics.str/2 }}</span>
+                    <span>{{ currentCharacter.characteristics.str/5 }}</span>
+                  </label>
+
+                  <label>
+                    <p>CON</p>
+                    <input type="number" [(ngModel)]="currentCharacter.characteristics.con">
+                    <span>{{ currentCharacter.characteristics.con/2 }}</span>
+                    <span>{{ currentCharacter.characteristics.con/5 }}</span>
+                  </label>
+
+                  <label>
+                    <p>SIZ</p>
+                    <input type="number" [(ngModel)]="currentCharacter.characteristics.siz">
+                    <span>{{ currentCharacter.characteristics.con/2 }}</span>
+                    <span>{{ currentCharacter.characteristics.con/5 }}</span>
+                  </label>
+
+                  <label>
+                    <p>DEX</p>
+                    <input type="number" [(ngModel)]="currentCharacter.characteristics.dex">
+                    <span>{{ currentCharacter.characteristics.dex/2 }}</span>
+                    <span>{{ currentCharacter.characteristics.dex/5 }}</span>
+                  </label>
+
+                  <label>
+                    <p>APP</p>
+                    <input type="number" [(ngModel)]="currentCharacter.characteristics.app">
+                    <span>{{ currentCharacter.characteristics.app/2 }}</span>
+                    <span>{{ currentCharacter.characteristics.app/2 }}</span>
+                  </label>
+
+                  <label>
+                    <p>INT</p>
+                    <input type="number" [(ngModel)]="currentCharacter.characteristics.int">
+                    <span>{{ currentCharacter.characteristics.int/2 }}</span>
+                    <span>{{ currentCharacter.characteristics.int/5 }}</span>
+                  </label>
+
+                  <label>
+                    <p>POW</p>
+                    <input type="number" [(ngModel)]="currentCharacter.characteristics.pow">
+                    <span>{{ currentCharacter.characteristics.pow/2 }}</span>
+                    <span>{{ currentCharacter.characteristics.pow/5 }}</span>
+                  </label>
+
+                  <label>
+                    <p>EDU</p>
+                    <input type="number" [(ngModel)]="currentCharacter.characteristics.edu">
+                    <span>{{ currentCharacter.characteristics.edu/2 }}</span>
+                    <span>{{ currentCharacter.characteristics.edu/5 }}</span>
+                  </label>
+
+                  <label>
+                    <p>Move Rate</p>
+                    <input type="number" [(ngModel)]="currentCharacter.moveRate">
+                    <input type="number">
+                    <input type="number">
+                  </label>
+              </div>
+            </article>
+
+            <article>
+              <label>
+                <p>Hit Points</p>
+                <input type="number" [(ngModel)]="currentCharacter.hp">
+
+                Major Wound: <input type="checkbox" [(ngModel)]="currentCharacter.majorWound">
+              </label>
+
+              <label>
+                <p>Sanity</p>
+                <input type="number" [(ngModel)]="currentCharacter.sp">
+
+                Temp. Insane: <input type="checkbox" [(ngModel)]="currentCharacter.tempInsanity">
+
+
+              </label>
+
+            </article>
+
+        </header>
+
+        <section>
+
+
+
+        </section>
+
+        <section>
+
+
+
+        </section>
+
+    </div>
+
+    <div id="lower_section">
+
+        <section>
+
+        </section>
+
+        <section>
+
+        </section>
+
+        <section>
+
+        </section>
+
+    </div>
+
+</main>
