@@ -15,6 +15,7 @@ import { CharacterFiveEBattleViewComponent } from '../5e_character/character-fiv
 import { CustomDamageInputComponent } from '../custom-damage-input/custom-damage-input.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { MaidClass } from '../../class/maid-class';
+import { CallOfCuthulu } from '../../class/call-of-cuthulu';
 
 @Component({
   selector: 'app-battler',
@@ -40,8 +41,8 @@ export class BattlerComponent {
   ) {} //Instatniates the battlerhandler and characterHandler serivce
 
   Battler :any = {};
-  displayedCharacter :ScuffCharacter | DndtCharacter | Character5e | MaidClass  = new Character5e
-  selectedTarget: ScuffCharacter | DndtCharacter | Character5e | MaidClass | null = null;
+  displayedCharacter :ScuffCharacter | DndtCharacter | Character5e | MaidClass | CallOfCuthulu  = new Character5e
+  selectedTarget: ScuffCharacter | DndtCharacter | Character5e | MaidClass | CallOfCuthulu | null = null;
 
   isAttackInfoDisplayed :boolean = false;
   lastAttackInfo :any = false;
@@ -72,7 +73,7 @@ export class BattlerComponent {
     }
   }
 
-  switchCharacter(character :ScuffCharacter | DndtCharacter | Character5e | MaidClass, event? :MouseEvent) :void {
+  switchCharacter(character :ScuffCharacter | DndtCharacter | Character5e | MaidClass | CallOfCuthulu, event? :MouseEvent) :void {
     const isShiftDown = !!event && event.shiftKey;
 
     character = this.characterHandler.characterParser(character)
@@ -98,9 +99,10 @@ export class BattlerComponent {
   }
 
   rerollInitiative() :void {
-    let characterToModify :ScuffCharacter | DndtCharacter | Character5e | MaidClass  = this.displayedCharacter
+    let characterToModify :ScuffCharacter | DndtCharacter | Character5e | MaidClass | CallOfCuthulu = this.displayedCharacter
 
     if (characterToModify instanceof MaidClass) return
+    if (characterToModify instanceof CallOfCuthulu) return
 
     characterToModify.initiative = Math.floor((Math.random()*20)+1)+Math.floor((characterToModify.dex-10)/2)
 

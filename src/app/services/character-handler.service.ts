@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ObjectUnsubscribedError } from 'rxjs';
 import { ScuffCharacter } from '../class/scuff-character';
 import { DndtCharacter } from '../class/dndt-character';
 import { Character5e } from '../class/character-5e';
 import { MaidClass } from '../class/maid-class';
+import { CallOfCuthulu } from '../class/call-of-cuthulu';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class CharacterHandlerService {
 
 
       //Parser
-      MainSave.CharacterList.forEach((character :ScuffCharacter | DndtCharacter | Character5e | MaidClass) => {
+      MainSave.CharacterList.forEach((character :ScuffCharacter | DndtCharacter | Character5e | MaidClass | CallOfCuthulu) => {
         if(character.type == "generation ship") {
           character = Object.assign(new ScuffCharacter, character)
         } else if (character.type == 'dndnt') {
@@ -52,6 +53,8 @@ export class CharacterHandlerService {
           character = Object.assign(new Character5e, character)
         } else if (character.type == 'maid') {
           character = Object.assign(new MaidClass, character)
+        } else if (character.type == "call_of_cuthulhu") {
+          character = Object.assign(new CallOfCuthulu, character)
         }
       });
 
@@ -180,7 +183,8 @@ export class CharacterHandlerService {
     }
   }
 
-  characterParser(character :ScuffCharacter | Character5e | DndtCharacter | MaidClass) :ScuffCharacter | Character5e | DndtCharacter | MaidClass {
+  characterParser(character :ScuffCharacter | Character5e | DndtCharacter | MaidClass | CallOfCuthulu) :ScuffCharacter | Character5e | DndtCharacter | MaidClass | CallOfCuthulu {
+
     if(character.type == 'generation ship') {
       character = Object.assign(new ScuffCharacter, character)
     } else if (character.type == 'dndnt') {
@@ -189,6 +193,8 @@ export class CharacterHandlerService {
       character = Object.assign(new Character5e, character)
     } else if (character.type == 'maid') {
       character = Object.assign(new MaidClass, character)
+    } else if (character.type == "call_of_cuthulhu") {
+      character = Object.assign(new CallOfCuthulu, character);
     }
 
     return character

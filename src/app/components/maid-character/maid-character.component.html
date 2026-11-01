@@ -174,31 +174,27 @@
   </section>
 
   <footer>
-
     <section id="left_footer">
-
       <label>
         <p>Backstory</p>
         <textarea rows="40" cols="30"></textarea>
       </label>
-
     </section>
 
-    <section id="right_section">
-       <label>
-            <p>Character Appearance</p>
-            <img [src]="appearanceUrl"
-                (click)="fileInput.click()"
-                style="cursor: pointer;">
-            <input #fileInput
-                    type="file"
-                    name="character_appearance"
-                    id="character_appearance"
-                    (change)="onAppearanceChange($event)"
-                    style="display: none;">
-        </label>
+    <section id="right_footer">
+      <label>
+        <p>Character Appearance</p>
+        <img [src]="appearanceUrl"
+             (click)="fileInput.click()"
+             style="cursor: pointer;">
+        <input #fileInput
+               type="file"
+               name="character_appearance"
+               id="character_appearance"
+               (change)="onAppearanceChange($event)"
+               style="display: none;">
+      </label>
     </section>
-
-  </footer>
+</footer>
 
 </main>

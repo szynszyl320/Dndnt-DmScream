@@ -1,0 +1,339 @@
+main {
+  display: flex;
+  flex-direction: column;
+
+}
+
+#upper_section,
+#lower_section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------- */
+
+#characteristics > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+
+#characteristics label, #special_case {
+  display: grid;
+  grid-template-columns: 45px minmax(0, 0.75fr) 35px;
+  grid-template-rows: 25px 25px;
+  align-items: stretch;
+  text-align: center;
+  min-width: 0;
+  margin: 0;
+  gap: 0;
+}
+
+#characteristics label p, #special_case p {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: center;
+  margin: 0;
+  text-align: start;
+}
+
+#characteristics label input, #special_case input{
+  grid-column: 2;
+  grid-row: 1 / 3;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 2px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 0;
+}
+
+#characteristics label span, #special_case span {
+  grid-column: 3;
+  margin: 0;
+  border: 1px solid black;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+#characteristics label span:first-of-type, #special_case span:first-of-type {
+  grid-row: 1;
+}
+
+#characteristics label span:last-of-type, #special_case span:last-of-type {
+  grid-row: 2;
+}
+
+#upper_section header {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: 0.6rem;
+  align-items: start;
+}
+
+#upper_section header article {
+  min-width: 0;
+  padding: 0.65rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#upper_section h3 {
+  margin: 0 0 0.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.9rem;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+#upper_section p {
+  margin: 0;
+}
+
+
+#basic_info {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem 0.55rem;
+}
+
+#basic_info h3 {
+  grid-column: 1 / -1;
+}
+
+#basic_info label {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+#basic_info label p {
+  font-size: 0.78rem;
+  color: #555;
+}
+
+#basic_info input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0.25rem;
+}
+
+#basic_stats {
+  display: grid;
+  gap: 0.45rem 0.6rem;
+  align-content: start;
+}
+
+#basic_stats div {
+  display: grid;
+  grid-template-rows: repeat(5, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 0.45rem 0.6rem;
+}
+
+#basic_stats h3 {
+  grid-column: 1 / -1;
+}
+
+#basic_stats > label {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 3.4rem;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+#basic_stats > label p {
+  font-size: 0.78rem;
+  color: #555;
+}
+
+#basic_stats input[type="number"] {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0.25rem;
+}
+
+
+#basic_stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem 0.6rem;
+  align-content: start;
+}
+
+#basic_stats h3 {
+  grid-column: 1 / -1;
+}
+
+#basic_stats > label:not(.check-row) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 3.4rem;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+
+#basic_stats input[type="number"] {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0.25rem;
+}
+
+#basic_stats .check-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+}
+
+#basic_stats .check-row input {
+  margin: 0;
+}
+
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------- */
+
+#inv_skills {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5vh;
+}
+
+#inv_skills label {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 0.75fr) 40px;
+  grid-template-rows: 25px 25px;
+  align-items: stretch;
+  text-align: center;
+  min-width: 0;
+  margin: 0;
+  gap: 0;
+}
+
+#inv_skills label p {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: center;
+  margin: 0;
+  text-align: start;
+}
+
+#inv_skills label input {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 2px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 0;
+}
+
+#inv_skills label span {
+  grid-column: 3;
+  margin: 0;
+  border: 1px solid black;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+#inv_skills label span:first-of-type {
+  grid-row: 1;
+}
+
+#inv_skills label span:last-of-type {
+  grid-row: 2;
+}
+
+#upper_section section, #weapon_section article, #backstory_right, #backstory_left, #assets article, #guide article  {
+    min-width: 0;
+  padding: 0.65rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------- */
+
+#weapon_section {
+  display: flex;
+  gap: 1vh;
+  border: none !important;
+}
+
+#weapon_section article:first-of-type {
+  width: 80%;
+}
+
+#weapon_section article:last-of-type {
+  width: 20%;
+}
+
+#characteristics label, #special_case {
+  grid-template-columns: 60px minmax(0, 0.75fr) 35px;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------- */
+
+#backstory {
+  display: flex;
+  gap: 1vh;
+}
+
+#backstory_right,
+#backstory_left {
+  flex: 1;
+}
+
+#backstory label p {
+  display: inline;
+}
+
+#backstory textarea {
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid black;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------- */
+
+#assets {
+  display: flex;
+  gap: 1vh;
+}
+
+#assets article {
+  flex: 1;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------- */
+
+#guide {
+  display: flex;
+  gap: 1vh
+}
+
+#guide article {
+  flex: 1;
+}
+
+#guide td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin: 0;
+}

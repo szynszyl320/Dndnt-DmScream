@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 //service imports
 import { CharacterHandlerService } from '../../services/character-handler.service';
 
-import { CallOfCuthulu, stringifiedData, CCweapon } from '../../class/call-of-cuthulu';
+import { CallOfCuthulu, stringifiedData, CCweapon, fellowInvestigator } from '../../class/call-of-cuthulu';
 
 @Component({
   selector: 'app-cc-character',
@@ -27,7 +27,6 @@ export class CcCharacterComponent {
     treassuredPossessions: "",
     enccountersWithStrangeEntities: "",
     gearAndPossessions: "",
-    spendingLevel: "",
     assets: ""
   };
 
@@ -37,13 +36,18 @@ export class CcCharacterComponent {
 
     this.characterHandler.$CurrentCharacter.subscribe((value :CallOfCuthulu) => {
 
-        this.currentCharacter = value;
+        const parserOutput = this.characterHandler.characterParser(value);
 
+        if (parserOutput instanceof CallOfCuthulu) {
+          this.currentCharacter = parserOutput
+        }
         this.stringifiedStats = value.stringifyData();
-
     })
 
+
   }
+
+  Math = Math
 
   addWeapon() :void {
     this.currentCharacter.weapons.push(new CCweapon);
@@ -57,8 +61,25 @@ export class CcCharacterComponent {
     this.saveChanges();
   }
 
+  addFellowInvestigator() :void {
+    const fellowInv :fellowInvestigator = {
+      name: "",
+      player: ""
+    }
+
+    this.currentCharacter.fellowInvestigators.push(fellowInv);
+    this.saveChanges()
+  }
+
+  removeFellowInvestigator(index :number) {
+    this.currentCharacter.fellowInvestigators.splice(index, 1);
+    this.saveChanges();
+  }
+
   saveChanges() :void {
     this.currentCharacter.deStringifyData(this.stringifiedStats);
+
+    this.characterHandler.modifyArray(this.characterHandler.CurrentCharacterId, this.currentCharacter)
 
     this.characterHandler.saveContent();
   }

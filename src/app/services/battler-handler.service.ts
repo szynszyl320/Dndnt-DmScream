@@ -9,6 +9,7 @@ import { Character5e } from '../class/character-5e';
 import { DndtCharacter } from '../class/dndt-character';
 import { Weapon } from '../class/weapon';
 import { MaidClass } from '../class/maid-class';
+import { CallOfCuthulu } from '../class/call-of-cuthulu';
 
 
 @Injectable({
@@ -146,7 +147,7 @@ export class BattlerHandlerService {
     }
   }
 
-  modifyCharacter(character :ScuffCharacter | Character5e | DndtCharacter | MaidClass, characterIndex :number) :void {
+  modifyCharacter(character :ScuffCharacter | Character5e | DndtCharacter | MaidClass | CallOfCuthulu, characterIndex :number) :void {
     try {
       let newBattler :any = this.$Battler.getValue()
 
@@ -208,7 +209,7 @@ export class BattlerHandlerService {
     }
   }
 
-  selectNewTarget(character :ScuffCharacter | DndtCharacter | Character5e | MaidClass | null) :void {
+  selectNewTarget(character :ScuffCharacter | DndtCharacter | Character5e | MaidClass | CallOfCuthulu | null) :void {
     try {
       this.$Target.next(character);
     } catch (error) {

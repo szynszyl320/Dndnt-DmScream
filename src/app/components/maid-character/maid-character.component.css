@@ -82,13 +82,26 @@ header label p {
 
 footer {
   display: flex;
-  align-items: stretch;
   gap: 1vw;
   min-height: 20vh;
 }
 
 #left_footer, #right_footer {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+#left_footer label, #right_footer label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+img {
+  max-width: 100%;
+  height: auto;
+}

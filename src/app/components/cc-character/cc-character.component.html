@@ -3,10 +3,17 @@
     <div id="upper_section">
 
         <header>
-            <article>
+            <article id="basic_info">
+              <h3>Basic Information</h3>
+
               <label>
                 <p>Name:</p>
                 <input type="text" [(ngModel)]="currentCharacter.name">
+              </label>
+
+              <label>
+                <p>Campaign:</p>
+                <input type="text" [(ngModel)]="currentCharacter.campaign">
               </label>
 
               <label>
@@ -40,104 +47,580 @@
               </label>
             </article>
 
-            <article>
+            <article id="basic_stats">
+              <h3>Basic Stats</h3>
+                <label>
+                  <p>Hit Points</p>
+                  <input type="number" [(ngModel)]="currentCharacter.hp">
+                </label>
+
+                <label>
+                  <p>Sanity</p>
+                  <input type="number" [(ngModel)]="currentCharacter.sp">
+                </label>
+
+                <label>
+                  <p>Maximum Hit Points</p>
+                  <input type="number" [(ngModel)]="currentCharacter.maxHp">
+                </label>
+
+                <label>
+                  <p>Maximum Sanity</p>
+                  <input type="number" [(ngModel)]="currentCharacter.maxSp">
+                </label>
+
+                <label>
+                  <p>Major Wound:</p>
+                  <input type="checkbox" [(ngModel)]="currentCharacter.majorWound">
+                </label>
+
+                <label>
+                  <p>Temp. Insane:</p>
+                  <input type="checkbox" [(ngModel)]="currentCharacter.tempInsanity">
+                </label>
+
+                <label>
+                  <p>Luck</p>
+                  <input type="number" [(ngModel)]="currentCharacter.luck">
+                </label>
+
+                <label>
+                  <p>Indef. Insane:</p>
+                  <input type="checkbox" [(ngModel)]="currentCharacter.indefiniteInsanity">
+                </label>
+
+                <label>
+                  <p>Mana Points</p>
+                  <input type="number" [(ngModel)]="currentCharacter.mp">
+                </label>
+
+                <label>
+                  <p>Maximum Mana Points</p>
+                  <input type="number" [(ngModel)]="currentCharacter.maxMp">
+                </label>
+
+            </article>
+
+            <article id="characteristics">
               <h3>Characteristics</h3>
               <div>
                   <label>
                     <p>STR</p>
                     <input type="number" [(ngModel)]="currentCharacter.characteristics.str">
-                    <span>{{ currentCharacter.characteristics.str/2 }}</span>
-                    <span>{{ currentCharacter.characteristics.str/5 }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.str/2) }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.str/5) }}</span>
                   </label>
 
                   <label>
                     <p>CON</p>
                     <input type="number" [(ngModel)]="currentCharacter.characteristics.con">
-                    <span>{{ currentCharacter.characteristics.con/2 }}</span>
-                    <span>{{ currentCharacter.characteristics.con/5 }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.con/2) }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.con/5) }}</span>
                   </label>
 
                   <label>
                     <p>SIZ</p>
                     <input type="number" [(ngModel)]="currentCharacter.characteristics.siz">
-                    <span>{{ currentCharacter.characteristics.con/2 }}</span>
-                    <span>{{ currentCharacter.characteristics.con/5 }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.siz/2) }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.siz/5) }}</span>
                   </label>
 
                   <label>
                     <p>DEX</p>
                     <input type="number" [(ngModel)]="currentCharacter.characteristics.dex">
-                    <span>{{ currentCharacter.characteristics.dex/2 }}</span>
-                    <span>{{ currentCharacter.characteristics.dex/5 }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.dex/2) }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.dex/5) }}</span>
                   </label>
 
                   <label>
                     <p>APP</p>
                     <input type="number" [(ngModel)]="currentCharacter.characteristics.app">
-                    <span>{{ currentCharacter.characteristics.app/2 }}</span>
-                    <span>{{ currentCharacter.characteristics.app/2 }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.app/2) }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.app/5) }}</span>
                   </label>
 
                   <label>
                     <p>INT</p>
                     <input type="number" [(ngModel)]="currentCharacter.characteristics.int">
-                    <span>{{ currentCharacter.characteristics.int/2 }}</span>
-                    <span>{{ currentCharacter.characteristics.int/5 }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.int/2) }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.int/5) }}</span>
                   </label>
 
                   <label>
                     <p>POW</p>
                     <input type="number" [(ngModel)]="currentCharacter.characteristics.pow">
-                    <span>{{ currentCharacter.characteristics.pow/2 }}</span>
-                    <span>{{ currentCharacter.characteristics.pow/5 }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.pow/2) }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.pow/5) }}</span>
                   </label>
 
                   <label>
                     <p>EDU</p>
                     <input type="number" [(ngModel)]="currentCharacter.characteristics.edu">
-                    <span>{{ currentCharacter.characteristics.edu/2 }}</span>
-                    <span>{{ currentCharacter.characteristics.edu/5 }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.edu/2) }}</span>
+                    <span>{{ Math.floor(currentCharacter.characteristics.edu/5) }}</span>
                   </label>
 
                   <label>
-                    <p>Move Rate</p>
-                    <input type="number" [(ngModel)]="currentCharacter.moveRate">
-                    <input type="number">
-                    <input type="number">
+                    <p>Move <br> Rate</p>
+                    <input type="number" [(ngModel)]="currentCharacter.characteristics.moveRate">
+                    <span>+1</span>
+                    <span>-1</span>
                   </label>
               </div>
-            </article>
-
-            <article>
-              <label>
-                <p>Hit Points</p>
-                <input type="number" [(ngModel)]="currentCharacter.hp">
-
-                Major Wound: <input type="checkbox" [(ngModel)]="currentCharacter.majorWound">
-              </label>
-
-              <label>
-                <p>Sanity</p>
-                <input type="number" [(ngModel)]="currentCharacter.sp">
-
-                Temp. Insane: <input type="checkbox" [(ngModel)]="currentCharacter.tempInsanity">
-
-
-              </label>
-
             </article>
 
         </header>
 
         <section>
 
+          <h3>Investigator skills</h3>
 
+          <article id="inv_skills">
+
+            <label>
+              <input type="checkbox">
+              <p>Accounting (05%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.accounting">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.accounting / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.accounting / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Anthropology (01%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.anthropology">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.anthropology / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.anthropology / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Appraise (05%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.appraise">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.appraise / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.appraise / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Archaeology (01%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.archeology">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.archeology / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.archeology / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Art/Craft (05%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.art_craft">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.art_craft / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.art_craft / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Charm (15%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.charm">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.charm / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.charm / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Climb (20%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.climb">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.climb / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.climb / 5) }}</span>
+            </label>
+
+            <label>
+              <p>Credit Rating (00%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.creditRating">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.creditRating / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.creditRating / 5) }}</span>
+            </label>
+
+            <label>
+              <p>Cthulhu Mythos (00%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.cthuluMythos">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.cthuluMythos / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.cthuluMythos / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Disguise (05%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.disguise">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.disguise / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.disguise / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Dodge (½ DEX)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.dodge">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.dodge / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.dodge / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Drive Auto (20%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.driveAuto">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.driveAuto / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.driveAuto / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Electrical Repair (10%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.elecRepair">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.elecRepair / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.elecRepair / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Fast Talk (05%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.fastTalk">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.fastTalk / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.fastTalk / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Fighting (Brawl) (25%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.fighting">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.fighting / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.fighting / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Firearms (Handgun) (20%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.firearms_handgun">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.firearms_handgun / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.firearms_handgun / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Firearms (Rifle/Shotgun) (25%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.firearms_rifle_shotgun">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.firearms_rifle_shotgun / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.firearms_rifle_shotgun / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>First Aid (30%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.firstAid">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.firstAid / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.firstAid / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>H.T.H Comb. (05%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.handToHandCombat">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.handToHandCombat / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.handToHandCombat / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>History (05%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.history">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.history / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.history / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Hypnosis (01%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.hypnosis">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.hypnosis / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.hypnosis / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Intimidate (15%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.intimidate">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.intimidate / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.intimidate / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Jump (20%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.jump">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.jump / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.jump / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Language (Other) (01%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.language_other">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.language_other / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.language_other / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Language (Own) (EDU)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.language_own">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.language_own / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.language_own / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Law (05%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.law">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.law / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.law / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Library Use (20%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.libraryUse">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.libraryUse / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.libraryUse / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Listen (20%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.listen">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.listen / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.listen / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Locksmith (01%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.locksmith">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.locksmith / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.locksmith / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Mechanical Repair (10%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.mechRepair">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.mechRepair / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.mechRepair / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Medicine (01%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.medicine">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.medicine / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.medicine / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Natural World (10%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.naturalWorld">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.naturalWorld / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.naturalWorld / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Navigate (10%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.navigate">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.navigate / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.navigate / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Occult (05%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.occult">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.occult / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.occult / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Operate Heavy Machinery (01%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.opHvMachine">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.opHvMachine / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.opHvMachine / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Persuade (10%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.persuade">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.persuade / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.persuade / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Pilot (01%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.pilot">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.pilot / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.pilot / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Psychology (10%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.psychology">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.psychology / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.psychology / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Psychoanalysis (01%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.psychoanalisys">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.psychoanalisys / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.psychoanalisys / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Ride (05%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.ride">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.ride / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.ride / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Science (01%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.science">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.science / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.science / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Sleight of Hand (10%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.sleightOfHand">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.sleightOfHand / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.sleightOfHand / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Spot Hidden (25%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.spotHidden">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.spotHidden / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.spotHidden / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Stealth (20%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.stealth">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.stealth / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.stealth / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Survival (10%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.survival">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.survival / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.survival / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Swim (20%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.swim">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.swim / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.swim / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Throw (20%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.throw">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.throw / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.throw / 5) }}</span>
+            </label>
+
+            <label>
+              <input type="checkbox">
+              <p>Track (10%)</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.track">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.track / 2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.track / 5) }}</span>
+            </label>
+
+          </article>
 
         </section>
 
-        <section>
+        <section id="weapon_section">
+          <article>
+              <h3>Weapons</h3>
+              <table>
+                  <tr>
+                    <th>Weapon</th>
+                    <th>Regular</th>
+                    <th>Hard</th>
+                    <th>Extreme</th>
+                    <th>Damage</th>
+                    <th>Range</th>
+                    <th>Attacks</th>
+                    <th>Ammo</th>
+                    <th>Malf.</th>
+                    <th></th>
+                  </tr>
 
+                  @for (weapon of currentCharacter.weapons; track $index) {
+                    <tr>
+                      <td><input type="text" [(ngModel)]="weapon.name"></td>
+                      <td><input type="number" [(ngModel)]="weapon.regular"></td>
+                      <td><input type="number" [(ngModel)]="weapon.hard"></td>
+                      <td><input type="number" [(ngModel)]="weapon.extreme"></td>
+                      <td><input type="text" [(ngModel)]="weapon.damage"></td>
+                      <td><input type="number" [(ngModel)]="weapon.range"></td>
+                      <td><input type="number" [(ngModel)]="weapon.attacks"></td>
+                      <td><input type="number" [(ngModel)]="weapon.ammo"></td>
+                      <td><input type="text" [(ngModel)]="weapon.malfunction"></td>
+                      <td><button type="button" (click)="removeWeapon($index)">Remove Weapon</button></td>
+                    </tr>
+                  }
+              </table>
 
+              <button type="button" (click)="addWeapon()">Add weapon</button>
+          </article>
+
+          <article>
+
+            <h3>Combat</h3>
+
+            <label>
+              <p>Damage Bonus</p>
+              <input type="text" [(ngModel)]="currentCharacter.damageBonus">
+            </label>
+
+            <label>
+              <p>Build</p>
+              <input type="text" [(ngModel)]="currentCharacter.build">
+            </label>
+
+            <label id="special_case">
+              <p>Dodge</p>
+              <input type="number" [(ngModel)]="currentCharacter.investigatorSkills.dodge">
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.dodge/2) }}</span>
+              <span>{{ Math.floor(currentCharacter.investigatorSkills.dodge/5) }}</span>
+            </label>
+
+          </article>
 
         </section>
 
@@ -147,13 +630,152 @@
 
         <section>
 
+          <h3>Backstory</h3>
+
+          <article id="backstory">
+
+            <div id="backstory_left">
+              <label>
+                <p>Personal Description</p>
+                <textarea rows="" cols="" [(ngModel)]="stringifiedStats.personalDescription"></textarea>
+              </label>
+
+              <label>
+                <p>Ideology/Beliefs</p>
+                <textarea rows="" cols="" [(ngModel)]="stringifiedStats.idealogyBeliefs"></textarea>
+              </label>
+
+              <label>
+                <p>Significant People</p>
+                <textarea rows="" cols="" [(ngModel)]="stringifiedStats.significantPeople"></textarea>
+              </label>
+
+              <label>
+                <p>Meaningufl Locations</p>
+                <textarea rows="" cols="" [(ngModel)]="stringifiedStats.meaningfulLocations"></textarea>
+              </label>
+
+              <label>
+                <p>Treassured Possessions</p>
+                <textarea rows="" cols="" [(ngModel)]="stringifiedStats.treassuredPossessions"></textarea>
+              </label>
+
+            </div>
+
+            <div id="backstory_right">
+              <label>
+                <p>Traits</p>
+                <textarea rows="" cols="" [(ngModel)]="stringifiedStats.traits"></textarea>
+              </label>
+
+              <label>
+                <p>Injuries & Scars</p>
+                <textarea rows="" cols="" [(ngModel)]="stringifiedStats.injuriesAndScars"></textarea>
+              </label>
+
+              <label>
+                <p>Phobias & Mainias</p>
+                <textarea rows="" cols="" [(ngModel)]="stringifiedStats.phobiasAndMainias"></textarea>
+              </label>
+
+              <label>
+                <p>Arcane Tomes, Spells & Artifacts</p>
+                <textarea rows="" cols="" [(ngModel)]="stringifiedStats.arcaneTomesSpellsAndArtifacts"></textarea>
+              </label>
+
+             <label>
+                <p>Encounters with Strange Entities</p>
+                <textarea rows="" cols="" [(ngModel)]="stringifiedStats.enccountersWithStrangeEntities"></textarea>
+              </label>
+
+            </div>
+
+          </article>
+
         </section>
 
-        <section>
+        <section id="assets">
+
+          <article>
+
+            <h3>Gear & Possessions</h3>
+
+            <textarea rows="14" cols="" [(ngModel)]="stringifiedStats.gearAndPossessions"></textarea>
+
+          </article>
+
+          <article>
+
+            <h3>Cash & Assets</h3>
+
+            <label>
+              <p>Spending Level</p>
+              <input type="text" [(ngModel)]="currentCharacter.spendingLevel">
+            </label>
+
+            <label>
+              <p>Cash</p>
+              <input type="number" [(ngModel)]="currentCharacter.cash">
+            </label>
+
+            <label>
+              <p>Assets</p>
+              <textarea rows="" cols="" [(ngModel)]="stringifiedStats.assets"></textarea>
+            </label>
+
+          </article>
 
         </section>
 
-        <section>
+        <section id="guide">
+
+          <article>
+            <h3>Quick Reference Sheet</h3>
+
+            <h4>Skill & Characteristic Rolls</h4>
+            <p>Levels of success </p>
+            <table>
+              <tr>
+                <td>Fumble <br> 100/96+</td>
+                <td>Fail <br> &gt;skill</td>
+                <td>Regular <br> &lt;=skill</td>
+                <td>Hard <br> 1/2 skill</td>
+                <td>Extreme <br> 1/5 skill</td>
+                <td>Critical <br> 01</td>
+              </tr>
+            </table>
+
+            <hr>
+            <h4>Wounds & Healing</h4>
+            <p>First Aid heals 1HP; Medicine heals +1d3 HP</p>
+
+            <p>Major Wound = loss of &gt;=1/2 max HP in one attack</p>
+            <p>Reach 0 HP without Major Wound = <b>Unconscious</b></p>
+            <p>Reach 0 HP with Major Wound = <b>Dying</b></p>
+            <p>Dying: Fist Aid = temp. stabilised; the require Medicine</p>
+
+            <p><b>Natural Heal rate</b>(non Major Wound): recover 1HP per day</p>
+            <p><b>Natural Heal rate</b>(Major Wound): weekly healing roll</p>
+          </article>
+
+          <article>
+            <h3>Fellow Investigators</h3>
+
+            @for (investigator of currentCharacter.fellowInvestigators; track $index) {
+              <div>
+                <label>
+                  Character: <input type="text" [(ngModel)]="investigator.name">
+                </label>
+                <label>
+                  Player: <input type="text" [(ngModel)]="investigator.player">
+                </label>
+                <button type="button" (click)="removeFellowInvestigator($index)">Remove Fellow Investigator</button>
+              </div>
+            }
+
+            <button type="button" (click)="addFellowInvestigator()">Add Fellow Investigator</button>
+          </article>
+
 
         </section>
 

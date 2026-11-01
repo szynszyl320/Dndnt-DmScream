@@ -5,6 +5,7 @@ import { ScuffCharacter } from '../../class/scuff-character';
 import { DndtCharacter } from '../../class/dndt-character';
 import { Character5e } from '../../class/character-5e';
 import { MaidClass } from '../../class/maid-class';
+import { CallOfCuthulu } from '../../class/call-of-cuthulu';
 
 @Component({
   selector: 'app-character-selection',
@@ -58,6 +59,8 @@ export class CharacterSelectionComponent {
         newCharacter = new Character5e;
       } else if(type == 'maid') {
         newCharacter = new MaidClass;
+      } else if(type == "call_of_cuthulhu") {
+        newCharacter = new CallOfCuthulu
       }
       this.characterHandler.createNewCharacter(newCharacter);
       this.characterHandler.getCampaings();

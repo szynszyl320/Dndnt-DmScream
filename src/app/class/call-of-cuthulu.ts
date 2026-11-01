@@ -1,6 +1,6 @@
 export class CallOfCuthulu {
-  name :string = "";
-  campaign :string = "";
+  name :string = "PlaceHolder";
+  campaign :string = "None";
   player :string = "";
   occupation :string = "";
   age :number = 0;
@@ -66,6 +66,7 @@ export class CallOfCuthulu {
     firearms_handgun: 0,
     firearms_rifle_shotgun: 0,
     firstAid: 0,
+    handToHandCombat: 0,
     history: 0,
     hypnosis: 0,
     intimidate: 0,
@@ -97,6 +98,8 @@ export class CallOfCuthulu {
     track: 0
   }
 
+
+
   // --------------------------------
 
   weapons :Array<CCweapon> = [];
@@ -120,7 +123,7 @@ export class CallOfCuthulu {
   // ---------------------------------
 
   private gearAndPossessions :string[] = [];
-  private spendingLevel :string[] = [];
+  spendingLevel :string = "";
   cash :number = 0;
   private assets :string[] = [];
 
@@ -128,7 +131,7 @@ export class CallOfCuthulu {
 
   fellowInvestigators :Array<fellowInvestigator> = [];
 
-  type :string = "call_of_cuthulu";
+  type :string = "call_of_cuthulhu";
 
   stringifyData() :stringifiedData {
     const temporaryData :stringifiedData = {
@@ -143,7 +146,6 @@ export class CallOfCuthulu {
       treassuredPossessions: this.treassuredPossessions.join('\n'),
       enccountersWithStrangeEntities: this.enccountersWithStrangeEntities.join('\n'),
       gearAndPossessions: this.gearAndPossessions.join('\n'),
-      spendingLevel: this.spendingLevel.join('\n'),
       assets: this.assets.join('\n'),
     }
 
@@ -164,7 +166,6 @@ export class CallOfCuthulu {
     this.treassuredPossessions = data.treassuredPossessions.split('\n');
     this.enccountersWithStrangeEntities = data.enccountersWithStrangeEntities.split('\n');
     this.gearAndPossessions = data.gearAndPossessions.split('\n');
-    this.spendingLevel = data.spendingLevel.split('\n');
     this.assets = data.assets.split('\n');
   }
 
@@ -182,7 +183,6 @@ export interface stringifiedData {
   treassuredPossessions :string;
   enccountersWithStrangeEntities :string;
   gearAndPossessions :string;
-  spendingLevel :string;
   assets :string;
 }
 
@@ -249,6 +249,7 @@ export interface InvestigatorSkills {
 
   // ---------------------------------
 
+  handToHandCombat :number;
   history :number;
   hypnosis :number;
 

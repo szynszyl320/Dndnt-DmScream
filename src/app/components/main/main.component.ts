@@ -10,6 +10,7 @@ import { CharacterFiveEBaseplateComponent } from '../5e_character/character-five
 import { CharacterFiveEBattleViewComponent } from '../5e_character/character-five-e-battle-view/character-five-e-battle-view.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { MaidCharacterComponent } from '../maid-character/maid-character.component';
+import { CcCharacterComponent } from '../cc-character/cc-character.component';
 
 //Services
 import { CharacterHandlerService } from '../../services/character-handler.service';
@@ -26,7 +27,8 @@ import { CharacterHandlerService } from '../../services/character-handler.servic
     CharacterFiveEBaseplateComponent,
     CharacterFiveEBattleViewComponent,
     NavbarComponent,
-    MaidCharacterComponent
+    MaidCharacterComponent,
+    CcCharacterComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
